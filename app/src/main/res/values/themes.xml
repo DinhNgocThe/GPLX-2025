@@ -2,4 +2,16 @@
 <resources>
 
     <style name="Theme.GplxApp" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.GplxApp.Splash" parent="Theme.SplashScreen">
+        <!-- Màu nền -->
+        <item name="windowSplashScreenBackground">@color/purple_100</item>
+
+        <!-- Ảnh logo (có thể dùng @mipmap/ic_launcher_round hoặc ảnh riêng bạn để trong mipmap/drawable) -->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
+
+        <!-- Theme sau khi splash xong -->
+        <item name="postSplashScreenTheme">@style/Theme.GplxApp</item>
+    </style>
+
 </resources>
