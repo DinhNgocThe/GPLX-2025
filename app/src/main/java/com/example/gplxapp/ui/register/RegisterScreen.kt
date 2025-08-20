@@ -1,6 +1,7 @@
 package com.example.gplxapp.ui.register
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -23,47 +24,41 @@ import com.example.gplxapp.R
 fun RegisterScreen(
     onRegisterClick: (String, String, String) -> Unit,
     onGoogleRegisterClick: () -> Unit,
-    onNavigateToLogin: () -> Unit
+    onNavigateToLogin: () -> Unit,
+    isLoading: Boolean = false,
+    errorMessage: String? = null
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
+    var confirm by remember { mutableStateOf("") }
 
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        // Ảnh nền giống LoginScreen
+    Column(modifier = Modifier.fillMaxSize().background(Color.White)) {
         Image(
-            painter = painterResource(id = R.drawable.bg_register), // Có thể đổi thành bg_register nếu có
-            contentDescription = null,
-            modifier = Modifier.fillMaxWidth(),
+            painter = painterResource(id = R.drawable.bg_register),
+            contentDescription = "register header",
+            modifier = Modifier.fillMaxWidth().height(240.dp),
             contentScale = ContentScale.Crop
         )
 
-        // Nội dung form register
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter) // Đẩy xuống hẳn dưới
-                .padding(horizontal = 24.dp, vertical = 32.dp), // Cách mép ảnh
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Sign Up",
-                style = MaterialTheme.typography.headlineLarge // Chữ to hơn giống LoginScreen
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("Hello! Let's join with us")
+            Text("Sign Up", style = MaterialTheme.typography.headlineLarge, color = Color(0xFF333333))
+            Spacer(Modifier.height(8.dp))
+            Text("Hello! Let's join with us", color = Color.Gray)
+            Spacer(Modifier.height(16.dp))
 
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
                 label = { Text("Email") },
                 leadingIcon = { Icon(Icons.Filled.Email, contentDescription = null) },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
             )
-
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(Modifier.height(12.dp))
 
             OutlinedTextField(
                 value = password,
@@ -71,62 +66,53 @@ fun RegisterScreen(
                 label = { Text("Password") },
                 leadingIcon = { Icon(Icons.Filled.Lock, contentDescription = null) },
                 visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
             )
-
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(Modifier.height(12.dp))
 
             OutlinedTextField(
-                value = confirmPassword,
-                onValueChange = { confirmPassword = it },
+                value = confirm,
+                onValueChange = { confirm = it },
                 label = { Text("Confirm Password") },
                 leadingIcon = { Icon(Icons.Filled.Lock, contentDescription = null) },
                 visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(Modifier.height(16.dp))
+
+            errorMessage?.let {
+                Text(it, color = Color.Red, style = MaterialTheme.typography.bodyMedium)
+                Spacer(Modifier.height(8.dp))
+            }
 
             Button(
-                onClick = { onRegisterClick(email, password, confirmPassword) },
+                onClick = { onRegisterClick(email.trim(), password, confirm) },
                 modifier = Modifier.fillMaxWidth(),
-                shape = MaterialTheme.shapes.medium,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF6773F1) // Màu tím giống LoginScreen
-                )
+                enabled = !isLoading,
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6773F1))
             ) {
-                Text("SIGN UP", color = Color.White)
+                if (isLoading) {
+                    CircularProgressIndicator(color = Color.White, strokeWidth = 2.dp, modifier = Modifier.size(20.dp))
+                    Spacer(Modifier.width(8.dp))
+                    Text("Creating...")
+                } else {
+                    Text("SIGN UP", color = Color.White)
+                }
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(Modifier.height(12.dp))
 
-            OutlinedButton(
-                onClick = onGoogleRegisterClick,
-                modifier = Modifier.fillMaxWidth(),
-                shape = MaterialTheme.shapes.medium
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_google),
-                    contentDescription = null,
-                    modifier = Modifier.size(size = 20.dp),
-                    tint = Color.Unspecified
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "Sign Up with Google",
-                    color = Color(0xFF333333) // Màu xám đậm
-                )
+            OutlinedButton(onClick = onGoogleRegisterClick, modifier = Modifier.fillMaxWidth(), enabled = !isLoading) {
+                Text("Sign Up with Google", color = Color(0xFF333333))
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(Modifier.height(12.dp))
 
             TextButton(onClick = onNavigateToLogin) {
-                Text(
-                    text = "Already have an account? Sign in",
-                    color = Color(0xFF666666) // Màu xám vừa
-                )
+                Text("Already have an account? Sign in", color = Color(0xFF666666))
             }
         }
     }
@@ -135,11 +121,11 @@ fun RegisterScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewRegisterScreen() {
-    MaterialTheme {
-        RegisterScreen(
-            onRegisterClick = { _, _, _ -> },
-            onGoogleRegisterClick = {},
-            onNavigateToLogin = {}
-        )
-    }
+    RegisterScreen(
+        onRegisterClick = { _, _, _ -> },
+        onGoogleRegisterClick = {},
+        onNavigateToLogin = {},
+        isLoading = false,
+        errorMessage = null
+    )
 }

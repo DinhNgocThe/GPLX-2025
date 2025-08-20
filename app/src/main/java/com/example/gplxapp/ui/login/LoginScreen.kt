@@ -6,6 +6,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.gplxapp.R
@@ -23,112 +26,111 @@ import com.example.gplxapp.R
 fun LoginScreen(
     onLoginClick: (String, String) -> Unit,
     onGoogleLoginClick: () -> Unit,
-    onNavigateToRegister: () -> Unit
+    onNavigateToRegister: () -> Unit,
+    isLoading: Boolean = false,
+    errorMessage: String? = null
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var showPassword by remember { mutableStateOf(false) }
 
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        // Ảnh nền (test bằng ảnh có sẵn trong Android)
+    Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.bg_login),
-            contentDescription = null,
-            modifier = Modifier.fillMaxWidth(),
+            contentDescription = "background",
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
 
-
-        // Nội dung form login
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter) // Đẩy xuống hẳn dưới
-                .padding(horizontal = 24.dp, vertical = 32.dp), // Cách mép ảnh tím
-            horizontalAlignment = Alignment.CenterHorizontally
+                .align(Alignment.BottomCenter)
+                .padding(horizontal = 24.dp, vertical = 32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom
         ) {
-            Text(
-                text = "Welcome Back",
-                style = MaterialTheme.typography.headlineLarge // 👉 chữ to hơn
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("Hey! Good to see you again")
-
-            Spacer(modifier = Modifier.height(32.dp))
+            Text(text = "Welcome Back", style = MaterialTheme.typography.headlineLarge, color = Color.Black)
+            Spacer(Modifier.height(8.dp))
+            Text("Hey! Good to see you again", color = Color.Gray)
+            Spacer(Modifier.height(32.dp))
 
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
                 label = { Text("Email") },
                 leadingIcon = { Icon(Icons.Filled.Email, contentDescription = null) },
-                modifier = Modifier.fillMaxWidth()
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(Modifier.height(12.dp))
 
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
                 label = { Text("Password") },
                 leadingIcon = { Icon(Icons.Filled.Lock, contentDescription = null) },
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier.fillMaxWidth()
+                trailingIcon = {
+                    val icon = if (showPassword) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                    IconButton(onClick = { showPassword = !showPassword }) { Icon(icon, contentDescription = null) }
+                },
+                visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(Modifier.height(12.dp))
 
-            Button(
-                onClick = { onLoginClick(email, password) },
-                modifier = Modifier.fillMaxWidth(),
-                shape = MaterialTheme.shapes.medium,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF6773F1) // 👉 tím giống nền
-                )
-            ) {
-                Text("SIGN IN", color = Color.White)
+            errorMessage?.let {
+                Text(text = it, color = Color.Red, style = MaterialTheme.typography.bodySmall, modifier = Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Button(
+                onClick = { onLoginClick(email.trim(), password) },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !isLoading,
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6773F1))
+            ) {
+                if (isLoading) {
+                    CircularProgressIndicator(color = Color.White, strokeWidth = 2.dp, modifier = Modifier.size(20.dp))
+                    Spacer(Modifier.width(8.dp))
+                    Text("Signing in...")
+                } else {
+                    Text("SIGN IN", color = Color.White)
+                }
+            }
+
+            Spacer(Modifier.height(12.dp))
 
             OutlinedButton(
                 onClick = onGoogleLoginClick,
                 modifier = Modifier.fillMaxWidth(),
-                shape = MaterialTheme.shapes.medium
+                enabled = !isLoading
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_google),
-                    contentDescription = null,
-                    modifier = Modifier.size(size = 20.dp),
-                    tint = Color.Unspecified
-                )
-                Spacer(modifier = Modifier.width(8.dp))
+                Icon(painter = painterResource(id = R.drawable.ic_google), contentDescription = null, modifier = Modifier.size(20.dp), tint = Color.Unspecified)
+                Spacer(Modifier.width(8.dp))
                 Text("Login with Google")
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
-
-            TextButton(onClick = onNavigateToRegister) {
-                Text(
-                    "Don’t have an account? Sign up",
-                    color = Color.Gray
-                )
-
+            Spacer(Modifier.height(12.dp))
+            TextButton(onClick = onNavigateToRegister, enabled = !isLoading) {
+                Text("Don’t have an account? Sign up", color = Color.Gray)
             }
         }
-
     }
-    }
+}
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewLoginScreen() {
-    MaterialTheme {
-        LoginScreen(
-            onLoginClick = { _, _ -> },
-            onGoogleLoginClick = {},
-            onNavigateToRegister = {}
-        )
-    }
+    LoginScreen(
+        onLoginClick = { _, _ -> },
+        onGoogleLoginClick = {},
+        onNavigateToRegister = {},
+        isLoading = false,
+        errorMessage = null
+    )
 }
