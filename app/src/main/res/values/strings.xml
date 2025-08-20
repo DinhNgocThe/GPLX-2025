@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GplxApp</string>
+    <string name="default_web_client_id">762646211540-b3dv6acsfgcs7ev2dki8pb4ek8ieco03.apps.googleusercontent.com</string>
+
 </resources>
