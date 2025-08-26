@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.gplxapp.R
 import com.example.gplxapp.presentation.components.CustomButton
 import com.example.gplxapp.presentation.components.CustomTextField
 import com.example.gplxapp.presentation.components.SocialLoginButton
@@ -175,7 +176,7 @@ fun RegisterScreen(
             ) {
                 // Google Sign-In Button
                 SocialLoginButton(
-                    icon = painterResource(id = android.R.drawable.ic_menu_gallery), // Replace with Google icon
+                    icon = painterResource(id = R.drawable.ic_google), // Replace with Google icon
                     onClick = {
                         val googleSignInClient = AuthUtils.getGoogleSignInClient(context)
                         googleSignInLauncher.launch(googleSignInClient.signInIntent)
