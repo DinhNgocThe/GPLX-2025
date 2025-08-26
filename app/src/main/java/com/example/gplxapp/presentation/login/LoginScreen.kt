@@ -1,6 +1,8 @@
 package com.example.gplxapp.presentation.login
 
 import android.app.Activity
+import com.example.gplxapp.R;
+
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -176,7 +178,7 @@ fun LoginScreen(
             ) {
                 // Google Sign-In Button
                 SocialLoginButton(
-                    icon = painterResource(id = android.R.drawable.ic_menu_gallery), // Replace with Google icon
+                    icon = painterResource(id = R.drawable.ic_google), // Replace with Google icon
                     onClick = {
                         val googleSignInClient = AuthUtils.getGoogleSignInClient(context)
                         googleSignInLauncher.launch(googleSignInClient.signInIntent)
