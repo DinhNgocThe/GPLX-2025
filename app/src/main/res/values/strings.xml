@@ -1,5 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GplxApp</string>
-    <string name="default_web_client_id">762646211540-b3dv6acsfgcs7ev2dki8pb4ek8ieco03.apps.googleusercontent.com</string>
+    <string name="app_name">GPLX App</string>
+    <string name="welcome_title">Discover Your\nDream Job here</string>
+    <string name="welcome_subtitle">Explore all the exciting job roles based on your\ninterest and study major</string>
+    <string name="login_title">Login here</string>
+    <string name="login_subtitle">Welcome back you\'ve\nbeen missed!</string>
+    <string name="register_title">Create Account</string>
+    <string name="register_subtitle">Create an account so you can explore all the\nexisting jobs</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="login_button">Sign in</string>
+    <string name="register_button">Sign up</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="create_account">Create new account</string>
+    <string name="already_have_account">Already have an account</string>
+    <string name="or_continue_with">Or continue with</string>
 
+    <!-- Firebase Web Client ID - Replace with your actual Web Client ID from Firebase Console -->
+    <string name="default_web_client_id">762646211540-b3dv6acsfgcs7ev2dki8pb4ek8ieco03.apps.googleusercontent.com</string>
 </resources>
