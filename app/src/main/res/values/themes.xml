@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.GplxApp" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Theme chính của app -->
+    <style name="Theme.GPLXApp" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/primary_blue</item>
+    </style>
+
 </resources>
