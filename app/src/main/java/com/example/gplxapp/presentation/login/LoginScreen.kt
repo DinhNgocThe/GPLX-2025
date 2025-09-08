@@ -25,11 +25,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.gplxapp.presentation.components.CustomButton
 import com.example.gplxapp.presentation.components.CustomTextField
 import com.example.gplxapp.presentation.components.SocialLoginButton
-import com.example.gplxapp.presentation.theme.PrimaryBlue
-import com.example.gplxapp.presentation.theme.White
+import com.example.gplxapp.presentation.components.PrimaryButton
 import com.example.gplxapp.utils.AuthUtils
 import com.google.android.gms.common.api.ApiException
 
@@ -71,7 +69,7 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(White)
+            .background(MaterialTheme.colorScheme.surface)
             .verticalScroll(rememberScrollState())
     ) {
         // Top Bar
@@ -83,7 +81,7 @@ fun LoginScreen(
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = White
+                containerColor = MaterialTheme.colorScheme.surface
             )
         )
 
@@ -100,7 +98,7 @@ fun LoginScreen(
                 text = "Login here",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
-                color = PrimaryBlue,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
@@ -138,7 +136,7 @@ fun LoginScreen(
             // Forgot Password
             Text(
                 text = "Forgot your password?",
-                color = PrimaryBlue,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 14.sp,
                 modifier = Modifier
                     .align(Alignment.End)
@@ -147,7 +145,7 @@ fun LoginScreen(
             )
 
             // Sign In Button
-            CustomButton(
+            PrimaryButton(
                 text = if (uiState.isLoading) "Signing in..." else "Sign in",
                 onClick = viewModel::loginWithEmail,
                 enabled = !uiState.isLoading,
@@ -167,7 +165,7 @@ fun LoginScreen(
             // Or continue with
             Text(
                 text = "Or continue with",
-                color = PrimaryBlue,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 14.sp,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
@@ -222,7 +220,7 @@ fun LoginScreen(
             // Loading
             if (uiState.isLoading) {
                 Spacer(modifier = Modifier.height(16.dp))
-                CircularProgressIndicator(color = PrimaryBlue)
+                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
             }
         }
     }
