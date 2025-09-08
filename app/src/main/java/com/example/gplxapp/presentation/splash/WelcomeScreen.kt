@@ -13,9 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.gplxapp.presentation.components.CustomButton
-import com.example.gplxapp.presentation.theme.PrimaryBlue
-import com.example.gplxapp.presentation.theme.TextBlack
+import com.example.gplxapp.presentation.components.PrimaryButton
 
 @Composable
 fun WelcomeScreen(
@@ -50,7 +48,7 @@ fun WelcomeScreen(
                     Box(
                         modifier = Modifier
                             .size(120.dp)
-                            .background(PrimaryBlue, RoundedCornerShape(60.dp)),
+                            .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(60.dp)),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
@@ -80,7 +78,7 @@ fun WelcomeScreen(
             text = "Discover Your\nDream Job here",
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
-            color = TextBlack,
+            color = Color.Black,
             textAlign = TextAlign.Center,
             lineHeight = 36.sp,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -101,7 +99,7 @@ fun WelcomeScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            CustomButton(
+            PrimaryButton(
                 text = "Login",
                 onClick = onLoginClick,
                 modifier = Modifier.weight(1f)
@@ -113,10 +111,10 @@ fun WelcomeScreen(
                     .weight(1f)
                     .height(50.dp),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = PrimaryBlue
+                    contentColor = MaterialTheme.colorScheme.primary
                 ),
                 border = ButtonDefaults.outlinedButtonBorder.copy(
-                    brush = androidx.compose.foundation.BorderStroke(1.dp, PrimaryBlue).brush
+                    brush = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary).brush
                 ),
                 shape = RoundedCornerShape(8.dp)
             ) {

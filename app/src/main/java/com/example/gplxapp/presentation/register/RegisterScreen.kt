@@ -24,11 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gplxapp.R
-import com.example.gplxapp.presentation.components.CustomButton
+import com.example.gplxapp.presentation.components.PrimaryButton
 import com.example.gplxapp.presentation.components.CustomTextField
 import com.example.gplxapp.presentation.components.SocialLoginButton
-import com.example.gplxapp.presentation.theme.PrimaryBlue
-import com.example.gplxapp.presentation.theme.White
 import com.example.gplxapp.utils.AuthUtils
 import com.google.android.gms.common.api.ApiException
 
@@ -70,7 +68,7 @@ fun RegisterScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(White)
+            .background(MaterialTheme.colorScheme.surface)
             .verticalScroll(rememberScrollState())
     ) {
         // Top Bar
@@ -82,7 +80,7 @@ fun RegisterScreen(
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = White
+                containerColor = MaterialTheme.colorScheme.surface
             )
         )
 
@@ -99,7 +97,7 @@ fun RegisterScreen(
                 text = "Create Account",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
-                color = PrimaryBlue,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             // Subtitle
@@ -145,7 +143,7 @@ fun RegisterScreen(
             )
 
             // Sign Up Button
-            CustomButton(
+            PrimaryButton(
                 text = if (uiState.isLoading) "Signing up..." else "Sign up",
                 onClick = viewModel::registerWithEmail,
                 enabled = !uiState.isLoading,
@@ -165,7 +163,7 @@ fun RegisterScreen(
             // Or continue with
             Text(
                 text = "Or continue with",
-                color = PrimaryBlue,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 14.sp,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
@@ -218,7 +216,7 @@ fun RegisterScreen(
             // Loading
             if (uiState.isLoading) {
                 Spacer(modifier = Modifier.height(16.dp))
-                CircularProgressIndicator(color = PrimaryBlue)
+                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
             }
         }
     }

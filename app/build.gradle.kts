@@ -56,6 +56,9 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     implementation("androidx.navigation:navigation-compose:2.7.5")
 
+    // Theme
+    implementation(libs.androidx.ui.text.google.fonts)
+
     // Firebase BOM
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
@@ -77,6 +80,6 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    //    áp dụng cho spash screen
+    // Splash screen
     implementation("androidx.core:core-splashscreen:1.0.1")
 }

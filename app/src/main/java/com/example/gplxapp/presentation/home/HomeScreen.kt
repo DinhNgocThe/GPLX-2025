@@ -9,15 +9,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gplxapp.presentation.components.PlaceholderCard
-import com.example.gplxapp.presentation.theme.PrimaryBlue
-import com.example.gplxapp.presentation.theme.White
 import com.google.firebase.auth.FirebaseAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,7 +27,7 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(White)
+            .background(MaterialTheme.colorScheme.surface)
     ) {
         // Top Bar
         TopAppBar(
@@ -47,12 +44,12 @@ fun HomeScreen(
                     Icon(
                         Icons.Default.ExitToApp,
                         contentDescription = "Logout",
-                        tint = PrimaryBlue
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = White
+                containerColor = MaterialTheme.colorScheme.surface
             )
         )
 

@@ -12,7 +12,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gplxapp.presentation.components.PlaceholderCard
-import com.example.gplxapp.presentation.theme.White
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -20,7 +19,7 @@ fun LibraryScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(White)
+            .background(MaterialTheme.colorScheme.surface)
     ) {
         // Top Bar
         TopAppBar(
@@ -33,7 +32,7 @@ fun LibraryScreen() {
                 )
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = White
+                containerColor = MaterialTheme.colorScheme.surface
             )
         )
 
