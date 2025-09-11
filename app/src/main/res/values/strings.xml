@@ -1,7 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GPLX App</string>
-
-    <!-- Firebase Web Client ID - Replace with your actual Web Client ID from Firebase Console -->
-    <string name="default_web_client_id">762646211540-b3dv6acsfgcs7ev2dki8pb4ek8ieco03.apps.googleusercontent.com</string>
+    <string name="app_name">GPLX2025</string>
 </resources>

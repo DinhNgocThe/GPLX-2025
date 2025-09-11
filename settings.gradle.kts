@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GplxApp"
+rootProject.name = "GPLX2025"
 include(":app")
  
