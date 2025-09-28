@@ -1,18 +1,23 @@
 package com.utc.driverxy.navigation
 
+import android.graphics.Insets.add
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.utc.driverxy.presentation.onboarding.WelcomeScreen
 import com.utc.driverxy.presentation.onboarding.OnboardingScreen
+import com.utc.driverxy.presentation.splash.SplashScreen
 
 @Composable
 fun NavRoutes() {
-    val firstRoute = Destination.Welcome
-    val backStack = rememberNavBackStack(firstRoute)
+    val backStack = rememberNavBackStack(Destination.Splash)
 
     Scaffold(
         bottomBar = {
@@ -23,6 +28,14 @@ fun NavRoutes() {
             backStack = backStack,
             onBack = { backStack.removeLastOrNull() },
             entryProvider = entryProvider {
+                entry<Destination.Splash> {
+                    SplashScreen(
+                        navigateToWelcome = {
+                            backStack.replaceTop(Destination.Welcome)
+                        },
+                    )
+                }
+
                 entry<Destination.Welcome> {
                     WelcomeScreen(
                         innerPadding = innerPadding,
@@ -39,3 +52,10 @@ fun NavRoutes() {
         )
     }
 }
+
+fun <T : NavKey> NavBackStack<T>.replaceTop(new: T) {
+    removeLastOrNull()
+    add(new)
+}
+
+
