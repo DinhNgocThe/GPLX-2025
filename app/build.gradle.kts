@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.utc.gplx2025"
+    namespace = "com.utc.driverxy"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.utc.gplx2025"
+        applicationId = "com.utc.driverxy"
         minSdk = 28
         targetSdk = 36
         versionCode = 1

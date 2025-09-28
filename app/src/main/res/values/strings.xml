@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">GPLX2025</string>
+    <string name="app_name">DriverXy</string>
+    <string name="login_title">Login here</string>
+    <string name="login_description">Welcome back you’ve\nbeen missed!</string>
+
+    <!--Welcome-->
+    <string name="welcome_title">Welcome to</string>
+    <string name="welcome_description">Stop blindly studying for your driving test.\nLet DriverXy help you!</string>
+    <string name="get_started">Get Started</string>
 </resources>

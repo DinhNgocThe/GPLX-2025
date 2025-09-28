@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GPLX2025"
+rootProject.name = "DriverXy"
 include(":app")
  
