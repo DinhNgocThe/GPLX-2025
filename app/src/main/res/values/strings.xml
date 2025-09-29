@@ -7,4 +7,7 @@
     <string name="welcome_title">Welcome to</string>
     <string name="welcome_description">Stop blindly studying for your driving test.\nLet DriverXy help you!</string>
     <string name="get_started">Get Started</string>
+
+    <!--web client ID-->
+    <string name="default_web_client_id">762646211540-b3dv6acsfgcs7ev2dki8pb4ek8ieco03.apps.googleusercontent.com</string>
 </resources>
