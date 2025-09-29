@@ -69,4 +69,11 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
+
+    // GoogleAuth
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.google.play.services.auth)
+
+
+
 }
