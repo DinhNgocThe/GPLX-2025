@@ -45,8 +45,9 @@ kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "navigation3Runtime" }
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 # Core Google Login Firebase
-firebase.auth.ktx = { module = "com.google.firebase:firebase-auth-ktx", version = "22.3.1" }
-google.play.services.auth = { module = "com.google.android.gms:play-services-auth", version = "21.2.0" }
+firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version = "22.3.1" }
+google-play-services-auth = { module = "com.google.android.gms:play-services-auth", version = "21.2.0" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
