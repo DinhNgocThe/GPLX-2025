@@ -1,61 +1,66 @@
 package com.utc.driverxy.navigation
 
-import android.graphics.Insets.add
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.navigation3.runtime.NavBackStack
-import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import com.utc.driverxy.presentation.onboarding.WelcomeScreen
+import com.utc.driverxy.presentation.login.LoginScreenRoute
 import com.utc.driverxy.presentation.onboarding.OnboardingScreen
+import com.utc.driverxy.presentation.onboarding.WelcomeScreen
 import com.utc.driverxy.presentation.splash.SplashScreen
+import androidx.navigation3.runtime.NavBackStack
 
 @Composable
 fun NavRoutes() {
-    val backStack = rememberNavBackStack(Destination.Splash)
+    val backStack = rememberNavBackStack<Destination>(Destination.Splash)
 
-    Scaffold(
-        bottomBar = {
-            // BottomBar layout
-        }
-    ) { innerPadding ->
+    Scaffold { innerPadding ->
         NavDisplay(
             backStack = backStack,
             onBack = { backStack.removeLastOrNull() },
             entryProvider = entryProvider {
+                // Splash
                 entry<Destination.Splash> {
                     SplashScreen(
                         navigateToWelcome = {
-                            backStack.replaceTop(Destination.Welcome)
-                        },
+                            backStack.add(Destination.Welcome)
+                        }
                     )
                 }
 
+                // Welcome
                 entry<Destination.Welcome> {
                     WelcomeScreen(
                         innerPadding = innerPadding,
-                        navigateToOnboarding = { backStack.add(Destination.Onboarding) }
+                        navigateToLogin = { backStack.add(Destination.Login) }
                     )
                 }
 
-                entry<Destination.Onboarding> {
-                    OnboardingScreen(
-                        innerPadding = innerPadding
+                // Login
+                entry<Destination.Login> {
+                    LoginScreenRoute(
+                        onLoginSuccess = {
+                            backStack.add(Destination.Onboarding)
+                        },
+                        onContinueWithoutLogin = {
+                            backStack.add(Destination.Onboarding)
+                        }
                     )
+                }
+
+                // Onboarding
+                entry<Destination.Onboarding> {
+                    OnboardingScreen(innerPadding = innerPadding)
                 }
             }
         )
     }
 }
 
-fun <T : NavKey> NavBackStack<T>.replaceTop(new: T) {
-    removeLastOrNull()
-    add(new)
+// Extension tiện lợi
+fun <T : Destination> NavBackStack<T>.replaceTop(new: T) {
+    this.removeLastOrNull()
+    this.add(new)
 }
-
-
