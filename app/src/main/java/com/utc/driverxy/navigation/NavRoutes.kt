@@ -13,6 +13,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.utc.driverxy.presentation.onboarding.WelcomeScreen
 import com.utc.driverxy.presentation.onboarding.OnboardingScreen
+import com.utc.driverxy.presentation.signin.SignInScreen
 import com.utc.driverxy.presentation.splash.SplashScreen
 
 @Composable
@@ -39,12 +40,19 @@ fun NavRoutes() {
                 entry<Destination.Welcome> {
                     WelcomeScreen(
                         innerPadding = innerPadding,
-                        navigateToOnboarding = { backStack.add(Destination.Onboarding) }
+                        navigateToOnboarding = { backStack.replaceTop(Destination.Onboarding) }
                     )
                 }
 
                 entry<Destination.Onboarding> {
                     OnboardingScreen(
+                        innerPadding = innerPadding,
+                        onNavigateToSignIn = { backStack.replaceTop(Destination.SignIn) }
+                    )
+                }
+
+                entry<Destination.SignIn> {
+                    SignInScreen(
                         innerPadding = innerPadding
                     )
                 }
