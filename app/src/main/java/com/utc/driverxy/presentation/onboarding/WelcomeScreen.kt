@@ -44,7 +44,7 @@ fun WelcomeScreen(
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .weight(1f)
-                .padding(horizontal = 36.dp)
+                .padding(start = 10.dp, end = 36.dp)
         )
 
         Row(
