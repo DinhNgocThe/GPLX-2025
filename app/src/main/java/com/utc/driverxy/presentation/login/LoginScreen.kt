@@ -1,12 +1,12 @@
 package com.utc.driverxy.presentation.login
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,43 +21,41 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.utc.driverxy.R
 import com.utc.driverxy.presentation.theme.DriverXyColors
-
-// 🎵 Vẽ sóng dạng capsule
-@Composable
-fun WaveBarRow(
-    color: Color,
-    modifier: Modifier = Modifier,
-    barCount: Int = 5
-) {
-    Canvas(modifier = modifier) {
-        val barWidth = size.width / (barCount * 2)
-        val barMaxHeight = size.height
-        val gap = barWidth
-
-        for (i in 0 until barCount) {
-            val height = barMaxHeight * (0.5f + (i % 2) * 0.3f)
-            val left = i * (barWidth + gap)
-            val top = (barMaxHeight - height) / 2
-            drawRoundRect(
-                color = color,
-                topLeft = androidx.compose.ui.geometry.Offset(left, top),
-                size = androidx.compose.ui.geometry.Size(barWidth, height),
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(
-                    x = barWidth / 2,
-                    y = barWidth / 2
-                )
-            )
-        }
-    }
-}
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreen(
-    uiState: LoginContract.UiState,
-    onGoogleLoginClicked: () -> Unit,
-    onContinueWithoutLogin: () -> Unit
+    navigateToMain: () -> Unit,
+    viewModel: LoginViewModel = koinViewModel()
+) {
+    val uiState by viewModel.viewState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.singleEvent.collect { event ->
+            when (event) {
+                LoginEvent.NavigateToHome -> TODO()
+                is LoginEvent.ShowError -> TODO()
+            }
+        }
+    }
+
+    LoginScreenContent(
+        onGoogleLoginClick = {
+            viewModel.processIntent(LoginIntent.SignInWithGoogle)
+        },
+        onContinueWithoutLoginClick = {
+            viewModel.processIntent(LoginIntent.ContinueWithoutLogin)
+        }
+    )
+}
+
+@Composable
+fun LoginScreenContent(
+    onGoogleLoginClick: () -> Unit,
+    onContinueWithoutLoginClick: () -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -77,10 +75,6 @@ fun LoginScreen(
                 horizontalArrangement = Arrangement.SpaceAround,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                WaveBarRow(
-                    color = DriverXyColors.Speaker.Speaker0,
-                    modifier = Modifier.size(width = 80.dp, height = 28.dp)
-                )
                 Image(
                     painter = painterResource(id = R.drawable.placeholder_1),
                     contentDescription = null,
@@ -89,10 +83,6 @@ fun LoginScreen(
                         .clip(RoundedCornerShape(percent = 50))
                         .size(width = 140.dp, height = 70.dp)
                         .background(color = DriverXyColors.Speaker.Speaker0)
-                )
-                WaveBarRow(
-                    color = DriverXyColors.Speaker.Speaker0,
-                    modifier = Modifier.size(width = 80.dp, height = 28.dp)
                 )
             }
 
@@ -113,10 +103,6 @@ fun LoginScreen(
                         .size(width = 130.dp, height = 70.dp)
                         .background(color = DriverXyColors.Gray.Gray3)
                 )
-                WaveBarRow(
-                    color = DriverXyColors.Speaker.Speaker2,
-                    modifier = Modifier.size(width = 80.dp, height = 28.dp)
-                )
                 Image(
                     painter = painterResource(id = R.drawable.placeholder_3),
                     contentDescription = null,
@@ -136,10 +122,6 @@ fun LoginScreen(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                WaveBarRow(
-                    color = DriverXyColors.Speaker.Speaker1,
-                    modifier = Modifier.size(width = 80.dp, height = 28.dp)
-                )
                 Image(
                     painter = painterResource(id = R.drawable.placeholder_4),
                     contentDescription = null,
@@ -147,10 +129,6 @@ fun LoginScreen(
                     modifier = Modifier
                         .clip(RoundedCornerShape(percent = 50))
                         .size(width = 130.dp, height = 70.dp)
-                )
-                WaveBarRow(
-                    color = DriverXyColors.Gray.Gray,
-                    modifier = Modifier.size(width = 80.dp, height = 28.dp)
                 )
             }
 
@@ -168,7 +146,7 @@ fun LoginScreen(
 
             // Nút Google
             Button(
-                onClick = onGoogleLoginClicked,
+                onClick = onGoogleLoginClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp),
@@ -188,7 +166,9 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             // Nút không login
-            TextButton(onClick = onContinueWithoutLogin) {
+            TextButton(
+                onClick = onContinueWithoutLoginClick
+            ) {
                 Text(stringResource(R.string.google_without_login_button), color = DriverXyColors.Text.TextPrimary)
             }
 
@@ -215,19 +195,6 @@ fun LoginScreen(
             )
 
             Spacer(modifier = Modifier.height(24.dp))
-
-            // ✅ Loading hoặc Error hiển thị bên dưới
-            when (uiState) {
-                is LoginContract.UiState.Loading -> CircularProgressIndicator()
-                is LoginContract.UiState.Error -> uiState.message?.let {
-                    Text(
-                        text = it,
-                        color = Color.Red,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-                else -> {}
-            }
         }
     }
 }
@@ -235,9 +202,8 @@ fun LoginScreen(
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(
-        uiState = LoginContract.UiState.Idle,
-        onGoogleLoginClicked = {},
-        onContinueWithoutLogin = {}
+    LoginScreenContent(
+        onGoogleLoginClick = {},
+        onContinueWithoutLoginClick = {}
     )
 }

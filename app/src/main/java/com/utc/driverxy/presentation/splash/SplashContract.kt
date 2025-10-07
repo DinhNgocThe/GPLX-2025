@@ -14,4 +14,5 @@ sealed class SplashIntent : MviIntent {
 
 sealed class SplashEvent : MviSingleEvent {
     data object NavigateToOnBoarding : SplashEvent()
+    data object NavigateToLogin : SplashEvent()
 }

@@ -6,8 +6,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    // Inject UseCase, datastore...
 ) : BaseMviViewModel<SplashIntent, SplashState, SplashEvent>() {
+
     init {
         processIntent(SplashIntent.CheckFirstLaunch)
     }
@@ -17,7 +17,7 @@ class SplashViewModel(
     }
 
     override fun processIntent(intent: SplashIntent) {
-        when(intent) {
+        when (intent) {
             SplashIntent.CheckFirstLaunch -> {
                 handleCheckFirstLaunch()
             }
@@ -26,12 +26,15 @@ class SplashViewModel(
 
     private fun handleCheckFirstLaunch() {
         viewModelScope.launch(Dispatchers.IO) {
-            // Call datastore, room...
-            val isFirstLaunch = true // Fake is first launch
+            val isFirstLaunch = false // Fake is first launch
+            val isSignedIn = false
+
             if (isFirstLaunch) {
                 sendEvent(SplashEvent.NavigateToOnBoarding)
             } else {
-                // Navigate to sign in or main
+                if (!isSignedIn) {
+                    sendEvent(SplashEvent.NavigateToLogin)
+                }
             }
         }
     }

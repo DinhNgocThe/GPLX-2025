@@ -30,7 +30,7 @@ import com.utc.driverxy.presentation.theme.DriverXyTypography
 @Composable
 fun WelcomeScreen(
     innerPadding: PaddingValues,
-    navigateToLogin: () -> Unit,
+    navigateToOnboarding: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -79,7 +79,7 @@ fun WelcomeScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         DriverXyButton(
-            onClick = navigateToLogin,
+            onClick = navigateToOnboarding,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp)
@@ -98,6 +98,6 @@ fun WelcomeScreen(
 private fun WelcomeScreenPreview() {
     WelcomeScreen(
         innerPadding = PaddingValues(),
-        navigateToLogin = {}
+        navigateToOnboarding = {}
     )
 }

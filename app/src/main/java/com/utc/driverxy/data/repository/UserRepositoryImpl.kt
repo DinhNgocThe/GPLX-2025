@@ -5,12 +5,13 @@ import com.utc.driverxy.data.remote.datasource.GoogleAuthDataSource
 import com.utc.driverxy.domain.repository.UserRepository
 
 class UserRepositoryImpl(
-    private val remote: GoogleAuthDataSource
+    private val googleAuthDataSource: GoogleAuthDataSource
 ) : UserRepository {
-    override suspend fun signInWithGoogle(idToken: String): Result<FirebaseUser?> =
-        remote.signInWithCredential(idToken)
+    override suspend fun signInWithGoogle(): Result<FirebaseUser?> {
+        return googleAuthDataSource.signInWithCredential()
+    }
 
-    override suspend fun signOut(): Result<Boolean> = remote.signOut()
+    override suspend fun signOut(): Result<Boolean> = googleAuthDataSource.signOut()
 
-    override fun currentUser(): FirebaseUser? = remote.currentUser()
+    override fun currentUser(): FirebaseUser? = googleAuthDataSource.currentUser()
 }
