@@ -1,9 +1,7 @@
 package com.utc.driverxy.domain.usecase
 
-
 import com.google.firebase.auth.FirebaseUser
-import com.utc.driverxy.data.repository.AuthRepository
-
+import com.utc.driverxy.domain.repository.AuthRepository
 
 class SignInWithGoogleUseCase(
     private val repo: AuthRepository

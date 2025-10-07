@@ -29,7 +29,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SplashScreen(
-    navigateToWelcome: () -> Unit,
+    navigateToWelcome: (SplashViewModel) -> Unit,
     viewModel: SplashViewModel = koinViewModel()
 ) {
     val uiState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -39,7 +39,7 @@ fun SplashScreen(
         viewModel.singleEvent.collect { event ->
             when (event) {
                 SplashEvent.NavigateToOnBoarding -> {
-                    navigateToWelcome()
+                    navigateToWelcome(viewModel)
                 }
             }
         }

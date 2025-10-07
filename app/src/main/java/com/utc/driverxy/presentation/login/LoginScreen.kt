@@ -22,7 +22,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.utc.driverxy.R
-import com.utc.driverxy.presentation.auth.AuthUiState
 import com.utc.driverxy.presentation.theme.DriverXyColors
 
 // 🎵 Vẽ sóng dạng capsule
@@ -38,7 +37,7 @@ fun WaveBarRow(
         val gap = barWidth
 
         for (i in 0 until barCount) {
-            val height = barMaxHeight * (0.5f + (i % 2) * 0.3f) // cao thấp xen kẽ
+            val height = barMaxHeight * (0.5f + (i % 2) * 0.3f)
             val left = i * (barWidth + gap)
             val top = (barMaxHeight - height) / 2
             drawRoundRect(
@@ -56,8 +55,8 @@ fun WaveBarRow(
 
 @Composable
 fun LoginScreen(
-    uiState: AuthUiState,
-    onSignInWithGoogle: () -> Unit,
+    uiState: LoginContract.UiState,
+    onGoogleLoginClicked: () -> Unit,
     onContinueWithoutLogin: () -> Unit
 ) {
     Surface(
@@ -169,7 +168,7 @@ fun LoginScreen(
 
             // Nút Google
             Button(
-                onClick = onSignInWithGoogle,
+                onClick = onGoogleLoginClicked,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp),
@@ -219,8 +218,8 @@ fun LoginScreen(
 
             // ✅ Loading hoặc Error hiển thị bên dưới
             when (uiState) {
-                is AuthUiState.Loading -> CircularProgressIndicator()
-                is AuthUiState.Error -> uiState.message?.let {
+                is LoginContract.UiState.Loading -> CircularProgressIndicator()
+                is LoginContract.UiState.Error -> uiState.message?.let {
                     Text(
                         text = it,
                         color = Color.Red,
@@ -232,13 +231,12 @@ fun LoginScreen(
         }
     }
 }
-
-@Preview(showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
     LoginScreen(
-        uiState = AuthUiState.Idle,
-        onSignInWithGoogle = {},
+        uiState = LoginContract.UiState.Idle,
+        onGoogleLoginClicked = {},
         onContinueWithoutLogin = {}
     )
 }

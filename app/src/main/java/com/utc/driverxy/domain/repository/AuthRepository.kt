@@ -1,8 +1,6 @@
-package com.utc.driverxy.data.repository
-
+package com.utc.driverxy.domain.repository
 
 import com.google.firebase.auth.FirebaseUser
-
 
 interface AuthRepository {
     suspend fun signInWithGoogle(idToken: String): Result<FirebaseUser?>
