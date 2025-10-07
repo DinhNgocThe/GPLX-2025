@@ -2,11 +2,11 @@ package com.utc.driverxy.data.repository
 
 import com.google.firebase.auth.FirebaseUser
 import com.utc.driverxy.data.remote.datasource.GoogleAuthDataSource
-import com.utc.driverxy.domain.repository.AuthRepository
+import com.utc.driverxy.domain.repository.UserRepository
 
-class AuthRepositoryImpl(
+class UserRepositoryImpl(
     private val remote: GoogleAuthDataSource
-) : AuthRepository {
+) : UserRepository {
     override suspend fun signInWithGoogle(idToken: String): Result<FirebaseUser?> =
         remote.signInWithCredential(idToken)
 

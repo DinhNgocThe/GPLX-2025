@@ -7,8 +7,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.utc.driverxy.R
 import com.utc.driverxy.data.remote.datasource.GoogleAuthDataSource
 import com.utc.driverxy.data.remote.datasource.GoogleAuthDataSourceImpl
-import com.utc.driverxy.data.repository.AuthRepositoryImpl
-import com.utc.driverxy.domain.repository.AuthRepository
+import com.utc.driverxy.data.repository.UserRepositoryImpl
+import com.utc.driverxy.domain.repository.UserRepository
 import com.utc.driverxy.domain.usecase.SignInWithGoogleUseCase
 import com.utc.driverxy.presentation.login.LoginViewModel
 import com.utc.driverxy.presentation.splash.SplashViewModel
@@ -23,7 +23,7 @@ val appModule = module {
     single<GoogleAuthDataSource> { GoogleAuthDataSourceImpl(get()) }
 
     // Repository
-    single<AuthRepository> { AuthRepositoryImpl(get()) }
+    single<UserRepository> { UserRepositoryImpl(get()) }
 
     // UseCase
     factory { SignInWithGoogleUseCase(get()) }
