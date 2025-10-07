@@ -37,6 +37,7 @@ val appModule = module {
             .build()
         GoogleSignIn.getClient(context, gso)
     }
+
     // ViewModels
     viewModel { SplashViewModel() }
     viewModel { LoginViewModel(get(),get()) }
