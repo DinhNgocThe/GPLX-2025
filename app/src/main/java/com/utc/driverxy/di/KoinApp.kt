@@ -2,7 +2,7 @@ package com.utc.driverxy.di
 
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.GlobalContext.startKoin
+import org.koin.core.context.startKoin
 
 class KoinApp : Application() {
     override fun onCreate() {

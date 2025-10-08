@@ -10,4 +10,9 @@
 
     <!--web client ID-->
     <string name="default_web_client_id">762646211540-b3dv6acsfgcs7ev2dki8pb4ek8ieco03.apps.googleusercontent.com</string>
+
+    <!--Google login screen-->
+    <string name="google_login_button">Continue with Google</string>
+    <string name="google_without_login_button">Continue without login</string>
+    <string name="login_content">Save all your notes securely and access them from any device you use.</string>
 </resources>
