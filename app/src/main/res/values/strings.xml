@@ -10,4 +10,18 @@
 
     <!--web client ID-->
     <string name="default_web_client_id">762646211540-b3dv6acsfgcs7ev2dki8pb4ek8ieco03.apps.googleusercontent.com</string>
+
+    <!--Onboarding-->
+    <string name="onboarding_title_1">Always get the key takeaways</string>
+    <string name="onboarding_title_2">Sharing made effortless</string>
+    <string name="onboarding_title_3">Answer at your fingertips</string>
+    <string name="onboarding_title_4">Real-time voice transcription</string>
+    <string name="onboarding_descripton_1">Clear summaries and action steps delivered instantly</string>
+    <string name="onboarding_descripton_2">One tap to export or send notes to your team</string>
+    <string name="onboarding_descripton_3">Ask Notica AI and find what you need in seconds</string>
+    <string name="onboarding_descripton_4">Notica captures every communication in real-time</string>
+    <string name="onboarding_image_1">https://lastfm.freetls.fastly.net/i/u/300x300/d642cafdcf05a7377c1d52850ec99638.png</string>
+    <string name="onboarding_image_2">https://lastfm.freetls.fastly.net/i/u/300x300/d642cafdcf05a7377c1d52850ec99638.png</string>
+    <string name="onboarding_image_3">https://lastfm.freetls.fastly.net/i/u/300x300/d642cafdcf05a7377c1d52850ec99638.png</string>
+    <string name="onboarding_image_4">https://lastfm.freetls.fastly.net/i/u/300x300/d642cafdcf05a7377c1d52850ec99638.png</string>
 </resources>
