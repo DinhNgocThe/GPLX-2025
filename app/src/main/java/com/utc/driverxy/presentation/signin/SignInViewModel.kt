@@ -7,6 +7,7 @@ import com.utc.driverxy.domain.provider.ContextProvider
 import com.utc.driverxy.domain.usecase.user.SignInWithGoogleUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SignInViewModel(
     private val signInWithGoogleUseCase: SignInWithGoogleUseCase,
@@ -37,16 +38,18 @@ class SignInViewModel(
             }
 
             val result = signInWithGoogleUseCase()
-            if (result) {
-                sendEvent(SignInEvent.NavigateToHome)
-            } else {
-                sendEvent(SignInEvent.LoginError)
-            }
+            withContext(Dispatchers.Main) {
+                if (result) {
+                    sendEvent(SignInEvent.NavigateToHome)
+                } else {
+                    sendEvent(SignInEvent.LoginError)
+                }
 
-            updateState {
-                copy(
-                    isLoading = false
-                )
+                updateState {
+                    copy(
+                        isLoading = false
+                    )
+                }
             }
         }
     }

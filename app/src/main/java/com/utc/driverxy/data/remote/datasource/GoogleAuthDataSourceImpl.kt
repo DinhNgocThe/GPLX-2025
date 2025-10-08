@@ -23,7 +23,8 @@ class GoogleAuthDataSourceImpl(
 ) : GoogleAuthDataSource {
 
     private val tag = "Firebase AuthManager: "
-    private val credentialManager = CredentialManager.Companion.create(contextProvider.getCurrentContext())
+    private val credentialManager: CredentialManager
+        get() = CredentialManager.create(contextProvider.getCurrentContext())
     private val firebaseAuth = FirebaseAuth.getInstance()
 
     override fun isSignedIn(): Boolean {
