@@ -49,7 +49,7 @@
 ```
 
 ```
-Sample Flow: View ---> Intent ---> ViewModel ---> process...
-                      View <---State; Event <--- 
+Sample Flow: View ---> Intent ---> ViewModel(method processIntent()) ---> UseCase ---> Repository ---> DataSource
+             View <---State; Event <--- 
 ```
 
