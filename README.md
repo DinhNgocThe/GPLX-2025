@@ -13,6 +13,8 @@
 10. Language: Vietnamese or Vietnamese + English
 11. Theme: Material theme custom
 
+# Design
+- [Link Figma](https://www.figma.com/design/SAHbai6hFQs3BlWH63B8Pb/Onboarding--Login---Register---App-Ui--Community---Copy-?node-id=0-1&p=f&t=vI5TVs2SpMVxtxE5-0)
 
 ## 🏗️ Architecture Overview
 
