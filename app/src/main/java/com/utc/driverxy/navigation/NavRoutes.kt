@@ -39,13 +39,14 @@ fun NavRoutes() {
                 entry<Destination.Welcome> {
                     WelcomeScreen(
                         innerPadding = innerPadding,
-                        navigateToOnboarding = { backStack.add(Destination.Onboarding) }
+                        navigateToOnboarding = { backStack.replaceTop(Destination.Onboarding) }
                     )
                 }
 
                 entry<Destination.Onboarding> {
                     OnboardingScreen(
                         innerPadding = innerPadding
+                        //navigateToLogin = { backStack.replaceTop(Destination.Login) }
                     )
                 }
             }

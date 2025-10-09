@@ -1,5 +1,6 @@
 [versions]
 agp = "8.12.2"
+coil = "3.3.0"
 coreSplashscreen = "1.0.1"
 koinAndroid = "4.1.1"
 koinAndroidxCompose = "4.1.1"
@@ -49,6 +50,9 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version =
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 google-play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version = "21.2.0" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version = "1.7.3" }
+# Coil Image Loading
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
