@@ -26,11 +26,6 @@ fun SignInScreen(
     val context = LocalContext.current
     val activity = context as Activity
 
-    // Set the context in the viewModel when the composable is first created
-    LaunchedEffect(activity) {
-        viewModel.setContext(activity)
-    }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -38,7 +33,7 @@ fun SignInScreen(
             .background(DriverXyColors.BackGround.BackgroundPrimary)
     ) {
         Button(
-            onClick = { viewModel.processIntent(SignInIntent.SignInWithGoogle) },
+            onClick = { viewModel.processIntent(SignInIntent.SignInWithGoogle(activity)) },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 200.dp)

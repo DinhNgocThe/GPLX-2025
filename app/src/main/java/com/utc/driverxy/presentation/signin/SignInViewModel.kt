@@ -1,55 +1,39 @@
 package com.utc.driverxy.presentation.signin
 
-import android.content.Context
+import android.app.Activity
 import androidx.lifecycle.viewModelScope
 import com.utc.driverxy.base.BaseMviViewModel
-import com.utc.driverxy.domain.provider.ContextProvider
-import com.utc.driverxy.domain.usecase.user.SignInWithGoogleUseCase
+import com.utc.driverxy.data.firebase.GoogleAuthClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SignInViewModel(
-    private val signInWithGoogleUseCase: SignInWithGoogleUseCase,
-    private val contextProvider: ContextProvider
+    private val googleAuthClient: GoogleAuthClient
 ) : BaseMviViewModel<SignInIntent, SignInState, SignInEvent>() {
-    override fun initState(): SignInState {
-        return SignInState()
-    }
+
+    override fun initState(): SignInState = SignInState()
 
     override fun processIntent(intent: SignInIntent) {
-        when(intent) {
-            is SignInIntent.SignInWithGoogle -> {
-                handleSignInWithGoogle()
-            }
+        when (intent) {
+            is SignInIntent.SignInWithGoogle -> handleSignInWithGoogle(intent.activity)
         }
     }
 
-    fun setContext(context: Context) {
-        contextProvider.setCurrentContext(context)
-    }
+    private fun handleSignInWithGoogle(activity: Activity) {
+        viewModelScope.launch(Dispatchers.Main) {
+            updateState { copy(isLoading = true) }
 
-    private fun handleSignInWithGoogle() {
-        viewModelScope.launch(Dispatchers.IO) {
-            updateState {
-                copy(
-                    isLoading = true
-                )
+            val result = withContext(Dispatchers.IO) {
+                googleAuthClient.signIn(activity)
             }
 
-            val result = signInWithGoogleUseCase()
-            withContext(Dispatchers.Main) {
-                if (result) {
-                    sendEvent(SignInEvent.NavigateToHome)
-                } else {
-                    sendEvent(SignInEvent.LoginError)
-                }
-
-                updateState {
-                    copy(
-                        isLoading = false
-                    )
-                }
+            if (result) {
+                sendEvent(SignInEvent.NavigateToHome)
+                updateState { copy(isLoading = false, isSignedIn = true) }
+            } else {
+                sendEvent(SignInEvent.LoginError)
+                updateState { copy(isLoading = false) }
             }
         }
     }
