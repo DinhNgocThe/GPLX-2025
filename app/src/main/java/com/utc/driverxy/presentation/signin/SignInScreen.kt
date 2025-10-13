@@ -1,6 +1,7 @@
 package com.utc.driverxy.presentation.signin
 
 import android.app.Activity
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,15 +22,34 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun SignInScreen(
     innerPadding: PaddingValues,
+    onNavigateToHome: () -> Unit,
     viewModel: SignInViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
     val activity = context as Activity
 
+    LaunchedEffect(Unit) {
+        viewModel.singleEvent.collect { event ->
+            when (event) {
+                is SignInEvent.NavigateToHome -> {
+                    onNavigateToHome()
+                }
+
+                is SignInEvent.LoginError -> {
+                    Toast.makeText(
+                        context,
+                        "Đăng nhập không thành công. Vui lòng thử lại!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding.calculateTopPadding())
+            .padding(innerPadding)
             .background(DriverXyColors.BackGround.BackgroundPrimary)
     ) {
         Button(

@@ -13,4 +13,6 @@ sealed interface Destination : NavKey {
     data object Onboarding : Destination
     @Serializable
     data object SignIn : Destination
+    @Serializable
+    data object Home : Destination
 }
