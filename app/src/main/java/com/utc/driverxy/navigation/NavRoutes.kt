@@ -47,13 +47,14 @@ fun NavRoutes() {
                 entry<Destination.Onboarding> {
                     OnboardingScreen(
                         innerPadding = innerPadding,
-                        onNavigateToSignIn = { backStack.replaceTop(Destination.SignIn) }
+                        navigatetoSignIn = { backStack.replaceTop(Destination.SignIn) }
                     )
                 }
 
                 entry<Destination.SignIn> {
                     SignInScreen(
                         innerPadding = innerPadding
+                        //navigateToLogin = { backStack.replaceTop(Destination.Login) }
                     )
                 }
             }
