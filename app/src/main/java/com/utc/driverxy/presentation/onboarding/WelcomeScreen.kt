@@ -2,6 +2,7 @@ package com.utc.driverxy.presentation.onboarding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -38,14 +39,21 @@ fun WelcomeScreen(
             .background(DriverXyColors.BackGround.BackgroundPrimary)
             .padding(innerPadding.calculateTopPadding())
     ) {
-        Image(
-            painter = painterResource(R.drawable.img_welcome),
-            contentDescription = null,
-            contentScale = ContentScale.Fit,
+        Column(
             modifier = Modifier
-                .weight(1f)
-                .padding(start = 10.dp, end = 36.dp)
-        )
+                .fillMaxWidth()
+                .weight(1f),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Image(
+                painter = painterResource(R.drawable.img_welcome),
+                contentDescription = null,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 12.dp, end = 36.dp)
+            )
+        }
 
         Row(
             modifier = Modifier

@@ -42,7 +42,7 @@ object DriverXyColors {
     object Text {
         val TextPrimary = Black
         val TextSecondary = Color(0xFF303030)
-        val TextTertiary = Color(0xFFAEAEB2)
+        val TextTertiary = Color(0xFF808080)
         val TextDisabled = Color(0xFF999999)
         val Button = White
     }
