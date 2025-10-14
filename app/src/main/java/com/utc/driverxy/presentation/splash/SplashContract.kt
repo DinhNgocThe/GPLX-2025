@@ -13,5 +13,7 @@ sealed class SplashIntent : MviIntent {
 }
 
 sealed class SplashEvent : MviSingleEvent {
-    data object NavigateToOnBoarding : SplashEvent()
+    data object NavigateToWelcome : SplashEvent()
+    data object NavigateToMain : SplashEvent()
+    data object NavigateToSignIn : SplashEvent()
 }

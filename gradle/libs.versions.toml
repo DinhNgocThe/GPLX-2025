@@ -2,6 +2,7 @@
 agp = "8.12.2"
 coil = "3.3.0"
 coreSplashscreen = "1.0.1"
+datastorePreferences = "1.1.7"
 koinAndroid = "4.1.1"
 koinAndroidxCompose = "4.1.1"
 koinCore = "4.1.1"
@@ -28,6 +29,7 @@ firebaseFunctionsKtx = "21.0.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

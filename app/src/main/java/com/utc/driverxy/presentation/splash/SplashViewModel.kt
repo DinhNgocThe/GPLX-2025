@@ -1,17 +1,17 @@
 package com.utc.driverxy.presentation.splash
 
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.utc.driverxy.base.BaseMviViewModel
+import com.utc.driverxy.data.datastore.DataStoreManager
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    // Inject UseCase, datastore...
+    private val dataStoreManager: DataStoreManager,
+    private val firebaseAuth: FirebaseAuth
 ) : BaseMviViewModel<SplashIntent, SplashState, SplashEvent>() {
-    init {
-        processIntent(SplashIntent.CheckFirstLaunch)
-    }
-
     override fun initState(): SplashState {
         return SplashState()
     }
@@ -26,12 +26,17 @@ class SplashViewModel(
 
     private fun handleCheckFirstLaunch() {
         viewModelScope.launch(Dispatchers.IO) {
-            // Call datastore, room...
-            val isFirstLaunch = true // Fake is first launch
+            val isFirstLaunch = dataStoreManager.isFirstTime().first()
             if (isFirstLaunch) {
-                sendEvent(SplashEvent.NavigateToOnBoarding)
+                sendEvent(SplashEvent.NavigateToWelcome)
+                dataStoreManager.setDoneFirstTime()
             } else {
-                // Navigate to sign in or main
+                val currentUser = firebaseAuth.currentUser
+                if (currentUser != null) {
+                    sendEvent(SplashEvent.NavigateToMain)
+                } else {
+                    sendEvent(SplashEvent.NavigateToSignIn)
+                }
             }
         }
     }
