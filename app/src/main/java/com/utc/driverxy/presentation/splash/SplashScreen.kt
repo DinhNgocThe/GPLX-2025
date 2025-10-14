@@ -30,16 +30,30 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun SplashScreen(
     navigateToWelcome: () -> Unit,
+    navigateToMain: () -> Unit,
+    navigateToSignIn: () -> Unit,
     viewModel: SplashViewModel = koinViewModel()
 ) {
     val uiState by viewModel.viewState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
+        viewModel.processIntent(SplashIntent.CheckFirstLaunch)
+    }
+
+    LaunchedEffect(Unit) {
         delay(1500) // Fake load data 1.5s
         viewModel.singleEvent.collect { event ->
             when (event) {
-                SplashEvent.NavigateToOnBoarding -> {
+                SplashEvent.NavigateToWelcome -> {
                     navigateToWelcome()
+                }
+
+                SplashEvent.NavigateToMain -> {
+                    navigateToMain()
+                }
+
+                SplashEvent.NavigateToSignIn -> {
+                    navigateToSignIn()
                 }
             }
         }
