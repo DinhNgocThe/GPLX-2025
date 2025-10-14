@@ -34,6 +34,12 @@ fun NavRoutes() {
                         navigateToWelcome = {
                             backStack.replaceTop(Destination.Welcome)
                         },
+                        navigateToMain = {
+                            //backStack.replaceTop(Destination.Main)
+                        },
+                        navigateToSignIn = {
+                            backStack.replaceTop(Destination.SignIn)
+                        }
                     )
                 }
 
