@@ -17,6 +17,7 @@ class SignInViewModel(
     override fun processIntent(intent: SignInIntent) {
         when (intent) {
             is SignInIntent.SignInWithGoogle -> handleSignInWithGoogle(intent.activity)
+            SignInIntent.ContinueWithoutLogin -> handleContinueWithoutLogin()
         }
     }
 
@@ -35,6 +36,13 @@ class SignInViewModel(
                 sendEvent(SignInEvent.LoginError)
                 updateState { copy(isLoading = false) }
             }
+        }
+    }
+
+
+    private fun handleContinueWithoutLogin() {
+        viewModelScope.launch {
+            sendEvent(SignInEvent.NavigateToHome)
         }
     }
 }

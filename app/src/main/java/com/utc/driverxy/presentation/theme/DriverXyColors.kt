@@ -20,6 +20,7 @@ object DriverXyColors {
         val BackgroundOnboardingDots = Color(0xFFF5F5F5)
         val BackgroundTertiary = Color(0x70F2F2F7)
         val BackgroundTrashBottom = Color(0xFFD9EBFF)
+        val BackgroundLightBlue = Color(0xFFF2F8FF)
     }
 
     object Surface {
