@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.firebase.functions.ktx)
     implementation(libs.androidx.foundation.layout)
     implementation(libs.material3)
+    implementation(libs.androidx.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

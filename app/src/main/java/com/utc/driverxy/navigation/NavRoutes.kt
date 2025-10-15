@@ -11,6 +11,7 @@ import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
+import com.utc.driverxy.presentation.home.HomeScreen
 import com.utc.driverxy.presentation.onboarding.WelcomeScreen
 import com.utc.driverxy.presentation.onboarding.OnboardingScreen
 import com.utc.driverxy.presentation.signin.SignInScreen
@@ -59,9 +60,13 @@ fun NavRoutes() {
 
                 entry<Destination.SignIn> {
                     SignInScreen(
-                        innerPadding = innerPadding
-                        //navigateToLogin = { backStack.replaceTop(Destination.Login) }
+                        innerPadding = innerPadding,
+                        navigateToHome = { backStack.replaceTop(Destination.Home) }
                     )
+                }
+
+                entry<Destination.Home> {
+                    HomeScreen()
                 }
             }
         )
