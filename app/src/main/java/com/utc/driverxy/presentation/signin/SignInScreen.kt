@@ -1,6 +1,7 @@
 package com.utc.driverxy.presentation.signin
 
 import android.app.Activity
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,6 +21,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -38,15 +40,35 @@ import com.utc.driverxy.R
 import com.utc.driverxy.presentation.theme.DriverXyColors
 import com.utc.driverxy.presentation.theme.DriverXyTheme
 import com.utc.driverxy.presentation.theme.DriverXyTypography
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SignInScreen(
     innerPadding: PaddingValues,
+    navigateToHome: () -> Unit,
     viewModel: SignInViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
     val activity = context as Activity
+
+    LaunchedEffect(Unit) {
+        viewModel.singleEvent.collectLatest { event ->
+            when (event) {
+                is SignInEvent.NavigateToHome -> {
+                    navigateToHome()
+                }
+                is SignInEvent.LoginError -> {
+                    Toast.makeText(
+                        context,
+                        "Đăng nhập thất bại. Vui lòng thử lại!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
 
     Column(
         modifier = Modifier
@@ -247,6 +269,9 @@ fun SignInScreen(
 @Composable
 fun PreviewSignInScreen() {
     DriverXyTheme {
-        SignInScreen(innerPadding = PaddingValues())
+        SignInScreen(
+            navigateToHome = {},
+            innerPadding = PaddingValues()
+        )
     }
 }
