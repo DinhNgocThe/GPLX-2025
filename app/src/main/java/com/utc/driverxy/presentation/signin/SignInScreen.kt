@@ -61,7 +61,7 @@ fun SignInScreen(
                 is SignInEvent.LoginError -> {
                     Toast.makeText(
                         context,
-                        "Đăng nhập thất bại. Vui lòng thử lại!",
+                        stringResource(R.string.signin_login_error),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
