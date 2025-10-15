@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -158,7 +159,7 @@ fun SignInScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                text = "Bắt đầu thôi! Chúng tôi sẽ giúp bạn học lái xe hiệu quả từng bước.",
+                text = stringResource(R.string.signin_title),
                 style = DriverXyTypography.Body.Large.Medium,
                 color = DriverXyColors.Text.TextPrimary,
                 textAlign = TextAlign.Center,
@@ -190,7 +191,7 @@ fun SignInScreen(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Đăng nhập với Google",
+                        text = stringResource(R.string.signin_with_google),
                         style = DriverXyTypography.Title.Medium.SemiBold.copy(
                             color = DriverXyColors.Text.TextPrimary
                         )
@@ -201,7 +202,7 @@ fun SignInScreen(
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = "Tiếp tục mà không cần đăng nhập",
+                text = stringResource(R.string.signin_without_login),
                 style = DriverXyTypography.Title.Small.Medium.copy(
                     color = DriverXyColors.Black
                 ),

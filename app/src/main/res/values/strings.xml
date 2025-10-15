@@ -21,4 +21,9 @@
     <string name="onboarding_descripton_3">Chia nhỏ kiến thức, luyện tập dễ dàng và ghi nhớ lâu hơn mà không bị quá tải</string>
     <string name="onboarding_descripton_4">Theo dõi số câu đúng, điểm số và tiến bộ mỗi ngày</string>
     <string name="button_continue">Tiếp tục</string>
+
+    <!--SignIn-->
+    <string name="signin_title">Bắt đầu thôi! Chúng tôi sẽ giúp bạn học lái xe hiệu quả từng bước.</string>
+    <string name="signin_with_google">Đăng nhập với Google</string>
+    <string name="signin_without_login">Tiếp tục mà không cần đăng nhập</string>
 </resources>
