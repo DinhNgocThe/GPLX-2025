@@ -25,7 +25,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -61,7 +60,7 @@ fun SignInScreen(
                 is SignInEvent.LoginError -> {
                     Toast.makeText(
                         context,
-                        stringResource(R.string.signin_login_error),
+                        context.getString(R.string.signin_login_error),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -69,111 +68,25 @@ fun SignInScreen(
         }
     }
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(DriverXyColors.BackGround.BackgroundLightBlue)
             .padding(innerPadding),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Column(
+        Image(
+            painter = painterResource(R.drawable.img_login_banner),
+            contentDescription = null,
             modifier = Modifier
-                .padding(top = 24.dp)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.img_loginwave_1),
-                    contentDescription = null,
-                    modifier = Modifier.height(70.dp)
-                )
-                Image(
-                    painter = painterResource(R.drawable.img_loginpeople_1),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .height(72.dp)
-                        .clip(RoundedCornerShape(54.dp)),
-                    contentScale = ContentScale.Crop
-                )
-                Image(
-                    painter = painterResource(R.drawable.img_loginwave_1),
-                    contentDescription = null,
-                    modifier = Modifier.height(70.dp)
-                )
-            }
+                .fillMaxWidth()
+                .height(336.dp)
+                .padding(top = 24.dp),
+            contentScale = ContentScale.Crop
+        )
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.img_loginpeople_2),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .height(72.dp)
-                        .clip(RoundedCornerShape(54.dp)),
-                    contentScale = ContentScale.Crop
-                )
-                Image(
-                    painter = painterResource(R.drawable.img_loginwave_2),
-                    contentDescription = null,
-                    modifier = Modifier.height(70.dp)
-                )
-                Image(
-                    painter = painterResource(R.drawable.img_loginpeople_3),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .height(70.dp)
-                        .clip(RoundedCornerShape(54.dp)),
-                    contentScale = ContentScale.Crop
-                )
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.img_loginpeople_4),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .height(70.dp)
-                        .clip(RoundedCornerShape(36.dp)),
-                    contentScale = ContentScale.Crop
-                )
-                Image(
-                    painter = painterResource(R.drawable.img_loginwave_3),
-                    contentDescription = null,
-                    modifier = Modifier.height(70.dp)
-                )
-                Image(
-                    painter = painterResource(R.drawable.img_loginpeople_5),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .height(70.dp)
-                        .clip(RoundedCornerShape(54.dp)),
-                    contentScale = ContentScale.Crop
-                )
-                Image(
-                    painter = painterResource(R.drawable.img_loginwave_4),
-                    contentDescription = null,
-                    modifier = Modifier.height(70.dp)
-                )
-            }
-        }
+        Spacer(modifier = Modifier.height(24.dp))
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
