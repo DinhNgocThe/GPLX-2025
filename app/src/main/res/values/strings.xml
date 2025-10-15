@@ -26,4 +26,5 @@
     <string name="signin_title">Bắt đầu thôi! Chúng tôi sẽ giúp bạn học lái xe hiệu quả từng bước.</string>
     <string name="signin_with_google">Đăng nhập với Google</string>
     <string name="signin_without_login">Tiếp tục mà không cần đăng nhập</string>
+    <string name="signin_login_error">Đăng nhập thất bại. Vui lòng thử lại!</string>
 </resources>
