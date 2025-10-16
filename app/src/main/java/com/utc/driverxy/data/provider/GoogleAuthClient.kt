@@ -2,6 +2,7 @@ package com.utc.driverxy.data.firebase
 
 import android.app.Activity
 import android.util.Log
+import androidx.compose.ui.res.stringResource
 import androidx.credentials.ClearCredentialStateRequest
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
@@ -12,6 +13,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.utc.driverxy.R
 import kotlinx.coroutines.tasks.await
 
 class GoogleAuthClient(
@@ -25,7 +27,7 @@ class GoogleAuthClient(
 
             val googleIdOption = GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
-                .setServerClientId("254207663208-cc1bo17kmb4k5maaj7s7j2oi15vla9gi.apps.googleusercontent.com")
+                .setServerClientId(activity.getString(R.string.default_web_client_id))
                 .setAutoSelectEnabled(false)
                 .build()
 

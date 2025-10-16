@@ -20,6 +20,7 @@ object DriverXyColors {
         val BackgroundOnboardingDots = Color(0xFFF5F5F5)
         val BackgroundTertiary = Color(0x70F2F2F7)
         val BackgroundTrashBottom = Color(0xFFD9EBFF)
+        val BackgroundLightBlue = Color(0xFFF2F8FF)
     }
 
     object Surface {
@@ -41,7 +42,7 @@ object DriverXyColors {
 
     object Text {
         val TextPrimary = Black
-        val TextSecondary = Color(0xFF303030)
+        val TextSecondary = Color(0xFF2B2B2B)
         val TextTertiary = Color(0xFF808080)
         val TextDisabled = Color(0xFF999999)
         val Button = White
@@ -115,33 +116,7 @@ object DriverXyColors {
         val OnErrorContainerDark = Color(0xFFFFDAD6)
     }
 
-    object Speaker {
-        val Speaker0 = Color(0xFFF97316)  // Orange
-        val Speaker1 = Color(0xFF3B82F6)  // Blue
-        val Speaker2 = Color(0xFF8B5CF6)  // Purple
-        val Speaker3 = Color(0xFF10B981)  // Green
-        val Speaker4 = Color(0xFFF43F5E)  // Rose
-        val Speaker5 = Color(0xFFEAB308)  // Yellow
-        val Speaker6 = Color(0xFF0EA5E9)  // Sky Blue
-        val Speaker7 = Color(0xFFA855F7)  // Violet
-        val Speaker8 = Color(0xFF22D3EE)  // Cyan
-        val Speaker9 = Color(0xFFD946EF)  // Fuchsia
-        val Speaker10 = Color(0xFFFF6B6B) // Light Red
-        val Speaker11 = Color(0xFF4D96FF) // Light Blue
-        val Speaker12 = Color(0xFF845EC2) // Deep Purple
-        val Speaker13 = Color(0xFF00C9A7) // Teal
-        val Speaker14 = Color(0xFFFFC75F) // Amber
-        val Speaker15 = Color(0xFFFF9671) // Orange Red
-        val Speaker16 = Color(0xFF2C73D2) // Blue
-        val Speaker17 = Color(0xFFF9F871) // Lime
-        val Speaker18 = Color(0xFFD65DB1) // Pink
-        val Speaker19 = Color(0xFF008E9B) // Dark Cyan
-
-        // Default color for unknown speakers or error cases
-        val Default = Color(0xFF6B7280)   // Gray
-    }
-
-    object Separators {
-        val NonOpaque = Color(0x57545456)
+    object Neutral {
+        val Neutral00 = Color(0xFF1A1A1A)
     }
 }
