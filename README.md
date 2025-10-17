@@ -10,7 +10,7 @@
 7. Api Call: Retrofit
 8. Navigation: Navigation 3
 9. Architecture: MVI + Clean Architecture
-10. Language: Vietnamese or Vietnamese + English
+10. Language: Vietnamese 
 11. Theme: Material theme custom
 
 # Design
