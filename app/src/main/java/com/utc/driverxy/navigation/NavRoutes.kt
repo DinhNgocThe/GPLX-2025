@@ -1,8 +1,5 @@
 package com.utc.driverxy.navigation
 
-import android.graphics.Insets.add
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation3.runtime.NavBackStack
@@ -11,9 +8,9 @@ import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import com.utc.driverxy.presentation.home.HomeScreen
-import com.utc.driverxy.presentation.onboarding.WelcomeScreen
+import com.utc.driverxy.presentation.main.MainScreen
 import com.utc.driverxy.presentation.onboarding.OnboardingScreen
+import com.utc.driverxy.presentation.onboarding.WelcomeScreen
 import com.utc.driverxy.presentation.signin.SignInScreen
 import com.utc.driverxy.presentation.splash.SplashScreen
 
@@ -21,11 +18,7 @@ import com.utc.driverxy.presentation.splash.SplashScreen
 fun NavRoutes() {
     val backStack = rememberNavBackStack(Destination.Splash)
 
-    Scaffold(
-        bottomBar = {
-            // BottomBar layout
-        }
-    ) { innerPadding ->
+    Scaffold { innerPadding ->
         NavDisplay(
             backStack = backStack,
             onBack = { backStack.removeLastOrNull() },
@@ -36,7 +29,7 @@ fun NavRoutes() {
                             backStack.replaceTop(Destination.Welcome)
                         },
                         navigateToMain = {
-                            //backStack.replaceTop(Destination.Main)
+                            backStack.replaceTop(Destination.Main)
                         },
                         navigateToSignIn = {
                             backStack.replaceTop(Destination.SignIn)
@@ -61,12 +54,12 @@ fun NavRoutes() {
                 entry<Destination.SignIn> {
                     SignInScreen(
                         innerPadding = innerPadding,
-                        navigateToHome = { backStack.replaceTop(Destination.Home) }
+                        navigateToHome = { backStack.replaceTop(Destination.Main) }
                     )
                 }
 
-                entry<Destination.Home> {
-                    HomeScreen()
+                entry<Destination.Main> {
+                    MainScreen()
                 }
             }
         )

@@ -3,10 +3,8 @@ package com.utc.driverxy.presentation.signin
 import android.app.Activity
 import androidx.lifecycle.viewModelScope
 import com.utc.driverxy.base.BaseMviViewModel
-import com.utc.driverxy.data.firebase.GoogleAuthClient
-import kotlinx.coroutines.Dispatchers
+import com.utc.driverxy.data.provider.GoogleAuthClient
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SignInViewModel(
     private val googleAuthClient: GoogleAuthClient
@@ -16,6 +14,7 @@ class SignInViewModel(
     override fun processIntent(intent: SignInIntent) {
         when (intent) {
             is SignInIntent.SignInWithGoogle -> handleSignInWithGoogle(intent.activity)
+
             SignInIntent.SignInWithoutLogin -> handleContinueWithoutLogin()
         }
     }
@@ -23,12 +22,9 @@ class SignInViewModel(
     private fun handleSignInWithGoogle(activity: Activity) {
         viewModelScope.launch {
             updateState { copy(isLoading = true) }
+            val isSuccess = googleAuthClient.signIn(activity)
 
-            val result = withContext(Dispatchers.IO) {
-                googleAuthClient.signIn(activity)
-            }
-
-            if (result) {
+            if (isSuccess) {
                 sendEvent(SignInEvent.NavigateToHome)
                 updateState { copy(isLoading = false) }
             } else {

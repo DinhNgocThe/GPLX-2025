@@ -8,7 +8,7 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import com.google.firebase.auth.FirebaseAuth
 import com.utc.driverxy.data.datastore.DataStoreManager
 import com.utc.driverxy.data.datastore.DataStoreManagerImpl
-import com.utc.driverxy.data.firebase.GoogleAuthClient
+import com.utc.driverxy.data.provider.GoogleAuthClient
 import com.utc.driverxy.presentation.signin.SignInViewModel
 import com.utc.driverxy.presentation.splash.SplashViewModel
 import org.koin.core.module.dsl.viewModel
