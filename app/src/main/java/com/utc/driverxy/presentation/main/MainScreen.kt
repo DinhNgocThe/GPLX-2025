@@ -1,4 +1,4 @@
-package com.utc.driverxy.presentation.home
+package com.utc.driverxy.presentation.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun HomeScreen() {
+fun MainScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -20,7 +20,7 @@ fun HomeScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "HomeScreen",
+            text = "MainScreen",
             fontSize = 24.sp,
             color = Color.Black
         )
@@ -29,6 +29,6 @@ fun HomeScreen() {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun HomeScreenPreview() {
-    HomeScreen()
-    }
+fun MainScreenPreview() {
+    MainScreen()
+}

@@ -1,8 +1,7 @@
-package com.utc.driverxy.data.firebase
+package com.utc.driverxy.data.provider
 
 import android.app.Activity
 import android.util.Log
-import androidx.compose.ui.res.stringResource
 import androidx.credentials.ClearCredentialStateRequest
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
@@ -35,7 +34,6 @@ class GoogleAuthClient(
                 .addCredentialOption(googleIdOption)
                 .build()
 
-            // ⚠️ Phải truyền Activity ở đây, KHÔNG phải context
             val result: GetCredentialResponse = credentialManager.getCredential(activity, request)
             handleSignIn(result)
         } catch (e: Exception) {

@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.utc.driverxy.R
-import com.utc.driverxy.presentation.components.DriverXyButton
+import com.utc.driverxy.presentation.components.button.DriverXyButton
 import com.utc.driverxy.presentation.theme.DriverXyColors
 import com.utc.driverxy.presentation.theme.DriverXyTypography
 

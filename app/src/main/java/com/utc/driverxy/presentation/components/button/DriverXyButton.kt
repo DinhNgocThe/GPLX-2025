@@ -1,4 +1,4 @@
-package com.utc.driverxy.presentation.components
+package com.utc.driverxy.presentation.components.button
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
