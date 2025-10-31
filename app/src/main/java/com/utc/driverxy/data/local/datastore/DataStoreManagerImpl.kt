@@ -1,4 +1,4 @@
-package com.utc.driverxy.data.datastore
+package com.utc.driverxy.data.local.datastore
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
