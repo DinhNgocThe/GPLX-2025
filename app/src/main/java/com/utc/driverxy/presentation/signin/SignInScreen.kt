@@ -135,7 +135,7 @@ fun SignInScreenContent(
                     color = DriverXyColors.Text.TextPrimary
                 ),
                 leadingIcon = R.drawable.ic_google,
-                leadingIconSize = 20.dp,
+                leadingIconSize = 24.dp,
             )
 
             Spacer(modifier = Modifier.height(200.dp))
