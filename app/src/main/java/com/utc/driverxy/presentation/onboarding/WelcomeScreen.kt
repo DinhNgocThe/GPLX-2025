@@ -37,7 +37,7 @@ fun WelcomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(DriverXyColors.BackGround.BackgroundPrimary)
-            .padding(innerPadding.calculateTopPadding())
+            .padding(top = innerPadding.calculateTopPadding())
     ) {
         Column(
             modifier = Modifier
@@ -90,8 +90,8 @@ fun WelcomeScreen(
             onClick = navigateToOnboarding,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-                .heightIn(56.dp),
+                .heightIn(56.dp)
+                .padding(horizontal = 20.dp),
             style = DriverXyTypography.Title.Large.SemiBold.copy(
                 color = Color.White
             )

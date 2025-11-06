@@ -1,5 +1,6 @@
 package com.utc.driverxy.presentation.onboarding
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +22,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,24 +36,36 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.utc.driverxy.R
 import com.utc.driverxy.presentation.components.button.DriverXyButton
+import com.utc.driverxy.presentation.signin.SignInEvent
 import com.utc.driverxy.presentation.theme.DriverXyColors
 import com.utc.driverxy.presentation.theme.DriverXyTypography
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun OnboardingScreen(
     innerPadding: PaddingValues,
-    navigatetoSignIn: () -> Unit,
+    navigateToSignIn: () -> Unit,
+    viewModel: OnboardingViewModel = koinViewModel()
 ) {
     val scope = rememberCoroutineScope()
     val pages = getOnboardingPages()
     val pagerState = rememberPagerState(pageCount = { pages.size })
 
+    LaunchedEffect(Unit) {
+        viewModel.singleEvent.collectLatest { event ->
+            when (event) {
+                OnboardingEvent.NavigateToSignIn -> navigateToSignIn()
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = innerPadding.calculateTopPadding())
-            .background(DriverXyColors.BackGround.BackgroundPrimary),
+            .background(DriverXyColors.BackGround.BackgroundPrimary)
+            .padding(top = innerPadding.calculateTopPadding()),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -139,7 +153,7 @@ fun OnboardingScreen(
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
                 } else {
-                    navigatetoSignIn()
+                    viewModel.processIntent(OnboardingIntent.NavigateToSignIn)
                 }
             },
             modifier = Modifier
@@ -192,6 +206,6 @@ fun getOnboardingPages(): List<OnboardingPage> {
 private fun OnboardingScreenPreview() {
     OnboardingScreen(
         innerPadding = PaddingValues(),
-        navigatetoSignIn = {}
+        navigateToSignIn = {}
     )
 }

@@ -4,8 +4,6 @@ import android.app.Activity
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -74,9 +71,6 @@ fun SignInScreen(
         uiState = uiState,
         signInWithGoogle = {
             viewModel.processIntent(SignInIntent.SignInWithGoogle(activity))
-        },
-        signInWithoutLogin = {
-            viewModel.processIntent(SignInIntent.SignInWithoutLogin)
         }
     )
 }
@@ -85,8 +79,7 @@ fun SignInScreen(
 fun SignInScreenContent(
     innerPadding: PaddingValues,
     uiState: SignInState,
-    signInWithGoogle: () -> Unit,
-    signInWithoutLogin: () -> Unit
+    signInWithGoogle: () -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -142,25 +135,10 @@ fun SignInScreenContent(
                     color = DriverXyColors.Text.TextPrimary
                 ),
                 leadingIcon = R.drawable.ic_google,
-                leadingIconSize = 20.dp,
+                leadingIconSize = 24.dp,
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Text(
-                text = stringResource(R.string.signin_without_login),
-                style = DriverXyTypography.Body.Medium,
-                color = DriverXyColors.Text.TextSecondary,
-                modifier = Modifier
-                    .clickable(
-                        indication = null,
-                        interactionSource = remember { MutableInteractionSource() }
-                    ) {
-                        signInWithoutLogin()
-                    }
-            )
-
-            Spacer(modifier = Modifier.height(164.dp))
+            Spacer(modifier = Modifier.height(200.dp))
         }
 
         if (uiState.isLoading) {
@@ -186,7 +164,6 @@ fun PreviewSignInScreen() {
     SignInScreenContent(
         innerPadding = PaddingValues(),
         uiState = SignInState(),
-        signInWithGoogle = { },
-        signInWithoutLogin = { }
+        signInWithGoogle = { }
     )
 }

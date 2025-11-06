@@ -34,8 +34,6 @@ fun SplashScreen(
     navigateToSignIn: () -> Unit,
     viewModel: SplashViewModel = koinViewModel()
 ) {
-    val uiState by viewModel.viewState.collectAsStateWithLifecycle()
-
     LaunchedEffect(Unit) {
         viewModel.processIntent(SplashIntent.CheckFirstLaunch)
     }
