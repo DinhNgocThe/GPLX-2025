@@ -36,7 +36,7 @@ fun ButtonWithIcon(
     modifier: Modifier = Modifier,
     shape: Shape = DriverXyShapes.extraLarge,
     containerColor: Color = DriverXyColors.BackGround.BackgroundPrimary,
-    text: String = stringResource(R.string.signin_with_google),
+    text: String = stringResource(R.string.sign_in_with_google),
     style: TextStyle = DriverXyTypography.Title.Medium.SemiBold.copy(
         color = DriverXyColors.Text.TextPrimary
     ),

@@ -1,12 +1,10 @@
 package com.utc.driverxy.presentation.onboarding
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,8 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,7 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.utc.driverxy.R
 import com.utc.driverxy.presentation.components.button.DriverXyButton
-import com.utc.driverxy.presentation.signin.SignInEvent
+import com.utc.driverxy.presentation.onboarding.model.OnboardingPage
+import com.utc.driverxy.presentation.onboarding.model.getOnboardingPages
 import com.utc.driverxy.presentation.theme.DriverXyColors
 import com.utc.driverxy.presentation.theme.DriverXyTypography
 import kotlinx.coroutines.flow.collectLatest
@@ -45,11 +46,9 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun OnboardingScreen(
-    innerPadding: PaddingValues,
     navigateToSignIn: () -> Unit,
     viewModel: OnboardingViewModel = koinViewModel()
 ) {
-    val scope = rememberCoroutineScope()
     val pages = getOnboardingPages()
     val pagerState = rememberPagerState(pageCount = { pages.size })
 
@@ -61,11 +60,26 @@ fun OnboardingScreen(
         }
     }
 
+    OnboardingContent(
+        pages = pages,
+        pagerState = pagerState,
+        onIntent = viewModel::processIntent
+    )
+}
+
+@Composable
+fun OnboardingContent(
+    pages: List<OnboardingPage>,
+    pagerState: PagerState,
+    onIntent: (OnboardingIntent) -> Unit
+) {
+    val scope = rememberCoroutineScope()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DriverXyColors.BackGround.BackgroundPrimary)
-            .padding(top = innerPadding.calculateTopPadding()),
+            .statusBarsPadding()
+            .background(DriverXyColors.BackGround.BackgroundPrimary),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -153,7 +167,7 @@ fun OnboardingScreen(
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
                 } else {
-                    viewModel.processIntent(OnboardingIntent.NavigateToSignIn)
+                    onIntent(OnboardingIntent.NavigateToSignIn)
                 }
             },
             modifier = Modifier
@@ -170,42 +184,14 @@ fun OnboardingScreen(
     }
 }
 
-data class OnboardingPage(
-    val title: Int,
-    val description: Int,
-    val imageResource: Int
-)
-
-fun getOnboardingPages(): List<OnboardingPage> {
-    return listOf(
-        OnboardingPage(
-            title = R.string.onboarding_title_1,
-            description = R.string.onboarding_descripton_1,
-            imageResource = R.drawable.img_onboarding_1
-        ),
-        OnboardingPage(
-            title = R.string.onboarding_title_2,
-            description = R.string.onboarding_descripton_2,
-            imageResource = R.drawable.img_onboarding_2
-        ),
-        OnboardingPage(
-            title = R.string.onboarding_title_3,
-            description = R.string.onboarding_descripton_3,
-            imageResource = R.drawable.img_onboarding_3
-        ),
-        OnboardingPage(
-            title = R.string.onboarding_title_4,
-            description = R.string.onboarding_descripton_4,
-            imageResource = R.drawable.img_onboarding_4
-        ),
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
 private fun OnboardingScreenPreview() {
-    OnboardingScreen(
-        innerPadding = PaddingValues(),
-        navigateToSignIn = {}
-    )
+    val pages = getOnboardingPages()
+    val pagerState = rememberPagerState(pageCount = { pages.size })
+    OnboardingContent(
+        pages = pages,
+        pagerState = pagerState,
+        onIntent = { }
+    ) 
 }
