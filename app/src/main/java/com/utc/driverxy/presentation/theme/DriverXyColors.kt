@@ -10,13 +10,13 @@ object DriverXyColors {
     val Green = Color(0xFF34C759)
 
     object Primary {
-        val Primary1 = Color(0xFF0077FF)
+        val Primary1 = Color(0xFF5F33E1)
         val Primary1Opacity = Color(0xFFEBF5FF)
     }
 
     object BackGround {
         val BackgroundPrimary = White
-        val BackgroundSecondary = Color(0xFFFAFAFA)
+        val BackgroundSecondary = Color(0xFFEEE9FF)
         val BackgroundOnboardingDots = Color(0xFFF5F5F5)
         val BackgroundTertiary = Color(0x70F2F2F7)
         val BackgroundTrashBottom = Color(0xFFD9EBFF)

@@ -30,14 +30,12 @@ import com.utc.driverxy.presentation.theme.DriverXyTypography
 
 @Composable
 fun WelcomeScreen(
-    innerPadding: PaddingValues,
     navigateToOnboarding: () -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(DriverXyColors.BackGround.BackgroundPrimary)
-            .padding(top = innerPadding.calculateTopPadding())
     ) {
         Column(
             modifier = Modifier
@@ -105,7 +103,6 @@ fun WelcomeScreen(
 @Composable
 private fun WelcomeScreenPreview() {
     WelcomeScreen(
-        innerPadding = PaddingValues(),
         navigateToOnboarding = {}
     )
 }

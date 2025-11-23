@@ -6,7 +6,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,7 +40,6 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SignInScreen(
-    innerPadding: PaddingValues,
     navigateToHome: () -> Unit,
     viewModel: SignInViewModel = koinViewModel()
 ) {
@@ -58,7 +56,7 @@ fun SignInScreen(
                 is SignInEvent.LoginError -> {
                     Toast.makeText(
                         context,
-                        context.getString(R.string.signin_login_error),
+                        context.getString(R.string.sign_in_login_error),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -67,7 +65,6 @@ fun SignInScreen(
     }
 
     SignInScreenContent(
-        innerPadding = innerPadding,
         uiState = uiState,
         signInWithGoogle = {
             viewModel.processIntent(SignInIntent.SignInWithGoogle(activity))
@@ -77,7 +74,6 @@ fun SignInScreen(
 
 @Composable
 fun SignInScreenContent(
-    innerPadding: PaddingValues,
     uiState: SignInState,
     signInWithGoogle: () -> Unit
 ) {
@@ -87,8 +83,7 @@ fun SignInScreenContent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(DriverXyColors.BackGround.BackgroundLightBlue)
-                .padding(innerPadding),
+                .background(DriverXyColors.BackGround.BackgroundLightBlue),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(
@@ -110,7 +105,7 @@ fun SignInScreenContent(
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                text = stringResource(R.string.signin_title),
+                text = stringResource(R.string.sign_in_title),
                 style = DriverXyTypography.Body.Large.Medium,
                 color = DriverXyColors.Neutral.Neutral00,
                 textAlign = TextAlign.Center,
@@ -130,7 +125,7 @@ fun SignInScreenContent(
                         ambientColor = Color.Black.copy(0.4f),
                         spotColor = Color.Black.copy(0.4f)
                     ),
-                text = stringResource(R.string.signin_with_google),
+                text = stringResource(R.string.sign_in_with_google),
                 style = DriverXyTypography.Title.Medium.Bold.copy(
                     color = DriverXyColors.Text.TextPrimary
                 ),
@@ -144,12 +139,13 @@ fun SignInScreenContent(
         if (uiState.isLoading) {
             Box(
                 modifier = Modifier
+                    .background(Color.Black.copy(alpha = 0.5f))
                     .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.5f)),
+                    .padding(bottom = 100.dp),
                 contentAlignment = Alignment.Center
             ) {
                 LottieView(
-                    lottieResId = R.raw.anim_loading_circle,
+                    lottieResId = R.raw.anim_loading_white,
                     modifier = Modifier.size(60.dp)
                 )
             }
@@ -162,7 +158,6 @@ fun SignInScreenContent(
 @Composable
 fun PreviewSignInScreen() {
     SignInScreenContent(
-        innerPadding = PaddingValues(),
         uiState = SignInState(),
         signInWithGoogle = { }
     )

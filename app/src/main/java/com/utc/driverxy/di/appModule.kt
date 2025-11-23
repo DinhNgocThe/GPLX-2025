@@ -16,6 +16,7 @@ import com.utc.driverxy.data.remote.datasource.UserRemoteDataSourceImpl
 import com.utc.driverxy.data.repository.UserRepositoryImpl
 import com.utc.driverxy.domain.repository.UserRepository
 import com.utc.driverxy.domain.usecase.user.SaveUserUseCase
+import com.utc.driverxy.presentation.main.MainViewModel
 import com.utc.driverxy.presentation.onboarding.OnboardingViewModel
 import com.utc.driverxy.presentation.signin.SignInViewModel
 import com.utc.driverxy.presentation.splash.SplashViewModel
@@ -77,4 +78,5 @@ val appModule = module {
     viewModel { SplashViewModel(get(), get()) }
     viewModel { SignInViewModel(get(), get(), get()) }
     viewModel { OnboardingViewModel(get()) }
+    viewModel { MainViewModel() }
 }
