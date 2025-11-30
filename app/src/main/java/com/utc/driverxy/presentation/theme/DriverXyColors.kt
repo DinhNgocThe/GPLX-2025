@@ -4,14 +4,16 @@ import androidx.compose.ui.graphics.Color
 
 object DriverXyColors {
     val White = Color(0xFFFFFFFF)
+    val White15 = Color(0x26FFFFFF)
     val Black = Color(0xFF000000)
     val Red = Color(0xFFFF3429)
     val Blue = Color(0xFF007AFF)
     val Green = Color(0xFF34C759)
 
     object Primary {
-        val Primary1 = Color(0xFF5F33E1)
-        val Primary1Opacity = Color(0xFFEBF5FF)
+        val Primary = Color(0xFF4894FE)
+        val PrimaryBackground = Color(0xFFF0F8FF)
+        val Gradient1 = listOf(Primary, Color(0xFF53B2F3))
     }
 
     object BackGround {
@@ -118,5 +120,6 @@ object DriverXyColors {
 
     object Neutral {
         val Neutral00 = Color(0xFF1A1A1A)
+        val Neutral08 = Color(0xFFEBEBEB)
     }
 }

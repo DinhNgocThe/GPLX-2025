@@ -28,7 +28,7 @@ abstract class BaseNotification(protected val context: Context) {
 
     open fun getSmallIcon() = R.drawable.ic_logo
 
-    open fun getIconColor(): Int = DriverXyColors.Primary.Primary1.value.toInt()
+    open fun getIconColor(): Int = DriverXyColors.Primary.Primary.value.toInt()
 
     open fun getPriority() = NotificationCompat.PRIORITY_HIGH
 

@@ -9,12 +9,15 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.utc.driverxy.presentation.exam.ExamScreen
 import com.utc.driverxy.presentation.home.HomeScreen
@@ -54,19 +57,24 @@ fun MainScreenContent(
                         scaleIn(initialScale = 0.96f, animationSpec = tween(150)))
                     .togetherWith(fadeOut(animationSpec = tween(150)))
             },
-            label = "main_content"
+            label = "main_content",
         ) { page ->
-            when (page) {
-                MainTab.HOME -> HomeScreen()
-                MainTab.PRACTICE -> PracticeScreen()
-                MainTab.EXAM -> ExamScreen()
+            key(page) {
+                when (page) {
+                    MainTab.HOME -> HomeScreen()
+                    MainTab.PRACTICE -> PracticeScreen()
+                    MainTab.EXAM -> ExamScreen()
+                }
             }
         }
 
         // Bottom nav bar
         BottomNavBar(
-            modifier = Modifier.align(Alignment.BottomCenter),
-            onTabClick = onTabClick
+            tabSelected = viewState.currentTab,
+            onTabClick = onTabClick,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 36.dp, start = 16.dp, end = 16.dp)
         )
     }
 }

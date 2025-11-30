@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -66,7 +65,7 @@ fun WelcomeScreen(
             Text(
                 text = stringResource(R.string.app_name),
                 style = DriverXyTypography.Headline.Medium.Bold,
-                color = DriverXyColors.Primary.Primary1,
+                color = DriverXyColors.Primary.Primary,
                 textAlign = TextAlign.Center
             )
         }

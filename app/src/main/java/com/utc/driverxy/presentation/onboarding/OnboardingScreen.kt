@@ -144,7 +144,7 @@ fun OnboardingContent(
             ) {
                 repeat(pagerState.pageCount) { iteration ->
                     val color = if (pagerState.currentPage == iteration) {
-                        DriverXyColors.Primary.Primary1
+                        DriverXyColors.Primary.Primary
                     } else DriverXyColors.Border.BorderDropDown
                     Box(
                         modifier = Modifier
