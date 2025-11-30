@@ -25,7 +25,8 @@ fun DriverXyButton(
     text: String = stringResource(R.string.get_started),
     style: TextStyle = DriverXyTypography.Title.Medium.SemiBold.copy(
         color = Color.White
-    )
+    ),
+    isFillMaxWidth: Boolean = true
 ) {
     Button(
         onClick = onClick,
@@ -33,7 +34,14 @@ fun DriverXyButton(
             containerColor = containerColor
         ),
         shape = shape,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .then(
+                if (isFillMaxWidth) {
+                    Modifier.fillMaxWidth()
+                } else {
+                    Modifier
+                }
+            )
     ) {
         Text(
             text = text,
