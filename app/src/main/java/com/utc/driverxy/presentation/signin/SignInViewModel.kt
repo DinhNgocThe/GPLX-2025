@@ -1,6 +1,7 @@
 package com.utc.driverxy.presentation.signin
 
 import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.utc.driverxy.base.BaseMviViewModel

@@ -29,4 +29,6 @@
     <string name="home" translatable="false">Home</string>
     <string name="practice">Practice</string>
     <string name="exam">Exam</string>
+    <string name="hello">Hello</string>
+    <string name="current_rank">Current rank</string>
 </resources>

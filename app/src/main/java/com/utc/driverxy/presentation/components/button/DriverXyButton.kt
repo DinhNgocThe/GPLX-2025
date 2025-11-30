@@ -21,7 +21,7 @@ fun DriverXyButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = DriverXyShapes.extraLarge,
-    containerColor: Color = DriverXyColors.Primary.Primary1,
+    containerColor: Color = DriverXyColors.Primary.Primary,
     text: String = stringResource(R.string.get_started),
     style: TextStyle = DriverXyTypography.Title.Medium.SemiBold.copy(
         color = Color.White

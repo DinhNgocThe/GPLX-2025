@@ -3,9 +3,9 @@ package com.utc.driverxy.domain.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class User(
+data class Rank(
     val id: String,
-    val name: String,
-    val photoUrl: String,
-    val email: String
+    val type: String,
+    val displayName: String,
+    val description: String
 )

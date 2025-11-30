@@ -19,4 +19,6 @@
     <string name="sign_in_login_error">Đăng nhập thất bại. Vui lòng thử lại!</string>
     <string name="practice">Luyện tập</string>
     <string name="exam">Thi thử</string>
+    <string name="hello">Xin chào</string>
+    <string name="current_rank">Hạng hiện tại</string>
 </resources>

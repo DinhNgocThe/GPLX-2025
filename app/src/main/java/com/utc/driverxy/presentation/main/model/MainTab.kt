@@ -4,6 +4,6 @@ import com.utc.driverxy.R
 
 enum class MainTab(val iconRes: Int, val title: Int) {
     HOME(R.drawable.ic_tab_home, R.string.home),
-    PRACTICE(R.drawable.ic_tab_home, R.string.practice),
-    EXAM(R.drawable.ic_tab_home, R.string.exam)
+    PRACTICE(R.drawable.ic_tab_practice, R.string.practice),
+    EXAM(R.drawable.ic_tab_exam, R.string.exam)
 }

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.map
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import com.utc.driverxy.domain.model.Rank
 import com.utc.driverxy.domain.model.User
 import kotlinx.serialization.json.Json
 
@@ -46,11 +47,42 @@ class DataStoreManagerImpl(
                 val userString = preferences[DataStoreKey.USER_INFO]
                 userString?.let {
                     try {
-                        json.decodeFromString<User>(it)
+                        val user = json.decodeFromString<User>(it)
+                        user
                     } catch (e: Exception) {
                         Log.e("DataStoreManager", "Error decoding user JSON: ${e.message}")
                         null
                     }
+                }
+            }
+    }
+
+    override suspend fun saveCurrentRank(rank: Rank) {
+        try {
+            val rankString = json.encodeToString(rank)
+            dataStore.edit { preferences ->
+                preferences[DataStoreKey.CURRENT_RANK] = rankString
+            }
+        } catch (exception: Exception) {
+            Log.e("DataStoreManager", "Error saving current rank to preferences")
+        }
+    }
+
+    override fun getCurrentRank(): Flow<Rank> {
+        return dataStore.data
+            .map { preferences ->
+                val currentRankString = preferences[DataStoreKey.CURRENT_RANK]
+                try {
+                    val currentRank = json.decodeFromString<Rank>(currentRankString ?: "")
+                    currentRank
+                } catch (e: Exception) {
+                    Log.e("DataStoreManager", "Error decoding current rank JSON: ${e.message}")
+                    Rank(
+                        id = "ranka1",
+                        type = "moto",
+                        displayName = "A1",
+                        description = ""
+                    )
                 }
             }
     }

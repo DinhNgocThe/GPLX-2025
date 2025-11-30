@@ -1,4 +1,4 @@
-package com.utc.driverxy.utils.ext
+package com.utc.driverxy.utils
 
 object Constant {
     object MainTabIndex {
