@@ -21,4 +21,19 @@
     <string name="exam">Thi thử</string>
     <string name="hello">Xin chào</string>
     <string name="current_rank">Hạng hiện tại</string>
+    <string name="cant_miss">Không thể bỏ lỡ</string>
+    <string name="wrong_sentence">Câu sai</string>
+    <string name="wrong_sentence_description">Tổng hợp những câu hỏi sai nhiều nhất</string>
+    <string name="tips">Mẹo hay</string>
+    <string name="tips_description">Những mẹo giúp bạn ghi nhớ các câu hỏi dễ dàng</string>
+    <string name="scan_traffic_signs">Quét biển báo</string>
+    <string name="scan_traffic_signs_description">Nhận dạng biển báo thông qua camera ai</string>
+    <string name="noted">Đã lưu</string>
+    <string name="noted_description">Những câu hỏi cần ôn lại</string>
+    <string name="review_progress">Theo dõi tiến độ</string>
+    <string name="question">Câu hỏi</string>
+    <string name="critical_question">Câu hỏi điểm liệt</string>
+    <string name="traffic_signs">Biển báo</string>
+    <string name="driving_scenario">Sa hình</string>
+    <string name="change_rank">Đổi hạng</string>
 </resources>

@@ -31,4 +31,19 @@
     <string name="exam">Exam</string>
     <string name="hello">Hello</string>
     <string name="current_rank">Current rank</string>
+    <string name="cant_miss">Can\'t miss</string>
+    <string name="wrong_sentence">Wrong sentence</string>
+    <string name="wrong_sentence_description">Summary of the most wrong questions</string>
+    <string name="tips">Tips</string>
+    <string name="tips_description">Tips to help you remember questions easily</string>
+    <string name="scan_traffic_signs">Scan traffic signs</string>
+    <string name="scan_traffic_signs_description">Sign recognition through ai camera</string>
+    <string name="noted">Noted</string>
+    <string name="noted_description">Questions to review</string>
+    <string name="review_progress">Review progress</string>
+    <string name="question">Question</string>
+    <string name="critical_question">Critical question</string>
+    <string name="traffic_signs">Traffic signs</string>
+    <string name="driving_scenario">Driving Scenario</string>
+    <string name="change_rank">Change rank</string>
 </resources>

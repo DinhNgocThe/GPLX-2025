@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,11 +24,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
-import coil3.request.crossfade
 import coil3.request.error
 import coil3.request.fallback
 import coil3.request.placeholder
 import com.utc.driverxy.R
+import com.utc.driverxy.presentation.components.button.DriverXyButton
 import com.utc.driverxy.presentation.theme.DriverXyColors
 import com.utc.driverxy.presentation.theme.DriverXyShapes
 import com.utc.driverxy.presentation.theme.DriverXyTypography
@@ -39,6 +38,7 @@ fun HomeCard(
     photoUrl: String,
     userName: String,
     rank: String,
+    onChangeRank: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -47,7 +47,7 @@ fun HomeCard(
             .clip(DriverXyShapes.extraLarge)
             .background(
                 brush = Brush.linearGradient(
-                    colors = DriverXyColors.Primary.Gradient1,
+                    colors = DriverXyColors.Gradient.HomeCard,
                     start = Offset(0f, 0f),
                     end = Offset(Float.POSITIVE_INFINITY, 0f)
                 )
@@ -109,11 +109,32 @@ fun HomeCard(
             color = DriverXyColors.White15
         )
 
-        Text(
-            text = stringResource(R.string.current_rank) + ": " + rank,
-            style = DriverXyTypography.Title.Large.Bold,
-            color = DriverXyColors.White
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(R.string.current_rank) + ": " + rank,
+                style = DriverXyTypography.Title.Large.Bold,
+                color = DriverXyColors.White,
+                modifier = Modifier
+                    .padding(end = 16.dp)
+                    .weight(1f)
+            )
+
+            DriverXyButton(
+                onClick = {
+                    onChangeRank()
+                },
+                modifier = Modifier,
+                shape = DriverXyShapes.large,
+                containerColor = DriverXyColors.White,
+                text = stringResource(R.string.change_rank),
+                style = DriverXyTypography.Title.Medium.Bold.copy(
+                    DriverXyColors.Text.TextPrimary
+                ),
+                isFillMaxWidth = false
+            )
+        }
     }
 }
 
@@ -123,6 +144,7 @@ private fun HomeCardPreview() {
     HomeCard(
         photoUrl = "photourl",
         userName = "Đinh Ngọc Thế",
-        rank = "Hạng A1"
+        rank = "A1",
+        onChangeRank = {}
     )
 }

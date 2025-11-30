@@ -72,9 +72,7 @@ fun MainScreenContent(
         BottomNavBar(
             tabSelected = viewState.currentTab,
             onTabClick = onTabClick,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 36.dp, start = 16.dp, end = 16.dp)
+            modifier = Modifier.align(Alignment.BottomCenter)
         )
     }
 }

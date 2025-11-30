@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 object DriverXyColors {
     val White = Color(0xFFFFFFFF)
     val White15 = Color(0x26FFFFFF)
+    val White60 = Color(0x99FFFFFF)
     val Black = Color(0xFF000000)
     val Red = Color(0xFFFF3429)
     val Blue = Color(0xFF007AFF)
@@ -13,15 +14,12 @@ object DriverXyColors {
     object Primary {
         val Primary = Color(0xFF4894FE)
         val PrimaryBackground = Color(0xFFF0F8FF)
-        val Gradient1 = listOf(Primary, Color(0xFF53B2F3))
     }
 
     object BackGround {
         val BackgroundPrimary = White
-        val BackgroundSecondary = Color(0xFFEEE9FF)
+        val BackgroundSecondary = Color(0xFFFAFAFA)
         val BackgroundOnboardingDots = Color(0xFFF5F5F5)
-        val BackgroundTertiary = Color(0x70F2F2F7)
-        val BackgroundTrashBottom = Color(0xFFD9EBFF)
         val BackgroundLightBlue = Color(0xFFF2F8FF)
     }
 
@@ -61,26 +59,12 @@ object DriverXyColors {
     }
 
     object Gradient {
-        val PrimaryGradient = listOf(
-            Color(0xFF0077FF),
-            Color(0xFF41A1FF),
-            Color(0xFF4C8AFF),
-        )
-
-        val linearGradient = listOf(
-            Color(0xFF509DF5),
-            Color(0xFF59ADFF),
-            Color(0xFF2F76FF)
-        )
-
-        val Gradient2 = listOf(
-            Color(0xFFFF8026),
-            Color(0xFFFF37C3)
-        )
-        val BannerGradient = listOf(
-            Color(0xFF8CC0FB),
-            Color(0xFF73B6F8),
-            Color(0xFF5D93FA),
+        val HomeCard = listOf(Primary.Primary, Color(0xFF53B2F3))
+        val CantMiss = listOf(
+            listOf(Color(0xFF31A05F), Color(0xFF31A078)),
+            listOf(Color(0xFFD98F39), Color(0xFFF0C735)),
+            listOf(Color(0xFF979797), Color(0xFFCAC9C9)),
+            listOf(Color(0xFF6560E3), Color(0xFFBA8DF3))
         )
     }
 

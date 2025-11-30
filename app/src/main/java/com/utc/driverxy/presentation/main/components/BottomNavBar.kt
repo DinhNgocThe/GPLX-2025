@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -36,59 +37,75 @@ fun BottomNavBar(
     modifier: Modifier = Modifier,
     onTabClick: (MainTab) -> Unit
 ) {
-    Row(
+    Box(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(80.dp)
-            .border(
-                width = 1.dp,
-                shape = DriverXyShapes.extraLarge,
-                color = DriverXyColors.Neutral.Neutral08
-            )
-            .shadow(
-                elevation = 4.dp,
-                shape = DriverXyShapes.extraLarge,
-                ambientColor = Color.Black.copy(alpha = 0.3f),
-                spotColor = Color.Black.copy(alpha = 0.3f)
-            )
-            .clip(DriverXyShapes.extraLarge)
-            .background(DriverXyColors.White),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        MainTab.entries.forEach { mainTab ->
-            val background = if (mainTab == tabSelected) {
-                DriverXyColors.Primary.PrimaryBackground
-            } else {
-                DriverXyColors.White
-            }
-
-            Row(
-                modifier = Modifier
-                    .clip(DriverXyShapes.large) // bo góc toàn Row
-                    .background(background)
-                    .rawClickable { onTabClick(mainTab) }
-                    .height(48.dp)
-                    .padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Icon(
-                    painter = painterResource(mainTab.iconRes),
-                    contentDescription = null,
-                    tint = DriverXyColors.Primary.Primary,
-                    modifier = Modifier.size(28.dp)
-                )
-
-                AnimatedVisibility(visible = mainTab == tabSelected) {
-                    Text(
-                        text = stringResource(mainTab.title),
-                        style = DriverXyTypography.Title.Medium.Bold.copy(color = DriverXyColors.Primary.Primary),
-                        modifier = Modifier.padding(start = 8.dp)
+            .heightIn(120.dp)
+            .background(
+                brush = Brush.verticalGradient(
+                    colorStops = arrayOf(
+                        0.0f to Color.Transparent,
+                        0.3f to Color.White,
+                        1.0f to Color.White
                     )
+                )
+            )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .heightIn(80.dp)
+                .border(
+                    width = 1.dp,
+                    shape = DriverXyShapes.extraLarge,
+                    color = DriverXyColors.Neutral.Neutral08
+                )
+                .shadow(
+                    elevation = 4.dp,
+                    shape = DriverXyShapes.extraLarge,
+                    ambientColor = Color.Black.copy(alpha = 0.3f),
+                    spotColor = Color.Black.copy(alpha = 0.3f)
+                )
+                .clip(DriverXyShapes.extraLarge)
+                .background(DriverXyColors.White)
+                .align(Alignment.Center),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            MainTab.entries.forEach { mainTab ->
+                val background = if (mainTab == tabSelected) {
+                    DriverXyColors.Primary.PrimaryBackground
+                } else {
+                    DriverXyColors.White
+                }
+
+                Row(
+                    modifier = Modifier
+                        .clip(DriverXyShapes.large) // bo góc toàn Row
+                        .background(background)
+                        .rawClickable { onTabClick(mainTab) }
+                        .height(48.dp)
+                        .padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        painter = painterResource(mainTab.iconRes),
+                        contentDescription = null,
+                        tint = DriverXyColors.Primary.Primary,
+                        modifier = Modifier.size(28.dp)
+                    )
+
+                    AnimatedVisibility(visible = mainTab == tabSelected) {
+                        Text(
+                            text = stringResource(mainTab.title),
+                            style = DriverXyTypography.Title.Medium.Bold.copy(color = DriverXyColors.Primary.Primary),
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    }
                 }
             }
-
         }
     }
 }
