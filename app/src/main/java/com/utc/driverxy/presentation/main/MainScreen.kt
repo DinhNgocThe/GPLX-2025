@@ -9,7 +9,6 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -17,20 +16,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.utc.driverxy.presentation.exam.ExamScreen
 import com.utc.driverxy.presentation.home.HomeScreen
 import com.utc.driverxy.presentation.main.components.BottomNavBar
 import com.utc.driverxy.presentation.main.model.MainTab
 import com.utc.driverxy.presentation.practice.PracticeScreen
+import com.utc.driverxy.utils.CameraPermissionRequestOnce
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+    CameraPermissionRequestOnce { onResult ->
+
+    }
 
     MainScreenContent(
         viewState = viewState,

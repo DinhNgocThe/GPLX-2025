@@ -1,6 +1,7 @@
 package com.utc.driverxy.di
 
 import android.app.Application
+import com.google.firebase.FirebaseApp
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
@@ -13,6 +14,7 @@ class KoinApp : Application() {
                 appModule,
                 viewModelModule
             )
+            FirebaseApp.initializeApp(this@KoinApp)
         }
     }
 }
