@@ -10,16 +10,13 @@ import com.utc.driverxy.presentation.home.model.CantMiss
 
 data class HomeState(
     val user: User? = null,
-    val currentRank: Rank? = null,
-    val isShowCamera: Boolean = false
+    val currentRank: Rank? = null
 ) : MviViewState
 
 sealed class HomeIntent : MviIntent {
     data class OnCantMissClick(val option: CantMiss) : HomeIntent()
-    data object OnCloseCamera: HomeIntent()
-    data class OnPhotoTaken(val bitmap: Bitmap): HomeIntent()
 }
 
 sealed class HomeEvent: MviSingleEvent {
-
+    data object NavigateToScanTrafficSigns : HomeEvent()
 }

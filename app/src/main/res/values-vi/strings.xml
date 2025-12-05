@@ -36,4 +36,17 @@
     <string name="traffic_signs">Biển báo</string>
     <string name="driving_scenario">Sa hình</string>
     <string name="change_rank">Đổi hạng</string>
+    <string name="scan_traffic_screen_title">Tải lên hình ảnh có chứa biển báo giao thông</string>
+    <string name="scan_traffic_screen_description">Quét biển báo giao thông ngay lập tức với DriverXy AI, hiểu nhanh ý nghĩa của bất kỳ biển báo nào bạn không nhận ra.</string>
+    <string name="upload_image">Tải lên hình ảnh</string>
+    <string name="or">hoặc</string>
+    <string name="open_camera">Mở Camera</string>
+    <string name="sign_code">Mã biển</string>
+    <string name="sign_name">Tên biển báo</string>
+    <string name="sign_group">Nhóm biển</string>
+    <string name="meaning">Ý nghĩa</string>
+    <string name="applicable_cases">Trường hợp áp dụng</string>
+    <string name="notes">Ghi chú</string>
+    <string name="scan_traffic_signs_error">Không phát hiện bất kỳ biển báo giao thông nào</string>
+    <string name="analyzing">Đang phân tích...</string>
 </resources>

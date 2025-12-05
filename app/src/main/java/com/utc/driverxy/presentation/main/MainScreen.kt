@@ -29,6 +29,7 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun MainScreen(
+    navigateToTrafficSigns: () -> Unit,
     viewModel: MainViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -40,6 +41,9 @@ fun MainScreen(
         viewState = viewState,
         onTabClick = {
             viewModel.processIntent(MainIntent.NavigateToTab(it))
+        },
+        navigateToTrafficSigns = {
+            navigateToTrafficSigns()
         }
     )
 }
@@ -47,7 +51,8 @@ fun MainScreen(
 @Composable
 fun MainScreenContent(
     viewState: MainState,
-    onTabClick: (MainTab) -> Unit
+    onTabClick: (MainTab) -> Unit,
+    navigateToTrafficSigns: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -65,8 +70,14 @@ fun MainScreenContent(
         ) { page ->
             key(page) {
                 when (page) {
-                    MainTab.HOME -> HomeScreen()
-                    MainTab.PRACTICE -> PracticeScreen()
+                    MainTab.HOME -> {
+                        HomeScreen(
+                            navigateToScanTrafficSigns = navigateToTrafficSigns
+                        )
+                    }
+                    MainTab.PRACTICE -> {
+                        PracticeScreen()
+                    }
                     MainTab.EXAM -> ExamScreen()
                 }
             }
@@ -86,6 +97,7 @@ fun MainScreenContent(
 fun MainScreenPreview() {
     MainScreenContent(
         MainState(),
-        onTabClick = {}
+        onTabClick = {},
+        navigateToTrafficSigns = {}
     )
 }

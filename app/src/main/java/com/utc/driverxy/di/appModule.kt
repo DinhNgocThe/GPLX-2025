@@ -20,9 +20,11 @@ import com.utc.driverxy.presentation.camera.CameraViewModel
 import com.utc.driverxy.presentation.home.HomeViewModel
 import com.utc.driverxy.presentation.main.MainViewModel
 import com.utc.driverxy.presentation.onboarding.OnboardingViewModel
+import com.utc.driverxy.presentation.scanTrafficSigns.ScanTrafficSignsViewModel
 import com.utc.driverxy.presentation.signin.SignInViewModel
 import com.utc.driverxy.presentation.splash.SplashViewModel
 import org.koin.core.module.dsl.viewModel
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val appModule = module {
@@ -72,12 +74,6 @@ val appModule = module {
 
     // UseCase
     factory { SaveUserUseCase(get(), get()) }
-
-    /*
-        UI DI
-    */
-    // ViewModel
-
 }
 
 val viewModelModule = module {
@@ -87,4 +83,5 @@ val viewModelModule = module {
     viewModel { MainViewModel() }
     viewModel { HomeViewModel(get()) }
     viewModel { CameraViewModel() }
+    viewModelOf(::ScanTrafficSignsViewModel)
 }

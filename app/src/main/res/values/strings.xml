@@ -46,4 +46,18 @@
     <string name="traffic_signs">Traffic signs</string>
     <string name="driving_scenario">Driving Scenario</string>
     <string name="change_rank">Change rank</string>
+    <string name="scan_traffic_screen_title">Upload images containing traffic signs</string>
+    <string name="scan_traffic_screen_description">Scan traffic signs instantly with DriverXy AI, get quick meanings for any sign you don’t recognize.</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="or">or</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="camera" translatable="false">Camera</string>
+    <string name="sign_code">Sign code</string>
+    <string name="sign_name">Sign name</string>
+    <string name="sign_group">Sign group</string>
+    <string name="meaning">Meaning</string>
+    <string name="applicable_cases">Applicable cases</string>
+    <string name="notes">Notes</string>
+    <string name="scan_traffic_signs_error">No traffic signs detected</string>
+    <string name="analyzing">Analyzing...</string>
 </resources>
