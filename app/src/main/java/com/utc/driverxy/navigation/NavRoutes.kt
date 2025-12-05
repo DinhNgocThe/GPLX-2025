@@ -1,13 +1,17 @@
 package com.utc.driverxy.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation3.runtime.entry
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.utc.driverxy.presentation.main.MainScreen
 import com.utc.driverxy.presentation.onboarding.OnboardingScreen
 import com.utc.driverxy.presentation.onboarding.WelcomeScreen
+import com.utc.driverxy.presentation.scanTrafficSigns.ScanTrafficSignsScreen
 import com.utc.driverxy.presentation.signin.SignInScreen
 import com.utc.driverxy.presentation.splash.SplashScreen
 import com.utc.driverxy.utils.ext.replaceTop
@@ -19,6 +23,10 @@ fun NavRoutes() {
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
+        entryDecorators = listOf(
+            rememberSaveableStateHolderNavEntryDecorator(),
+            rememberViewModelStoreNavEntryDecorator()
+        ),
         entryProvider = entryProvider {
             entry<Destination.Splash> {
                 SplashScreen(
@@ -36,24 +44,42 @@ fun NavRoutes() {
 
             entry<Destination.Welcome> {
                 WelcomeScreen(
-                    navigateToOnboarding = { backStack.replaceTop(Destination.Onboarding) }
+                    navigateToOnboarding = {
+                        backStack.replaceTop(Destination.Onboarding)
+                    }
                 )
             }
 
             entry<Destination.Onboarding> {
                 OnboardingScreen(
-                    navigateToSignIn = { backStack.replaceTop(Destination.SignIn) }
+                    navigateToSignIn = {
+                        backStack.replaceTop(Destination.SignIn)
+                    }
                 )
             }
 
             entry<Destination.SignIn> {
                 SignInScreen(
-                    navigateToHome = { backStack.replaceTop(Destination.Main) }
+                    navigateToHome = {
+                        backStack.replaceTop(Destination.Main)
+                    }
                 )
             }
 
             entry<Destination.Main> {
-                MainScreen()
+                MainScreen(
+                    navigateToTrafficSigns = {
+                        backStack.add(Destination.ScanTrafficSigns())
+                    }
+                )
+            }
+
+            entry<Destination.ScanTrafficSigns> {
+                ScanTrafficSignsScreen(
+                    onNavigateBack = {
+                        backStack.removeLastOrNull()
+                    }
+                )
             }
         }
     )

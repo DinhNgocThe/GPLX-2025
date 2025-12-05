@@ -51,7 +51,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.navigation3.runtime)
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.googleid)
@@ -75,6 +74,7 @@ dependencies {
     // Navigation 3
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.kotlinx.serialization.core)
 
     // Koin
@@ -109,4 +109,5 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.camera2)
     implementation(libs.accompanist.permissions)
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.24.12-rc")
 }

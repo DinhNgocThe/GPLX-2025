@@ -74,59 +74,6 @@ object DriverXyTypography {
         }
     }
 
-    object Display {
-        object Large {
-            val SemiBold = TextStyle(
-                fontSize = 57.sp,
-                lineHeight = 64.sp,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = AppFontSemiBold,
-                lineBreak = LineBreak.Simple
-            )
-            val Bold = TextStyle(
-                fontSize = 57.sp,
-                lineHeight = 64.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = AppFontBold,
-                lineBreak = LineBreak.Simple
-            )
-        }
-
-        object Medium {
-            val SemiBold = TextStyle(
-                fontSize = 45.sp,
-                lineHeight = 52.sp,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = AppFontSemiBold,
-                lineBreak = LineBreak.Simple
-            )
-            val Bold = TextStyle(
-                fontSize = 45.sp,
-                lineHeight = 52.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = AppFontBold,
-                lineBreak = LineBreak.Simple
-            )
-        }
-
-        object Small {
-            val SemiBold = TextStyle(
-                fontSize = 36.sp,
-                lineHeight = 44.sp,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = AppFontSemiBold,
-                lineBreak = LineBreak.Simple
-            )
-            val Bold = TextStyle(
-                fontSize = 36.sp,
-                lineHeight = 44.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = AppFontBold,
-                lineBreak = LineBreak.Simple
-            )
-        }
-    }
-
     object Title {
         object Large {
             val Medium = TextStyle(
@@ -201,16 +148,6 @@ object DriverXyTypography {
         }
     }
 
-    object Title2 {
-        val Bold = TextStyle(
-            fontSize = 20.sp,
-            lineHeight = 28.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = AppFontBold,
-            lineBreak = LineBreak.Simple
-        )
-    }
-
     object Body {
         object Large {
             val Regular = TextStyle(
@@ -255,31 +192,5 @@ object DriverXyTypography {
                 lineBreak = LineBreak.Simple
             )
         }
-    }
-
-    object Label {
-        val Large = TextStyle(
-            fontSize = 14.sp,
-            lineHeight = 20.sp,
-            fontWeight = FontWeight.Medium,
-            fontFamily = AppFontMedium,
-            lineBreak = LineBreak.Simple
-        )
-
-        val Medium = TextStyle(
-            fontSize = 12.sp,
-            lineHeight = 16.sp,
-            fontWeight = FontWeight.Medium,
-            fontFamily = AppFontMedium,
-            lineBreak = LineBreak.Simple
-        )
-
-        val Small = TextStyle(
-            fontSize = 11.sp,
-            lineHeight = 16.sp,
-            fontWeight = FontWeight.Medium,
-            fontFamily = AppFontMedium,
-            lineBreak = LineBreak.Simple
-        )
     }
 }
