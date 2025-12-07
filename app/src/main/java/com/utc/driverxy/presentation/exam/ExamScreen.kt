@@ -2,11 +2,25 @@ package com.utc.driverxy.presentation.exam
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.utc.driverxy.R
+import com.utc.driverxy.presentation.exam.component.ExamInProgressCard
 import com.utc.driverxy.presentation.theme.DriverXyColors
+import com.utc.driverxy.presentation.theme.DriverXyShapes
+import com.utc.driverxy.presentation.theme.DriverXyTypography
 
 @Composable
 fun ExamScreen(
@@ -21,7 +35,84 @@ fun ExamScreenContent() {
         modifier = Modifier
             .fillMaxSize()
             .background(DriverXyColors.BackGround.BackgroundPrimary)
+            .padding(horizontal = 16.dp)
+            .statusBarsPadding()
     ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp, bottom = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(R.string.in_progress),
+                style = DriverXyTypography.Title.Large.Bold,
+                color = DriverXyColors.Text.TextPrimary
+            )
 
+            Column (
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .clip(DriverXyShapes.medium)
+                    .background(DriverXyColors.Primary.Primary.copy(0.2f))
+                    .padding(horizontal = 12.dp, vertical = 4.dp),
+            ) {
+                Text(
+                    text = "5",
+                    style = DriverXyTypography.Title.Small.Bold,
+                    color = DriverXyColors.Primary.Primary
+                )
+            }
+        }
+
+        LazyRow (
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            items(
+                count = 4
+            ) { index ->
+                ExamInProgressCard(
+                    backgroundColor = DriverXyColors.ListColors.list[index % 5],
+                    examNumber = index,
+                    questionCount = 25,
+                    progress = 0.35f,
+                    onContinueClick = {},
+                    modifier = Modifier.padding(end = 20.dp)
+                )
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp, bottom = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(R.string.to_do),
+                style = DriverXyTypography.Title.Large.Bold,
+                color = DriverXyColors.Text.TextPrimary
+            )
+
+            Column (
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .clip(DriverXyShapes.medium)
+                    .background(DriverXyColors.Primary.Primary.copy(0.2f))
+                    .padding(horizontal = 12.dp, vertical = 4.dp),
+            ) {
+                Text(
+                    text = "20",
+                    style = DriverXyTypography.Title.Small.Bold,
+                    color = DriverXyColors.Primary.Primary
+                )
+            }
+        }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ExamScreenPreview() {
+    ExamScreenContent()
 }
