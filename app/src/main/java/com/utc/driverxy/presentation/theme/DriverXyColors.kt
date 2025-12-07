@@ -23,14 +23,14 @@ object DriverXyColors {
         val BackgroundLightBlue = Color(0xFFF2F8FF)
     }
 
-    object Surface {
-        val SurfacePrimary = Color(0xFFF6F6FA)
-
-        val SurfaceNavigationButton = Color(0xB2F2F2F7)
-    }
-
-    object Stroke {
-        val Stroke1 = Color(0xFFEAEAEA)
+    object ListColors {
+        val list = listOf(
+            Color(0xFF0087FF),
+            Color(0xFFFF7D53),
+            Color(0xFFF478B8),
+            Color(0xFF9260F4),
+            Color(0xFFFF9142)
+        )
     }
 
     object Border {

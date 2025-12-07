@@ -17,13 +17,14 @@ import com.utc.driverxy.data.repository.UserRepositoryImpl
 import com.utc.driverxy.domain.repository.UserRepository
 import com.utc.driverxy.domain.usecase.user.SaveUserUseCase
 import com.utc.driverxy.presentation.camera.CameraViewModel
+import com.utc.driverxy.presentation.exam.ExamViewModel
 import com.utc.driverxy.presentation.home.HomeViewModel
 import com.utc.driverxy.presentation.main.MainViewModel
 import com.utc.driverxy.presentation.onboarding.OnboardingViewModel
 import com.utc.driverxy.presentation.scanTrafficSigns.ScanTrafficSignsViewModel
 import com.utc.driverxy.presentation.signin.SignInViewModel
 import com.utc.driverxy.presentation.splash.SplashViewModel
-import org.koin.core.module.dsl.viewModel
+import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -73,15 +74,16 @@ val appModule = module {
     single<UserRepository> { UserRepositoryImpl(get()) }
 
     // UseCase
-    factory { SaveUserUseCase(get(), get()) }
+    factoryOf(::SaveUserUseCase)
 }
 
 val viewModelModule = module {
-    viewModel { SplashViewModel(get(), get()) }
-    viewModel { SignInViewModel(get(), get(), get()) }
-    viewModel { OnboardingViewModel(get()) }
-    viewModel { MainViewModel() }
-    viewModel { HomeViewModel(get()) }
-    viewModel { CameraViewModel() }
+    viewModelOf(::SplashViewModel)
+    viewModelOf(::SignInViewModel)
+    viewModelOf(::OnboardingViewModel)
+    viewModelOf(::MainViewModel)
+    viewModelOf(::HomeViewModel)
+    viewModelOf(::CameraViewModel)
     viewModelOf(::ScanTrafficSignsViewModel)
+    viewModelOf(::ExamViewModel)
 }

@@ -60,4 +60,8 @@
     <string name="notes">Notes</string>
     <string name="scan_traffic_signs_error">No traffic signs detected</string>
     <string name="analyzing">Analyzing...</string>
+    <string name="start">Start</string>
+    <string name="in_progress">In progress</string>
+    <string name="exam_number">Exam No.</string>
+    <string name="to_do">To do</string>
 </resources>

@@ -49,4 +49,8 @@
     <string name="notes">Ghi chú</string>
     <string name="scan_traffic_signs_error">Không phát hiện bất kỳ biển báo giao thông nào</string>
     <string name="analyzing">Đang phân tích...</string>
+    <string name="start">Bắt đầu</string>
+    <string name="in_progress">Đang làm</string>
+    <string name="exam_number">Đề số</string>
+    <string name="to_do">Chưa làm</string>
 </resources>

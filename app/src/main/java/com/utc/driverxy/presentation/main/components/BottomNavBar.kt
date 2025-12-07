@@ -45,7 +45,7 @@ fun BottomNavBar(
                 brush = Brush.verticalGradient(
                     colorStops = arrayOf(
                         0.0f to Color.Transparent,
-                        0.3f to Color.White,
+                        0.7f to Color.White,
                         1.0f to Color.White
                     )
                 )
