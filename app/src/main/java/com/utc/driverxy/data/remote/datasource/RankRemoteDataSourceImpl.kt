@@ -17,14 +17,14 @@ class RankRemoteDataSourceImpl(
 
     override suspend fun fetchAllRank(): List<RankFireStore>? {
         val snapshot = firebaseFirestore
-            .collection("ranks")
+            .collection("rank")
             .get()
             .await()
 
         if (snapshot.isEmpty) return null
 
         return snapshot.documents.mapNotNull { doc ->
-            doc.toObject(RankFireStore::class.java)?.copy(id = doc.id)
+            doc.toObject(RankFireStore::class.java)
         }
     }
 }

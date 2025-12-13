@@ -17,5 +17,7 @@ sealed interface Destination : NavKey {
     @Serializable
     data object Main : Destination
     @Serializable
-    data class ScanTrafficSigns(val id: String = UUID.randomUUID().toString()) : Destination
+    data object ScanTrafficSigns : Destination
+    @Serializable
+    data object ChangeRank : Destination
 }

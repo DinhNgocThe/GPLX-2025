@@ -1,8 +1,11 @@
 package com.utc.driverxy.worker
 
 import android.app.Application
+import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
+import androidx.work.ListenableWorker
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import com.utc.driverxy.utils.Constant
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,14 +37,28 @@ class WorkerManager(
     }
 
     fun syncData() {
-        val request = OneTimeWorkRequestBuilder<SyncDataWorker>()
-            .build()
+        scheduleDataSync<SyncDataWorker>(
+            Constant.WorkerId.SyncDataWorker.id,
+            _syncDataState,
+            null
+        )
+    }
+
+    private inline fun <reified W : ListenableWorker> scheduleDataSync(
+        workerId: String,
+        stateFlow: MutableStateFlow<WorkerState>,
+        inputData: Data? = null
+    ) {
+        stateFlow.value = WorkerState.Running
+        val workRequestBuilder = OneTimeWorkRequestBuilder<W>()
+        inputData?.let { workRequestBuilder.setInputData(it) }
+        val workRequest = workRequestBuilder.build()
 
         WorkManager.getInstance(context)
             .enqueueUniqueWork(
-                Constant.WorkerId.SyncDataWorker.id,
+                workerId,
                 ExistingWorkPolicy.REPLACE,
-                request
+                workRequest
             )
     }
 }

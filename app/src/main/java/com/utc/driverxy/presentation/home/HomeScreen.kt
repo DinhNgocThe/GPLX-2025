@@ -36,6 +36,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(
     navigateToScanTrafficSigns: () -> Unit,
+    navigateToChangeRank: () -> Unit,
     viewModel: HomeViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -55,7 +56,9 @@ fun HomeScreen(
         onCantMissClick = {
             viewModel.processIntent(HomeIntent.OnCantMissClick(it))
         },
-        onChangeRank = {}
+        onChangeRank = {
+            navigateToChangeRank()
+        }
     )
 }
 

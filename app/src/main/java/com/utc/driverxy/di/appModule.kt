@@ -22,9 +22,13 @@ import com.utc.driverxy.data.repository.RankRepositoryImpl
 import com.utc.driverxy.data.repository.UserRepositoryImpl
 import com.utc.driverxy.domain.repository.RankRepository
 import com.utc.driverxy.domain.repository.UserRepository
+import com.utc.driverxy.domain.usecase.rank.FetchAllRankUseCase
+import com.utc.driverxy.domain.usecase.rank.GetAllRankUseCase
+import com.utc.driverxy.domain.usecase.rank.UpdateRankUseCase
 import com.utc.driverxy.domain.usecase.user.GetUserUseCase
 import com.utc.driverxy.domain.usecase.user.SaveUserUseCase
 import com.utc.driverxy.presentation.camera.CameraViewModel
+import com.utc.driverxy.presentation.changeRank.ChangeRankViewModel
 import com.utc.driverxy.presentation.exam.ExamViewModel
 import com.utc.driverxy.presentation.home.HomeViewModel
 import com.utc.driverxy.presentation.main.MainViewModel
@@ -93,6 +97,9 @@ val repositoryModule = module {
 val useCaseModule = module {
     factoryOf(::SaveUserUseCase)
     factoryOf(::GetUserUseCase)
+    factoryOf(::FetchAllRankUseCase)
+    factoryOf(::GetAllRankUseCase)
+    factoryOf(::UpdateRankUseCase)
 }
 
 val viewModelModule = module {
@@ -104,4 +111,5 @@ val viewModelModule = module {
     viewModelOf(::CameraViewModel)
     viewModelOf(::ScanTrafficSignsViewModel)
     viewModelOf(::ExamViewModel)
+    viewModelOf(::ChangeRankViewModel)
 }

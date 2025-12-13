@@ -1,13 +1,12 @@
 package com.utc.driverxy.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.utc.driverxy.presentation.changeRank.ChangeRankScreen
 import com.utc.driverxy.presentation.main.MainScreen
 import com.utc.driverxy.presentation.onboarding.OnboardingScreen
 import com.utc.driverxy.presentation.onboarding.WelcomeScreen
@@ -69,7 +68,10 @@ fun NavRoutes() {
             entry<Destination.Main> {
                 MainScreen(
                     navigateToTrafficSigns = {
-                        backStack.add(Destination.ScanTrafficSigns())
+                        backStack.add(Destination.ScanTrafficSigns)
+                    },
+                    navigateToChangeRank = {
+                        backStack.add(Destination.ChangeRank)
                     }
                 )
             }
@@ -77,6 +79,14 @@ fun NavRoutes() {
             entry<Destination.ScanTrafficSigns> {
                 ScanTrafficSignsScreen(
                     onNavigateBack = {
+                        backStack.removeLastOrNull()
+                    }
+                )
+            }
+
+            entry<Destination.ChangeRank> {
+                ChangeRankScreen(
+                    navigateBack = {
                         backStack.removeLastOrNull()
                     }
                 )

@@ -66,4 +66,8 @@
     <string name="to_do">To do</string>
     <string name="progress">Progress</string>
     <string name="all_exam">All exam</string>
+    <string name="motorbike">Motorbike</string>
+    <string name="car">Car</string>
+    <string name="rank">Rank</string>
+    <string name="change_rank_error">Error when change rank!</string>
 </resources>

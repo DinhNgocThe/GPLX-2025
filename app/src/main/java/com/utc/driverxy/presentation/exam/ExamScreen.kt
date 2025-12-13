@@ -59,6 +59,15 @@ fun ExamScreenContent(
             .padding(horizontal = 16.dp)
             .statusBarsPadding()
     ) {
+        Text(
+            text = stringResource(R.string.exam),
+            style = DriverXyTypography.Headline.Medium.Bold,
+            color = DriverXyColors.Primary.Primary,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 16.dp)
+        )
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import com.utc.driverxy.base.BaseDao
 import com.utc.driverxy.data.local.room.entities.RankEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RankDao : BaseDao<RankEntity> {
@@ -11,5 +12,5 @@ interface RankDao : BaseDao<RankEntity> {
     suspend fun getAllRank(): List<RankEntity>
 
     @Query("SELECT * FROM rank WHERE id = :rankId LIMIT 1")
-    suspend fun getRankById(rankId: String): RankEntity?
+    fun getRankById(rankId: String): Flow<RankEntity?>
 }

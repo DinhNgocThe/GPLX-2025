@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.utc.driverxy.base.BaseMviViewModel
+import com.utc.driverxy.data.local.datastore.DataStoreManager
 import com.utc.driverxy.data.provider.GoogleAuthClient
 import com.utc.driverxy.domain.model.User
 import com.utc.driverxy.domain.usecase.user.GetUserUseCase
@@ -15,7 +16,8 @@ class SignInViewModel(
     private val googleAuthClient: GoogleAuthClient,
     private val saveUserUseCase: SaveUserUseCase,
     private val firebaseAuth: FirebaseAuth,
-    private val getUserUseCase: GetUserUseCase
+    private val getUserUseCase: GetUserUseCase,
+    private val dataStoreManager: DataStoreManager
 ) : BaseMviViewModel<SignInIntent, SignInState, SignInEvent>() {
     override fun initState(): SignInState = SignInState()
 
@@ -56,11 +58,11 @@ class SignInViewModel(
                             email = currentUser.email.orEmpty(),
                             rankId = "ranka1"
                         )
-
                         saveUserUseCase(user)
                     } else {
-                        sendEvent(SignInEvent.NavigateToHome)
+                        dataStoreManager.saveUserInfo(user)
                     }
+                    sendEvent(SignInEvent.NavigateToHome)
                 }.onFailure {
                     Log.d("PHANHAI", "Get user from firestore failed")
                     sendEvent(SignInEvent.LoginError)

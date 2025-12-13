@@ -1,44 +1,52 @@
 package com.utc.driverxy.presentation.home
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.utc.driverxy.base.BaseMviViewModel
 import com.utc.driverxy.data.local.datastore.DataStoreManager
+import com.utc.driverxy.domain.repository.RankRepository
 import com.utc.driverxy.presentation.home.model.CantMiss
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val dataStoreManager: DataStoreManager
+    private val dataStoreManager: DataStoreManager,
+    private val rankRepository: RankRepository
 ) : BaseMviViewModel<HomeIntent, HomeState, HomeEvent>() {
     override fun initState(): HomeState {
         return HomeState()
     }
 
     init {
-        getUserInfo()
-        getCurrentRank()
+        getData()
     }
 
-    private fun getCurrentRank() {
-//        viewModelScope.launch {
-//            dataStoreManager.getCurrentRank().collect {
-//                updateState {
-//                    copy(
-//                        currentRank = it
-//                    )
-//                }
-//            }
-//        }
-    }
-
-    private fun getUserInfo() {
+    private fun getData() {
         viewModelScope.launch {
-            val user = dataStoreManager.getUserInfo().firstOrNull()
-            user?.let {
-                updateState {
-                    copy(
-                        user = user
-                    )
+            dataStoreManager.getUserInfo().collect { user ->
+                user?.let {
+                    updateState {
+                        copy(
+                            user = user
+                        )
+                    }
+                    getCurrentRank(user.rankId)
+                }
+            }
+        }
+    }
+
+    private fun getCurrentRank(rankId: String) {
+        viewModelScope.launch {
+            Log.d("PHANHAI", rankId)
+            rankRepository.getRankById(rankId).collect { rank ->
+                Log.d("PHANHAI", rank.toString())
+                rank?.let {
+                    updateState {
+                        copy(
+                            currentRank = rank
+                        )
+                    }
                 }
             }
         }

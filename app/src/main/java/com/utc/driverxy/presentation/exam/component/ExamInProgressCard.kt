@@ -31,7 +31,7 @@ fun ExamInProgressCard(
     onContinueClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row (
+    Row(
         modifier = modifier
             .clip(DriverXyShapes.extraLarge)
             .background(backgroundColor.copy(0.2f))
@@ -39,7 +39,7 @@ fun ExamInProgressCard(
             .width(260.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column (
+        Column(
             modifier = Modifier.weight(1f)
         ) {
             Text(
