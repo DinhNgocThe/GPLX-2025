@@ -18,6 +18,7 @@ lifecycleRuntimeKtx = "2.9.3"
 activityCompose = "1.11.0"
 composeBom = "2025.09.00"
 lottieCompose = "6.7.0"
+roomRuntime = "2.8.4"
 uiTextGoogleFonts = "1.9.1"
 firebaseFunctionsKtx = "21.0.0"
 foundationLayout = "1.9.3"
@@ -34,11 +35,16 @@ nav3Core = "1.0.0"
 lifecycleViewmodelNav3 = "2.10.0"
 kotlinSerialization = "2.1.21"
 kotlinxSerializationCore = "1.8.1"
+workRuntimeKtx = "2.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 firebase-ai = { module = "com.google.firebase:firebase-ai" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }

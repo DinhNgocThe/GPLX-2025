@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.services)
-
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -110,4 +110,12 @@ dependencies {
     implementation(libs.androidx.camera.camera2)
     implementation(libs.accompanist.permissions)
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.24.12-rc")
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    // Worker
+    implementation(libs.androidx.work.runtime.ktx)
 }

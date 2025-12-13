@@ -53,4 +53,6 @@
     <string name="in_progress">Đang làm</string>
     <string name="exam_number">Đề số</string>
     <string name="to_do">Chưa làm</string>
+    <string name="progress">Tiến độ</string>
+    <string name="all_exam">Tất cả các đề</string>
 </resources>

@@ -7,13 +7,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.utc.driverxy.base.BaseMviViewModel
 import com.utc.driverxy.data.provider.GoogleAuthClient
 import com.utc.driverxy.domain.model.User
+import com.utc.driverxy.domain.usecase.user.GetUserUseCase
 import com.utc.driverxy.domain.usecase.user.SaveUserUseCase
 import kotlinx.coroutines.launch
 
 class SignInViewModel(
     private val googleAuthClient: GoogleAuthClient,
     private val saveUserUseCase: SaveUserUseCase,
-    private val firebaseAuth: FirebaseAuth
+    private val firebaseAuth: FirebaseAuth,
+    private val getUserUseCase: GetUserUseCase
 ) : BaseMviViewModel<SignInIntent, SignInState, SignInEvent>() {
     override fun initState(): SignInState = SignInState()
 
@@ -39,21 +41,35 @@ class SignInViewModel(
                 if (currentUser == null) {
                     googleAuthClient.signOut()
                     sendEvent(SignInEvent.LoginError)
+                    Log.d("PHANHAI", "Current user is null")
                     return@launch
                 }
 
-                val user = User(
-                    id = currentUser.uid,
-                    name = currentUser.displayName.orEmpty(),
-                    photoUrl = currentUser.photoUrl?.toString().orEmpty(),
-                    email = currentUser.email.orEmpty()
-                )
+                val user = getUserUseCase(currentUser.uid)
 
-                saveUserUseCase(user)
-                sendEvent(SignInEvent.NavigateToHome)
+                user.onSuccess { user ->
+                    if (user == null) {
+                        val user = User(
+                            id = currentUser.uid,
+                            name = currentUser.displayName.orEmpty(),
+                            photoUrl = currentUser.photoUrl?.toString().orEmpty(),
+                            email = currentUser.email.orEmpty(),
+                            rankId = "ranka1"
+                        )
+
+                        saveUserUseCase(user)
+                    } else {
+                        sendEvent(SignInEvent.NavigateToHome)
+                    }
+                }.onFailure {
+                    Log.d("PHANHAI", "Get user from firestore failed")
+                    sendEvent(SignInEvent.LoginError)
+                    googleAuthClient.signOut()
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 sendEvent(SignInEvent.LoginError)
+                googleAuthClient.signOut()
             } finally {
                 updateState { copy(isLoading = false) }
             }

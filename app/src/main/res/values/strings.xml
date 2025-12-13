@@ -64,4 +64,6 @@
     <string name="in_progress">In progress</string>
     <string name="exam_number">Exam No.</string>
     <string name="to_do">To do</string>
+    <string name="progress">Progress</string>
+    <string name="all_exam">All exam</string>
 </resources>

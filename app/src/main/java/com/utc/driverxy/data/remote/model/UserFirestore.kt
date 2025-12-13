@@ -4,5 +4,6 @@ data class UserFirestore(
     val uid: String,
     val displayName: String,
     val photoUrl: String,
-    val email: String
+    val email: String,
+    val rankId: String,
 )

@@ -9,6 +9,4 @@ interface DataStoreManager {
     suspend fun setDoneFirstTime()
     suspend fun saveUserInfo(user: User)
     fun getUserInfo(): Flow<User?>
-    suspend fun saveCurrentRank(rank: Rank)
-    fun getCurrentRank(): Flow<Rank>
 }

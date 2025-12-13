@@ -1,5 +1,6 @@
 package com.utc.driverxy.data.remote.datasource
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.utc.driverxy.data.remote.model.UserFirestore
 import kotlinx.coroutines.tasks.await
@@ -16,6 +17,7 @@ class UserRemoteDataSourceImpl(
     }
 
     override suspend fun getUserFromFirestoreByUid(uid: String): UserFirestore? {
+        Log.d("PHANHAI", uid)
         val snapshot = firebaseFirestore
             .collection("users")
             .document(uid)

@@ -20,15 +20,15 @@ class HomeViewModel(
     }
 
     private fun getCurrentRank() {
-        viewModelScope.launch {
-            dataStoreManager.getCurrentRank().collect {
-                updateState {
-                    copy(
-                        currentRank = it
-                    )
-                }
-            }
-        }
+//        viewModelScope.launch {
+//            dataStoreManager.getCurrentRank().collect {
+//                updateState {
+//                    copy(
+//                        currentRank = it
+//                    )
+//                }
+//            }
+//        }
     }
 
     private fun getUserInfo() {

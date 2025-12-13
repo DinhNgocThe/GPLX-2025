@@ -137,7 +137,8 @@ private fun HomeScreenPreview() {
             id = "",
             name = "Trần Hải Đăng",
             photoUrl = "",
-            email = ""
+            email = "",
+            rankId = "ranka1"
         )
     )
     HomeScreenContent(
