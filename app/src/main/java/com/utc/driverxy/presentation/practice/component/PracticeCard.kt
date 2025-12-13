@@ -36,7 +36,7 @@ fun PracticeCard(
         modifier = modifier
             .fillMaxWidth()
             .height(104.dp)
-            .clip(DriverXyShapes.extraLarge)
+            .clip(DriverXyShapes.large)
             .background(
                 brush = Brush.linearGradient(
                     colors = DriverXyColors.Gradient.HomeCard,

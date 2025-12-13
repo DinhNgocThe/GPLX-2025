@@ -53,4 +53,10 @@
     <string name="in_progress">Đang làm</string>
     <string name="exam_number">Đề số</string>
     <string name="to_do">Chưa làm</string>
+    <string name="progress">Tiến độ</string>
+    <string name="all_exam">Tất cả các đề</string>
+    <string name="motorbike">Xe máy</string>
+    <string name="car">Ô tô</string>
+    <string name="rank">Hạng</string>
+    <string name="change_rank_error">Có lỗi khi đổi hạng!</string>
 </resources>

@@ -56,34 +56,4 @@ class DataStoreManagerImpl(
                 }
             }
     }
-
-    override suspend fun saveCurrentRank(rank: Rank) {
-        try {
-            val rankString = json.encodeToString(rank)
-            dataStore.edit { preferences ->
-                preferences[DataStoreKey.CURRENT_RANK] = rankString
-            }
-        } catch (exception: Exception) {
-            Log.e("DataStoreManager", "Error saving current rank to preferences")
-        }
-    }
-
-    override fun getCurrentRank(): Flow<Rank> {
-        return dataStore.data
-            .map { preferences ->
-                val currentRankString = preferences[DataStoreKey.CURRENT_RANK]
-                try {
-                    val currentRank = json.decodeFromString<Rank>(currentRankString ?: "")
-                    currentRank
-                } catch (e: Exception) {
-                    Log.e("DataStoreManager", "Error decoding current rank JSON: ${e.message}")
-                    Rank(
-                        id = "ranka1",
-                        type = "moto",
-                        displayName = "A1",
-                        description = ""
-                    )
-                }
-            }
-    }
 }

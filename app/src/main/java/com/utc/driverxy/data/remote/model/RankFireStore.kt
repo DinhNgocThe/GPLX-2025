@@ -1,5 +1,8 @@
 package com.utc.driverxy.data.remote.model
 
-class RankFireStore(
-
+data class RankFireStore(
+    val id: String = "",
+    val type: String = "",
+    val displayName: String = "",
+    val description: String = ""
 )

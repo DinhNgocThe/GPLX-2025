@@ -30,6 +30,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun MainScreen(
     navigateToTrafficSigns: () -> Unit,
+    navigateToChangeRank: () -> Unit,
     viewModel: MainViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -44,6 +45,9 @@ fun MainScreen(
         },
         navigateToTrafficSigns = {
             navigateToTrafficSigns()
+        },
+        navigateToChangeRank = {
+            navigateToChangeRank()
         }
     )
 }
@@ -52,7 +56,8 @@ fun MainScreen(
 fun MainScreenContent(
     viewState: MainState,
     onTabClick: (MainTab) -> Unit,
-    navigateToTrafficSigns: () -> Unit
+    navigateToTrafficSigns: () -> Unit,
+    navigateToChangeRank: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -72,7 +77,8 @@ fun MainScreenContent(
                 when (page) {
                     MainTab.HOME -> {
                         HomeScreen(
-                            navigateToScanTrafficSigns = navigateToTrafficSigns
+                            navigateToScanTrafficSigns = navigateToTrafficSigns,
+                            navigateToChangeRank = navigateToChangeRank
                         )
                     }
                     MainTab.PRACTICE -> {
@@ -98,6 +104,7 @@ fun MainScreenPreview() {
     MainScreenContent(
         MainState(),
         onTabClick = {},
-        navigateToTrafficSigns = {}
+        navigateToTrafficSigns = {},
+        navigateToChangeRank = {},
     )
 }

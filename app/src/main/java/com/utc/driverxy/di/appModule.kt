@@ -8,15 +8,27 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.utc.driverxy.data.local.datasource.RankLocalDataSource
+import com.utc.driverxy.data.local.datasource.RankLocalDataSourceImpl
 import com.utc.driverxy.data.local.datastore.DataStoreManager
 import com.utc.driverxy.data.local.datastore.DataStoreManagerImpl
+import com.utc.driverxy.data.local.room.DriverXyDatabase
 import com.utc.driverxy.data.provider.GoogleAuthClient
+import com.utc.driverxy.data.remote.datasource.RankRemoteDataSource
+import com.utc.driverxy.data.remote.datasource.RankRemoteDataSourceImpl
 import com.utc.driverxy.data.remote.datasource.UserRemoteDataSource
 import com.utc.driverxy.data.remote.datasource.UserRemoteDataSourceImpl
+import com.utc.driverxy.data.repository.RankRepositoryImpl
 import com.utc.driverxy.data.repository.UserRepositoryImpl
+import com.utc.driverxy.domain.repository.RankRepository
 import com.utc.driverxy.domain.repository.UserRepository
+import com.utc.driverxy.domain.usecase.rank.FetchAllRankUseCase
+import com.utc.driverxy.domain.usecase.rank.GetAllRankUseCase
+import com.utc.driverxy.domain.usecase.rank.UpdateRankUseCase
+import com.utc.driverxy.domain.usecase.user.GetUserUseCase
 import com.utc.driverxy.domain.usecase.user.SaveUserUseCase
 import com.utc.driverxy.presentation.camera.CameraViewModel
+import com.utc.driverxy.presentation.changeRank.ChangeRankViewModel
 import com.utc.driverxy.presentation.exam.ExamViewModel
 import com.utc.driverxy.presentation.home.HomeViewModel
 import com.utc.driverxy.presentation.main.MainViewModel
@@ -24,18 +36,12 @@ import com.utc.driverxy.presentation.onboarding.OnboardingViewModel
 import com.utc.driverxy.presentation.scanTrafficSigns.ScanTrafficSignsViewModel
 import com.utc.driverxy.presentation.signin.SignInViewModel
 import com.utc.driverxy.presentation.splash.SplashViewModel
+import com.utc.driverxy.worker.WorkerManager
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val appModule = module {
-    /*
-        Local DI
-    */
-    // Room
-    //single { Room.databaseBuilder(get(), LocalDatabase::class.java, "DriverXy.db").build() }
-    //single { get<LocalDatabase>().userDao() }
-
     // DataStore
     single<DataStore<Preferences>> {
         PreferenceDataStoreFactory.create(
@@ -46,11 +52,6 @@ val appModule = module {
         DataStoreManagerImpl(get())
     }
 
-    // Local data source
-
-    /*
-        Remote DI
-    */
     // Firebase
     single { FirebaseAuth.getInstance() }
     single { GoogleAuthClient(get()) }
@@ -64,17 +65,41 @@ val appModule = module {
         }
     }
 
+
+    // Worker
+    single { WorkerManager(get()) }
+}
+
+val roomModule = module {
+    single {
+        DriverXyDatabase.getInstance(get())
+    }
+
+    single {
+        get<DriverXyDatabase>().rankDao()
+    }
+}
+
+val dataSourceModule = module {
+    // Local data source
+    single<RankLocalDataSource> { RankLocalDataSourceImpl(get()) }
+
     // Remote data source
     single<UserRemoteDataSource> { UserRemoteDataSourceImpl(get()) }
+    single<RankRemoteDataSource> { RankRemoteDataSourceImpl(get()) }
+}
 
-    /*
-        Business DI
-    */
-    // Repository
+val repositoryModule = module {
     single<UserRepository> { UserRepositoryImpl(get()) }
+    single<RankRepository> { RankRepositoryImpl(get(), get()) }
+}
 
-    // UseCase
+val useCaseModule = module {
     factoryOf(::SaveUserUseCase)
+    factoryOf(::GetUserUseCase)
+    factoryOf(::FetchAllRankUseCase)
+    factoryOf(::GetAllRankUseCase)
+    factoryOf(::UpdateRankUseCase)
 }
 
 val viewModelModule = module {
@@ -86,4 +111,5 @@ val viewModelModule = module {
     viewModelOf(::CameraViewModel)
     viewModelOf(::ScanTrafficSignsViewModel)
     viewModelOf(::ExamViewModel)
+    viewModelOf(::ChangeRankViewModel)
 }

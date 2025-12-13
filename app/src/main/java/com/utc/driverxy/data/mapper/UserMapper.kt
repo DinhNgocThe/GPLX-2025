@@ -8,7 +8,8 @@ fun User.toFirestore(): UserFirestore {
         uid = this.id,
         displayName = this.name,
         photoUrl = this.photoUrl,
-        email = this.email
+        email = this.email,
+        rankId = this.rankId
     )
 }
 
@@ -17,6 +18,9 @@ fun UserFirestore.toDomain(): User {
         id = this.uid,
         name = this.displayName,
         photoUrl = this.photoUrl,
-        email = this.email
+        email = this.email,
+        rankId = this.rankId
     )
 }
+
+
