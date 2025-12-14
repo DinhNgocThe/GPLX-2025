@@ -10,6 +10,7 @@ import com.utc.driverxy.presentation.changeRank.ChangeRankScreen
 import com.utc.driverxy.presentation.main.MainScreen
 import com.utc.driverxy.presentation.onboarding.OnboardingScreen
 import com.utc.driverxy.presentation.onboarding.WelcomeScreen
+import com.utc.driverxy.presentation.practiceQuestion.PracticeQuestionScreen
 import com.utc.driverxy.presentation.scanTrafficSigns.ScanTrafficSignsScreen
 import com.utc.driverxy.presentation.signin.SignInScreen
 import com.utc.driverxy.presentation.splash.SplashScreen
@@ -72,6 +73,9 @@ fun NavRoutes() {
                     },
                     navigateToChangeRank = {
                         backStack.add(Destination.ChangeRank)
+                    },
+                    navigateToPracticeQuestion = {
+                        backStack.add(Destination.PracticeQuestion(it))
                     }
                 )
             }
@@ -86,6 +90,15 @@ fun NavRoutes() {
 
             entry<Destination.ChangeRank> {
                 ChangeRankScreen(
+                    navigateBack = {
+                        backStack.removeLastOrNull()
+                    }
+                )
+            }
+
+            entry<Destination.PracticeQuestion> {
+                PracticeQuestionScreen(
+                    topicId = it.topicId,
                     navigateBack = {
                         backStack.removeLastOrNull()
                     }

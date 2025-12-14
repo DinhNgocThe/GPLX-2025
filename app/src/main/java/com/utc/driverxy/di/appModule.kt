@@ -34,10 +34,16 @@ import com.utc.driverxy.domain.repository.QuestionRepository
 import com.utc.driverxy.domain.repository.RankRepository
 import com.utc.driverxy.domain.repository.TopicRepository
 import com.utc.driverxy.domain.repository.UserRepository
+import com.utc.driverxy.domain.usecase.question.CountQuestionsCompleted
+import com.utc.driverxy.domain.usecase.question.CountQuestionsCompletedByTopicId
+import com.utc.driverxy.domain.usecase.question.GetQuestionsByRankId
+import com.utc.driverxy.domain.usecase.question.SetDoneQuestionUseCase
 import com.utc.driverxy.domain.usecase.question.SyncAllQuestionsUseCase
-import com.utc.driverxy.domain.usecase.rank.SyncAllRanksUseCase
 import com.utc.driverxy.domain.usecase.rank.GetAllRanksUseCase
+import com.utc.driverxy.domain.usecase.rank.SyncAllRanksUseCase
 import com.utc.driverxy.domain.usecase.rank.UpdateRankUseCase
+import com.utc.driverxy.domain.usecase.topic.GetAllTopicsUseCase
+import com.utc.driverxy.domain.usecase.topic.GetTopicById
 import com.utc.driverxy.domain.usecase.topic.SyncAllTopicsUseCase
 import com.utc.driverxy.domain.usecase.user.GetUserUseCase
 import com.utc.driverxy.domain.usecase.user.SaveUserUseCase
@@ -47,6 +53,8 @@ import com.utc.driverxy.presentation.exam.ExamViewModel
 import com.utc.driverxy.presentation.home.HomeViewModel
 import com.utc.driverxy.presentation.main.MainViewModel
 import com.utc.driverxy.presentation.onboarding.OnboardingViewModel
+import com.utc.driverxy.presentation.practice.PracticeViewModel
+import com.utc.driverxy.presentation.practiceQuestion.PracticeQuestionViewModel
 import com.utc.driverxy.presentation.scanTrafficSigns.ScanTrafficSignsViewModel
 import com.utc.driverxy.presentation.signin.SignInViewModel
 import com.utc.driverxy.presentation.splash.SplashViewModel
@@ -100,13 +108,17 @@ val roomModule = module {
     single {
         get<DriverXyDatabase>().questionDao()
     }
+
+    single {
+        get<DriverXyDatabase>().questionCompletedDao()
+    }
 }
 
 val dataSourceModule = module {
     // Local data source
     single<RankLocalDataSource> { RankLocalDataSourceImpl(get()) }
     single<TopicLocalDataSource> { TopicLocalDataSourceImpl(get()) }
-    single<QuestionLocalDataSource> { QuestionLocalDataSourceImpl(get()) }
+    single<QuestionLocalDataSource> { QuestionLocalDataSourceImpl(get(), get()) }
 
     // Remote data source
     single<UserRemoteDataSource> { UserRemoteDataSourceImpl(get()) }
@@ -134,9 +146,15 @@ val useCaseModule = module {
 
     // Topic
     factoryOf(::SyncAllTopicsUseCase)
+    factoryOf(::GetAllTopicsUseCase)
+    factoryOf(::GetTopicById)
 
     // Question
     factoryOf(::SyncAllQuestionsUseCase)
+    factoryOf(::GetQuestionsByRankId)
+    factoryOf(::SetDoneQuestionUseCase)
+    factoryOf(::CountQuestionsCompletedByTopicId)
+    factoryOf(::CountQuestionsCompleted)
 }
 
 val viewModelModule = module {
@@ -149,4 +167,6 @@ val viewModelModule = module {
     viewModelOf(::ScanTrafficSignsViewModel)
     viewModelOf(::ExamViewModel)
     viewModelOf(::ChangeRankViewModel)
+    viewModelOf(::PracticeViewModel)
+    viewModelOf(::PracticeQuestionViewModel)
 }

@@ -56,7 +56,7 @@ class SignInViewModel(
                             name = currentUser.displayName.orEmpty(),
                             photoUrl = currentUser.photoUrl?.toString().orEmpty(),
                             email = currentUser.email.orEmpty(),
-                            rankId = "ranka1"
+                            rankId = "a1"
                         )
                         saveUserUseCase(user)
                     } else {

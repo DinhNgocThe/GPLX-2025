@@ -2,7 +2,6 @@ package com.utc.driverxy.navigation
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import java.util.UUID
 
 @Serializable
 sealed interface Destination : NavKey {
@@ -20,4 +19,6 @@ sealed interface Destination : NavKey {
     data object ScanTrafficSigns : Destination
     @Serializable
     data object ChangeRank : Destination
+    @Serializable
+    data class PracticeQuestion(val topicId: String) : Destination
 }

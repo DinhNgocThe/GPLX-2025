@@ -31,6 +31,7 @@ import org.koin.androidx.compose.koinViewModel
 fun MainScreen(
     navigateToTrafficSigns: () -> Unit,
     navigateToChangeRank: () -> Unit,
+    navigateToPracticeQuestion: (String) -> Unit,
     viewModel: MainViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -48,6 +49,9 @@ fun MainScreen(
         },
         navigateToChangeRank = {
             navigateToChangeRank()
+        },
+        navigateToPracticeQuestion = {
+            navigateToPracticeQuestion(it)
         }
     )
 }
@@ -57,7 +61,8 @@ fun MainScreenContent(
     viewState: MainState,
     onTabClick: (MainTab) -> Unit,
     navigateToTrafficSigns: () -> Unit,
-    navigateToChangeRank: () -> Unit
+    navigateToChangeRank: () -> Unit,
+    navigateToPracticeQuestion: (String) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -82,7 +87,11 @@ fun MainScreenContent(
                         )
                     }
                     MainTab.PRACTICE -> {
-                        PracticeScreen()
+                        PracticeScreen(
+                            navigateToPracticeQuestion = {
+                                navigateToPracticeQuestion(it)
+                            }
+                        )
                     }
                     MainTab.EXAM -> ExamScreen()
                 }
@@ -106,5 +115,6 @@ fun MainScreenPreview() {
         onTabClick = {},
         navigateToTrafficSigns = {},
         navigateToChangeRank = {},
+        navigateToPracticeQuestion = {},
     )
 }
