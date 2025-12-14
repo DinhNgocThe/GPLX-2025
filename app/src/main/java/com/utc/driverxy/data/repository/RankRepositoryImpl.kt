@@ -2,7 +2,6 @@ package com.utc.driverxy.data.repository
 
 import android.util.Log
 import com.utc.driverxy.data.local.datasource.RankLocalDataSource
-import com.utc.driverxy.data.local.room.entities.RankEntity
 import com.utc.driverxy.data.mapper.toDomain
 import com.utc.driverxy.data.mapper.toEntity
 import com.utc.driverxy.data.remote.datasource.RankRemoteDataSource

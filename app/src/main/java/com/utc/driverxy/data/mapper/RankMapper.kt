@@ -1,11 +1,11 @@
 package com.utc.driverxy.data.mapper
 
 import com.utc.driverxy.data.local.room.entities.RankEntity
-import com.utc.driverxy.data.remote.model.RankFireStore
+import com.utc.driverxy.data.remote.model.RankFirestore
 import com.utc.driverxy.domain.model.Rank
 
-fun Rank.toFirestore(): RankFireStore {
-    return RankFireStore(
+fun Rank.toFirestore(): RankFirestore {
+    return RankFirestore(
         id = this.id,
         type = this.type,
         displayName = this.displayName,
@@ -13,7 +13,7 @@ fun Rank.toFirestore(): RankFireStore {
     )
 }
 
-fun RankFireStore.toDomain(): Rank {
+fun RankFirestore.toDomain(): Rank {
     return Rank(
         id = this.id,
         type = this.type,

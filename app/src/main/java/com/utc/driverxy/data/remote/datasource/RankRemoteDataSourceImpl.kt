@@ -1,7 +1,7 @@
 package com.utc.driverxy.data.remote.datasource
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.utc.driverxy.data.remote.model.RankFireStore
+import com.utc.driverxy.data.remote.model.RankFirestore
 import kotlinx.coroutines.tasks.await
 
 class RankRemoteDataSourceImpl(
@@ -15,7 +15,7 @@ class RankRemoteDataSourceImpl(
             .await()
     }
 
-    override suspend fun fetchAllRank(): List<RankFireStore>? {
+    override suspend fun fetchAllRank(): List<RankFirestore>? {
         val snapshot = firebaseFirestore
             .collection("rank")
             .get()
@@ -24,7 +24,7 @@ class RankRemoteDataSourceImpl(
         if (snapshot.isEmpty) return null
 
         return snapshot.documents.mapNotNull { doc ->
-            doc.toObject(RankFireStore::class.java)
+            doc.toObject(RankFirestore::class.java)
         }
     }
 }
