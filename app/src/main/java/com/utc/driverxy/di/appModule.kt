@@ -39,6 +39,7 @@ import com.utc.driverxy.domain.usecase.question.CountQuestionsCompletedByTopicId
 import com.utc.driverxy.domain.usecase.question.GetQuestionsByRankId
 import com.utc.driverxy.domain.usecase.question.SetDoneQuestionUseCase
 import com.utc.driverxy.domain.usecase.question.SyncAllQuestionsUseCase
+import com.utc.driverxy.domain.usecase.question.SyncQuestionsCompletedUseCase
 import com.utc.driverxy.domain.usecase.rank.GetAllRanksUseCase
 import com.utc.driverxy.domain.usecase.rank.SyncAllRanksUseCase
 import com.utc.driverxy.domain.usecase.rank.UpdateRankUseCase
@@ -131,7 +132,7 @@ val repositoryModule = module {
     single<UserRepository> { UserRepositoryImpl(get()) }
     single<RankRepository> { RankRepositoryImpl(get(), get()) }
     single<TopicRepository> { TopicRepositoryImpl(get(), get()) }
-    single< QuestionRepository> { QuestionRepositoryImpl(get(), get()) }
+    single<QuestionRepository> { QuestionRepositoryImpl(get(), get(), get()) }
 }
 
 val useCaseModule = module {
@@ -151,6 +152,7 @@ val useCaseModule = module {
 
     // Question
     factoryOf(::SyncAllQuestionsUseCase)
+    factoryOf(::SyncQuestionsCompletedUseCase)
     factoryOf(::GetQuestionsByRankId)
     factoryOf(::SetDoneQuestionUseCase)
     factoryOf(::CountQuestionsCompletedByTopicId)

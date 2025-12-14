@@ -10,6 +10,7 @@ interface QuestionRepository {
     suspend fun setDoneQuestion(question: QuestionCompleted): Result<Boolean>
     fun countQuestionsCompletedByTopicId(topicId: String, rankId: String): Flow<Int>
     fun countQuestionsCompleted(rankId: String): Flow<Int>
+    suspend fun syncQuestionsCompleted(): Result<Boolean>
 }
 
 

@@ -69,6 +69,18 @@ class PracticeViewModel(
                     }
                 }
             }
+        } else if (topicId == "cauhoidiemliet") {
+            viewModelScope.launch(Dispatchers.IO) {
+                val total = currentState.question.count { it.isCritical }
+
+//                countQuestionsCompletedByTopicId(topicId, rankId).collect { questionCompleted ->
+//                    updateState {
+//                        copy(
+//                            progress = currentState.progress + (topicId to questionCompleted.toFloat() / questionByTopicCount.coerceAtLeast(1))
+//                        )
+//                    }
+//                }
+            }
         } else {
             viewModelScope.launch(Dispatchers.IO) {
                 val questionByTopicCount = currentState.question.count {

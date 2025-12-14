@@ -47,4 +47,18 @@ class QuestionRemoteDataSourceImpl(
 
         return !snapshot.isEmpty
     }
+
+    override suspend fun fetchQuestionCompleted(uid: String): List<QuestionCompletedFirestore>? {
+        val snapshot = firebaseFirestore
+            .collection("question_completed")
+            .whereEqualTo("uid", uid)
+            .get()
+            .await()
+
+        if (snapshot.isEmpty) return null
+
+        return snapshot.documents.mapNotNull { doc ->
+            doc.toObject(QuestionCompletedFirestore::class.java)
+        }
+    }
 }

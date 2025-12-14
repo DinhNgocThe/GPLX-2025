@@ -2,6 +2,7 @@ package com.utc.driverxy.data.repository
 
 import android.util.Log
 import com.utc.driverxy.data.local.datasource.QuestionLocalDataSource
+import com.utc.driverxy.data.local.datastore.DataStoreManager
 import com.utc.driverxy.data.mapper.toDomain
 import com.utc.driverxy.data.mapper.toEntity
 import com.utc.driverxy.data.mapper.toFirestore
@@ -10,16 +11,22 @@ import com.utc.driverxy.domain.model.Question
 import com.utc.driverxy.domain.model.QuestionCompleted
 import com.utc.driverxy.domain.repository.QuestionRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 
 class QuestionRepositoryImpl(
     private val questionLocalDataSource: QuestionLocalDataSource,
-    private val questionRemoteDataSource: QuestionRemoteDataSource
+    private val questionRemoteDataSource: QuestionRemoteDataSource,
+    private val dataStoreManager: DataStoreManager
 ) : QuestionRepository {
     override suspend fun syncQuestions(): Result<Boolean> {
         try {
             val questions = questionRemoteDataSource.fetchAllQuestions()
-            Log.d("HAIDANG", "syncQuestions: ${questions?.size.toString()}")
+            questions?.let {
+                it.forEach { questions ->
+                    Log.d("HAIDANG", "syncQuestions: ${questions.isCritical}")
+                }
+            }
             if (questions == null) {
                 return Result.failure(Exception("Fetch all questions error"))
             }
@@ -66,6 +73,23 @@ class QuestionRepositoryImpl(
             questionLocalDataSource.countQuestionsCompleted(rankId)
         } catch (e: Exception) {
             flow { emit(0) }
+        }
+    }
+
+    override suspend fun syncQuestionsCompleted(): Result<Boolean> {
+        try {
+            val uid = dataStoreManager.getUserInfo().firstOrNull()?.id
+            uid?.let {
+                val questionsCompleted = questionRemoteDataSource.fetchQuestionCompleted(uid)
+                questionsCompleted?.let { questions ->
+                    questionLocalDataSource.saveQuestionsCompleted(
+                        questions.map { it.toDomain().toEntity() }
+                    )
+                }
+            }
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(e)
         }
     }
 }

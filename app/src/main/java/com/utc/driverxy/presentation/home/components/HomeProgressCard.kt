@@ -33,7 +33,6 @@ import com.utc.driverxy.presentation.theme.DriverXyTypography
 fun HomeProgressCard(
     icon: Int,
     title: String,
-    progress: Float,
     completed: Int,
     total: Int,
     modifier: Modifier = Modifier
@@ -88,27 +87,17 @@ fun HomeProgressCard(
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .fillMaxWidth(progress.coerceIn(0f, 1f))
+                    .fillMaxWidth((completed.toFloat() / total).coerceIn(0f, 1f))
                     .clip(RoundedCornerShape(2.dp))
                     .background(DriverXyColors.Primary.Primary)
             )
         }
 
-        Row {
-            Text(
-                text = "$completed/$total  ",
-                style = DriverXyTypography.Title.Small.SemiBold,
-                color = DriverXyColors.Text.TextPrimary
-            )
-
-            Text(
-                text = stringResource(R.string.question),
-                style = DriverXyTypography.Title.Small.Bold,
-                color = DriverXyColors.Primary.Primary,
-                overflow = TextOverflow.Clip,
-                modifier = Modifier.weight(1f)
-            )
-        }
+        Text(
+            text = stringResource(R.string.progress) + ":  $completed/$total",
+            style = DriverXyTypography.Title.Small.SemiBold,
+            color = DriverXyColors.Text.TextPrimary
+        )
     }
 }
 
@@ -118,7 +107,6 @@ private fun HomeProgressPreview() {
     HomeProgressCard(
         icon = R.drawable.ic_tips,
         title = "Những câu hỏi điểm liệt",
-        progress = 0.3f,
         completed = 30,
         total = 100
     )

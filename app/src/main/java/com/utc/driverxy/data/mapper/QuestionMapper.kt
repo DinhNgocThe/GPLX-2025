@@ -13,7 +13,8 @@ fun QuestionFirestore.toDomain(): Question {
         answer = if (answer.isEmpty()) emptyList() else answer.split("|"),
         correct = correct,
         rankId = if (rankId.isEmpty()) emptyList() else rankId.split("|"),
-        topicId = topicId
+        topicId = topicId,
+        isCritical = isCritical
     )
 }
 
@@ -26,7 +27,8 @@ fun Question.toFirestore(): QuestionFirestore {
         answer = answer.joinToString("|"),
         correct = correct,
         rankId = rankId.joinToString("|"),
-        topicId = topicId
+        topicId = topicId,
+        isCritical = isCritical
     )
 }
 
@@ -39,7 +41,8 @@ fun QuestionEntity.toDomain(): Question {
         answer = if (answer.isEmpty()) emptyList() else answer.split("|"),
         correct = correct,
         rankId = if (rankId.isEmpty()) emptyList() else rankId.split("|"),
-        topicId = topicId
+        topicId = topicId,
+        isCritical = isCritical
     )
 }
 
@@ -52,6 +55,7 @@ fun Question.toEntity(): QuestionEntity {
         answer = answer.joinToString("|"),
         correct = correct,
         rankId = rankId.joinToString("|"),
-        topicId = topicId
+        topicId = topicId,
+        isCritical = isCritical
     )
 }
