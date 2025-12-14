@@ -29,7 +29,7 @@ object DriverXyColors {
             Color(0xFFFF7D53),
             Color(0xFFF478B8),
             Color(0xFF9260F4),
-            Color(0xFFFF9142)
+            Color(0xFFE53935)
         )
     }
 
@@ -38,6 +38,8 @@ object DriverXyColors {
         val BorderMedium = Color(0xFFD1D1D6)
         val BorderSummaryInactive = Color(0xFFE4E4E6)
         val BorderDropDown = Color(0x8080808C)
+        val Correct = Color(0xFF4CAF50)
+        val Wrong = Color(0xFFF44336)
     }
 
     object Text {

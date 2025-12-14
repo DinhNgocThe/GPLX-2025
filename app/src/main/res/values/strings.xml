@@ -70,4 +70,7 @@
     <string name="car">Car</string>
     <string name="rank">Rank</string>
     <string name="change_rank_error">Error when change rank!</string>
+    <string name="all_questions">All questions</string>
+    <string name="previous_question">"Previous "</string>
+    <string name="next_question">"Next "</string>
 </resources>

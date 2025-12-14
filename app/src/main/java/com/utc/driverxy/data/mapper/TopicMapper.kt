@@ -10,7 +10,8 @@ fun TopicEntity.toDomain(): Topic {
         id = this.id,
         displayName = this.displayName,
         start = this.start,
-        end = this.end
+        end = this.end,
+        position = this.position
     )
 }
 
@@ -20,7 +21,8 @@ fun Topic.toEntity(): TopicEntity {
         id = this.id,
         displayName = this.displayName,
         start = this.start,
-        end = this.end
+        end = this.end,
+        position = this.position
     )
 }
 
@@ -30,7 +32,8 @@ fun TopicFirestore.toDomain(): Topic {
         id = this.id,
         displayName = this.displayName,
         start = this.start,
-        end = this.end
+        end = this.end,
+        position = this.position
     )
 }
 
@@ -40,6 +43,7 @@ fun Topic.toFirestore(): TopicFirestore {
         id = this.id,
         displayName = this.displayName,
         start = this.start,
-        end = this.end
+        end = this.end,
+        position = this.position
     )
 }

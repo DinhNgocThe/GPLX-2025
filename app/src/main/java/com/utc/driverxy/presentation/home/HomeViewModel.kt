@@ -38,9 +38,9 @@ class HomeViewModel(
 
     private fun getCurrentRank(rankId: String) {
         viewModelScope.launch {
-            Log.d("PHANHAI", rankId)
+            Log.d("CurrentRank:", rankId)
             rankRepository.getRankById(rankId).collect { rank ->
-                Log.d("PHANHAI", rank.toString())
+                Log.d("CurrentRank:", rank?.displayName ?: "")
                 rank?.let {
                     updateState {
                         copy(

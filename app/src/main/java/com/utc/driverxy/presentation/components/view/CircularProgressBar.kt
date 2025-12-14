@@ -37,9 +37,15 @@ fun CircularProgressBar(
         fontSize = 16.sp
     )
 ) {
+    val safeProgress = progress
+        .takeIf { it.isFinite() }
+        ?.coerceIn(0f, 1f)
+        ?: 0f
+
     val animatedProgress by animateFloatAsState(
-        targetValue = progress.coerceIn(0f, 1f),
-        animationSpec = tween(600, easing = FastOutSlowInEasing)
+        targetValue = safeProgress,
+        animationSpec = tween(600, easing = FastOutSlowInEasing),
+        label = "circular_progress"
     )
 
     Box(
@@ -80,7 +86,7 @@ fun CircularProgressBar(
         }
 
         Text(
-            text = "${(progress * 100).toInt()}%",
+            text = "${(safeProgress * 100).toInt()}%",
             style = style
         )
     }

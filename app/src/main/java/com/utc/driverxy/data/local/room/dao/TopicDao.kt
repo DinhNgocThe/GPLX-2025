@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TopicDao : BaseDao<TopicEntity> {
-    @Query("SELECT * FROM topic")
+    @Query("SELECT * FROM topic ORDER BY position ASC")
     fun getAllTopics(): Flow<List<TopicEntity>>
 
     @Query("SELECT * FROM topic WHERE id = :topicId LIMIT 1")
-    fun getTopicById(topicId: String): Flow<TopicEntity?>
+    suspend fun getTopicById(topicId: String): TopicEntity?
 }

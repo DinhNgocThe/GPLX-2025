@@ -4,22 +4,30 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.utc.driverxy.data.local.room.dao.QuestionCompletedDao
 import com.utc.driverxy.data.local.room.dao.QuestionDao
 import com.utc.driverxy.data.local.room.dao.RankDao
 import com.utc.driverxy.data.local.room.dao.TopicDao
+import com.utc.driverxy.data.local.room.entities.QuestionCompletedEntity
 import com.utc.driverxy.data.local.room.entities.QuestionEntity
 import com.utc.driverxy.data.local.room.entities.RankEntity
 import com.utc.driverxy.data.local.room.entities.TopicEntity
+import com.utc.driverxy.data.remote.model.QuestionCompletedFirestore
 
-@Database(entities = [
+@Database(
+    entities = [
         RankEntity::class,
         TopicEntity::class,
-        QuestionEntity::class
-    ], version = 1)
+        QuestionEntity::class,
+        QuestionCompletedEntity::class
+    ],
+    version = 1
+)
 abstract class DriverXyDatabase : RoomDatabase() {
     abstract fun rankDao(): RankDao
     abstract fun topicDao(): TopicDao
     abstract fun questionDao(): QuestionDao
+    abstract fun questionCompletedDao(): QuestionCompletedDao
 
     companion object {
         @Volatile

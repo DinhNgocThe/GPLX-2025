@@ -7,5 +7,6 @@ data class Topic(
     val id: String,
     val displayName: String,
     val start: Int,
-    val end: Int
+    val end: Int,
+    val position: Int
 )

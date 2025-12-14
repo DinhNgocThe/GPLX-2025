@@ -9,5 +9,6 @@ data class TopicEntity(
     val id: String = "",
     val displayName: String = "",
     val start: Int = 0,
-    val end: Int = 0
+    val end: Int = 0,
+    val position: Int = 1
 )
