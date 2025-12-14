@@ -3,12 +3,12 @@ package com.utc.driverxy.presentation.changeRank
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.utc.driverxy.base.BaseMviViewModel
-import com.utc.driverxy.domain.usecase.rank.GetAllRankUseCase
+import com.utc.driverxy.domain.usecase.rank.GetAllRanksUseCase
 import com.utc.driverxy.domain.usecase.rank.UpdateRankUseCase
 import kotlinx.coroutines.launch
 
 class ChangeRankViewModel(
-    private val getAllRankUseCase: GetAllRankUseCase,
+    private val getAllRankUseCase: GetAllRanksUseCase,
     private val updateRankUseCase: UpdateRankUseCase,
     private val firebaseAuth: FirebaseAuth
 ) : BaseMviViewModel<ChangeRankIntent, ChangeRankState, ChangeRankEvent>() {

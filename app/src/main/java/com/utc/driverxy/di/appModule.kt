@@ -8,23 +8,37 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.utc.driverxy.data.local.datasource.QuestionLocalDataSource
+import com.utc.driverxy.data.local.datasource.QuestionLocalDataSourceImpl
 import com.utc.driverxy.data.local.datasource.RankLocalDataSource
 import com.utc.driverxy.data.local.datasource.RankLocalDataSourceImpl
+import com.utc.driverxy.data.local.datasource.TopicLocalDataSource
+import com.utc.driverxy.data.local.datasource.TopicLocalDataSourceImpl
 import com.utc.driverxy.data.local.datastore.DataStoreManager
 import com.utc.driverxy.data.local.datastore.DataStoreManagerImpl
 import com.utc.driverxy.data.local.room.DriverXyDatabase
 import com.utc.driverxy.data.provider.GoogleAuthClient
+import com.utc.driverxy.data.remote.datasource.QuestionRemoteDataSource
+import com.utc.driverxy.data.remote.datasource.QuestionRemoteDataSourceImpl
 import com.utc.driverxy.data.remote.datasource.RankRemoteDataSource
 import com.utc.driverxy.data.remote.datasource.RankRemoteDataSourceImpl
+import com.utc.driverxy.data.remote.datasource.TopicRemoteDataSource
+import com.utc.driverxy.data.remote.datasource.TopicRemoteDataSourceImpl
 import com.utc.driverxy.data.remote.datasource.UserRemoteDataSource
 import com.utc.driverxy.data.remote.datasource.UserRemoteDataSourceImpl
+import com.utc.driverxy.data.repository.QuestionRepositoryImpl
 import com.utc.driverxy.data.repository.RankRepositoryImpl
+import com.utc.driverxy.data.repository.TopicRepositoryImpl
 import com.utc.driverxy.data.repository.UserRepositoryImpl
+import com.utc.driverxy.domain.repository.QuestionRepository
 import com.utc.driverxy.domain.repository.RankRepository
+import com.utc.driverxy.domain.repository.TopicRepository
 import com.utc.driverxy.domain.repository.UserRepository
-import com.utc.driverxy.domain.usecase.rank.FetchAllRankUseCase
-import com.utc.driverxy.domain.usecase.rank.GetAllRankUseCase
+import com.utc.driverxy.domain.usecase.question.SyncAllQuestionsUseCase
+import com.utc.driverxy.domain.usecase.rank.SyncAllRanksUseCase
+import com.utc.driverxy.domain.usecase.rank.GetAllRanksUseCase
 import com.utc.driverxy.domain.usecase.rank.UpdateRankUseCase
+import com.utc.driverxy.domain.usecase.topic.SyncAllTopicsUseCase
 import com.utc.driverxy.domain.usecase.user.GetUserUseCase
 import com.utc.driverxy.domain.usecase.user.SaveUserUseCase
 import com.utc.driverxy.presentation.camera.CameraViewModel
@@ -78,28 +92,51 @@ val roomModule = module {
     single {
         get<DriverXyDatabase>().rankDao()
     }
+
+    single {
+        get<DriverXyDatabase>().topicDao()
+    }
+
+    single {
+        get<DriverXyDatabase>().questionDao()
+    }
 }
 
 val dataSourceModule = module {
     // Local data source
     single<RankLocalDataSource> { RankLocalDataSourceImpl(get()) }
+    single<TopicLocalDataSource> { TopicLocalDataSourceImpl(get()) }
+    single<QuestionLocalDataSource> { QuestionLocalDataSourceImpl(get()) }
 
     // Remote data source
     single<UserRemoteDataSource> { UserRemoteDataSourceImpl(get()) }
     single<RankRemoteDataSource> { RankRemoteDataSourceImpl(get()) }
+    single<TopicRemoteDataSource> { TopicRemoteDataSourceImpl(get()) }
+    single<QuestionRemoteDataSource> { QuestionRemoteDataSourceImpl(get()) }
 }
 
 val repositoryModule = module {
     single<UserRepository> { UserRepositoryImpl(get()) }
     single<RankRepository> { RankRepositoryImpl(get(), get()) }
+    single<TopicRepository> { TopicRepositoryImpl(get(), get()) }
+    single< QuestionRepository> { QuestionRepositoryImpl(get(), get()) }
 }
 
 val useCaseModule = module {
+    // User
     factoryOf(::SaveUserUseCase)
     factoryOf(::GetUserUseCase)
-    factoryOf(::FetchAllRankUseCase)
-    factoryOf(::GetAllRankUseCase)
+
+    // Rank
+    factoryOf(::SyncAllRanksUseCase)
+    factoryOf(::GetAllRanksUseCase)
     factoryOf(::UpdateRankUseCase)
+
+    // Topic
+    factoryOf(::SyncAllTopicsUseCase)
+
+    // Question
+    factoryOf(::SyncAllQuestionsUseCase)
 }
 
 val viewModelModule = module {
