@@ -12,5 +12,6 @@ data class QuestionEntity(
     val answer: String = "",
     val correct: Int = 1,
     val rankId: String = "",
-    val topicId: String = ""
+    val topicId: String = "",
+    val isCritical: Boolean = false
 )

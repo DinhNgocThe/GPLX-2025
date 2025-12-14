@@ -118,12 +118,17 @@ fun HomeScreenContent(
         )
 
         HomeProgress.entries.forEachIndexed { index, homeProgress ->
+            val progress = when (homeProgress) {
+                HomeProgress.CRITICAL_QUESTION -> 0 to 1
+                HomeProgress.TRAFFIC_SIGNS -> viewState.trafficSignsProgress
+                HomeProgress.DRIVING_SCENARIO -> viewState.saHinhProgress
+                HomeProgress.EXAM -> 0 to 1
+            }
             HomeProgressCard(
                 icon = homeProgress.icon,
                 title = stringResource(homeProgress.title),
-                progress = 0.3f,
-                completed = 30,
-                total = 100,
+                completed = progress.first,
+                total = progress.second,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
         }

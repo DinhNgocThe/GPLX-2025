@@ -26,9 +26,21 @@ interface QuestionCompletedDao : BaseDao<QuestionCompletedEntity> {
         FROM question_completed qc
         INNER JOIN question q 
             ON qc.questionId = q.id
-        AND q.rankId LIKE '%' || :rankId || '%'
+        WHERE q.rankId LIKE '%' || :rankId || '%'
     """)
     fun countCompleted(
+        rankId: String
+    ): Flow<Int>
+
+    @Query("""
+        SELECT COUNT(*)
+        FROM question_completed qc
+        INNER JOIN question q 
+            ON qc.questionId = q.id
+        WHERE q.rankId LIKE '%' || :rankId || '%'
+        AND q.isCritical = 1
+    """)
+    fun countCriticalCompleted(
         rankId: String
     ): Flow<Int>
 }

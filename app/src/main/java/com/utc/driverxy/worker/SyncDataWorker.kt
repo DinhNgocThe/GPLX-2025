@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.utc.driverxy.domain.usecase.question.SyncAllQuestionsUseCase
+import com.utc.driverxy.domain.usecase.question.SyncQuestionsCompletedUseCase
 import com.utc.driverxy.domain.usecase.rank.SyncAllRanksUseCase
 import com.utc.driverxy.domain.usecase.topic.SyncAllTopicsUseCase
 import com.utc.driverxy.utils.Constant
@@ -22,6 +23,7 @@ class SyncDataWorker(
     private val fetchAllRankUseCase: SyncAllRanksUseCase by inject()
     private val syncAllTopicsUseCase: SyncAllTopicsUseCase by inject()
     private val syncAllQuestionsUseCase: SyncAllQuestionsUseCase by inject()
+    private val syncQuestionsCompletedUseCase: SyncQuestionsCompletedUseCase by inject()
     private val workerManager: WorkerManager by inject()
 
     override suspend fun doWork(): Result = coroutineScope {
@@ -35,7 +37,8 @@ class SyncDataWorker(
             val tasks = listOf(
                 async(Dispatchers.IO) { fetchAllRankUseCase().getOrThrow() },
                 async(Dispatchers.IO) { syncAllTopicsUseCase().getOrThrow() },
-                async(Dispatchers.IO) { syncAllQuestionsUseCase().getOrThrow() }
+                async(Dispatchers.IO) { syncAllQuestionsUseCase().getOrThrow() },
+                async(Dispatchers.IO) { syncQuestionsCompletedUseCase().getOrThrow() }
             )
             tasks.awaitAll()
 

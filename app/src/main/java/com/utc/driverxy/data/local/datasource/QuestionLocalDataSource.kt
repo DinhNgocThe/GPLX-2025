@@ -10,4 +10,5 @@ interface QuestionLocalDataSource {
     suspend fun setDoneQuestion(question: QuestionCompletedEntity)
     fun countQuestionsCompletedByTopic(topicId: String, rankId: String): Flow<Int>
     fun countQuestionsCompleted(rankId: String): Flow<Int>
+    suspend fun saveQuestionsCompleted(questions: List<QuestionCompletedEntity>)
 }

@@ -10,7 +10,8 @@ data class PracticeState(
     val isLoading: Boolean = false,
     val topics: List<Topic> = emptyList(),
     val progress: Map<String, Float> = emptyMap(),
-    val question: List<Question> = emptyList()
+    val question: List<Question> = emptyList(),
+    val criticalProgress: Float = 0f
 ) : MviViewState
 
 sealed class PracticeIntent : MviIntent {

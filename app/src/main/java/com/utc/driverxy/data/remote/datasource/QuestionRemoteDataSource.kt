@@ -10,6 +10,7 @@ interface QuestionRemoteDataSource {
         uid: String,
         questionId: String
     ): Boolean
+    suspend fun fetchQuestionCompleted(uid: String): List<QuestionCompletedFirestore>?
 }
 
 

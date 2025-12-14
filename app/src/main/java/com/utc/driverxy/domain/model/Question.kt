@@ -7,5 +7,6 @@ data class Question(
     val answer: List<String>,
     val correct: Int,
     val rankId: List<String>,
-    val topicId: String
+    val topicId: String,
+    val isCritical: Boolean
 )

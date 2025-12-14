@@ -29,4 +29,8 @@ class QuestionLocalDataSourceImpl(
     override fun countQuestionsCompleted(rankId: String): Flow<Int> {
         return questionCompletedDao.countCompleted(rankId)
     }
+
+    override suspend fun saveQuestionsCompleted(questions: List<QuestionCompletedEntity>) {
+        questionCompletedDao.insert(questions)
+    }
 }
