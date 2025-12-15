@@ -1,11 +1,11 @@
 package com.utc.driverxy.presentation.practiceQuestion
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.utc.driverxy.base.BaseMviViewModel
 import com.utc.driverxy.data.local.datastore.DataStoreManager
 import com.utc.driverxy.domain.model.QuestionCompleted
 import com.utc.driverxy.domain.usecase.question.GetQuestionsByRankId
+import com.utc.driverxy.domain.usecase.question.GetQuestionsCriticalByRank
 import com.utc.driverxy.domain.usecase.question.SetDoneQuestionUseCase
 import com.utc.driverxy.domain.usecase.topic.GetTopicById
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,8 @@ class PracticeQuestionViewModel(
     private val getTopicById: GetTopicById,
     private val dataStoreManager: DataStoreManager,
     private val getQuestionsByRankId: GetQuestionsByRankId,
-    private val setDoneQuestionUseCase: SetDoneQuestionUseCase
+    private val setDoneQuestionUseCase: SetDoneQuestionUseCase,
+    private val getQuestionsCriticalByRank: GetQuestionsCriticalByRank
 ) : BaseMviViewModel<PracticeQuestionIntent, PracticeQuestionState, PracticeQuestionEvent>() {
 
     override fun initState(): PracticeQuestionState {
@@ -25,9 +26,13 @@ class PracticeQuestionViewModel(
 
     override fun processIntent(intent: PracticeQuestionIntent) {
         when (intent) {
-            is PracticeQuestionIntent.LoadTopic -> {
+            is PracticeQuestionIntent.LoadDataByTopic -> {
                 handleLoadTopic(intent.topicId)
-                loadQuestions(intent.topicId)
+                if (intent.topicId == "cauhoidiemliet") {
+                    loadQuestionsCritical()
+                } else {
+                    loadQuestions(intent.topicId)
+                }
             }
 
             PracticeQuestionIntent.OnNextQuestion -> {
@@ -40,6 +45,19 @@ class PracticeQuestionViewModel(
 
             is PracticeQuestionIntent.OnAnswerClick -> {
                 handleOnAnswerClick(intent.index)
+            }
+        }
+    }
+
+    private fun loadQuestionsCritical() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val rankId = dataStoreManager.getUserInfo().firstOrNull()?.rankId ?: "a1"
+            val questions = getQuestionsCriticalByRank(rankId)
+            updateState {
+                copy(
+                    question = questions,
+                    currentQuestion = 0
+                )
             }
         }
     }

@@ -36,7 +36,9 @@ import com.utc.driverxy.domain.repository.TopicRepository
 import com.utc.driverxy.domain.repository.UserRepository
 import com.utc.driverxy.domain.usecase.question.CountQuestionsCompleted
 import com.utc.driverxy.domain.usecase.question.CountQuestionsCompletedByTopicId
+import com.utc.driverxy.domain.usecase.question.CountQuestionsCriticalCompleted
 import com.utc.driverxy.domain.usecase.question.GetQuestionsByRankId
+import com.utc.driverxy.domain.usecase.question.GetQuestionsCriticalByRank
 import com.utc.driverxy.domain.usecase.question.SetDoneQuestionUseCase
 import com.utc.driverxy.domain.usecase.question.SyncAllQuestionsUseCase
 import com.utc.driverxy.domain.usecase.question.SyncQuestionsCompletedUseCase
@@ -157,6 +159,8 @@ val useCaseModule = module {
     factoryOf(::SetDoneQuestionUseCase)
     factoryOf(::CountQuestionsCompletedByTopicId)
     factoryOf(::CountQuestionsCompleted)
+    factoryOf(::GetQuestionsCriticalByRank)
+    factoryOf(::CountQuestionsCriticalCompleted)
 }
 
 val viewModelModule = module {

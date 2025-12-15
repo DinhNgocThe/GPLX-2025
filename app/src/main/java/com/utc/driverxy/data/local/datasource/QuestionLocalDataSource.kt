@@ -11,4 +11,6 @@ interface QuestionLocalDataSource {
     fun countQuestionsCompletedByTopic(topicId: String, rankId: String): Flow<Int>
     fun countQuestionsCompleted(rankId: String): Flow<Int>
     suspend fun saveQuestionsCompleted(questions: List<QuestionCompletedEntity>)
+    suspend fun getQuestionsCriticalByRank(rankId: String): List<QuestionEntity>
+    fun countQuestionsCriticalCompleted(rankId: String): Flow<Int>
 }

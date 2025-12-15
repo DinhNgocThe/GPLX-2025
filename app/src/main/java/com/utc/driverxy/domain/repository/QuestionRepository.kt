@@ -11,6 +11,8 @@ interface QuestionRepository {
     fun countQuestionsCompletedByTopicId(topicId: String, rankId: String): Flow<Int>
     fun countQuestionsCompleted(rankId: String): Flow<Int>
     suspend fun syncQuestionsCompleted(): Result<Boolean>
+    suspend fun getQuestionCriticalByRank(rankId: String): List<Question>
+    fun countQuestionsCriticalCompleted(rankId: String): Flow<Int>
 }
 
 

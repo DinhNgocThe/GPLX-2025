@@ -16,7 +16,7 @@ data class PracticeQuestionState(
 ) : MviViewState
 
 sealed class PracticeQuestionIntent : MviIntent {
-    data class LoadTopic(val topicId: String) : PracticeQuestionIntent()
+    data class LoadDataByTopic(val topicId: String) : PracticeQuestionIntent()
     data object OnNextQuestion : PracticeQuestionIntent()
     data object OnPreviousQuestion : PracticeQuestionIntent()
     data class OnAnswerClick(val index: Int) : PracticeQuestionIntent()

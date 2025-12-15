@@ -14,6 +14,7 @@ data class HomeState(
     val question: List<Question> = emptyList(),
     val trafficSignsProgress: Pair<Int, Int> = 0 to 1,
     val saHinhProgress: Pair<Int, Int> = 0 to 1,
+    val criticalProgress: Pair<Int, Int> = 0 to 1
 ) : MviViewState
 
 sealed class HomeIntent : MviIntent {

@@ -92,4 +92,20 @@ class QuestionRepositoryImpl(
             return Result.failure(e)
         }
     }
+
+    override suspend fun getQuestionCriticalByRank(rankId: String): List<Question> {
+        return try {
+            questionLocalDataSource.getQuestionsCriticalByRank(rankId).map { it.toDomain() }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    override fun countQuestionsCriticalCompleted(rankId: String): Flow<Int> {
+        return try {
+            questionLocalDataSource.countQuestionsCriticalCompleted(rankId)
+        } catch (e: Exception) {
+            flow { emit(0) }
+        }
+    }
 }

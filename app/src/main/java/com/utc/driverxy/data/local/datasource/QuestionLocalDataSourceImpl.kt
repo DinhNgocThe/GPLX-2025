@@ -33,4 +33,12 @@ class QuestionLocalDataSourceImpl(
     override suspend fun saveQuestionsCompleted(questions: List<QuestionCompletedEntity>) {
         questionCompletedDao.insert(questions)
     }
+
+    override suspend fun getQuestionsCriticalByRank(rankId: String): List<QuestionEntity> {
+        return questionDao.getQuestionsCriticalByRank(rankId)
+    }
+
+    override fun countQuestionsCriticalCompleted(rankId: String): Flow<Int> {
+        return questionCompletedDao.countCriticalCompleted(rankId)
+    }
 }

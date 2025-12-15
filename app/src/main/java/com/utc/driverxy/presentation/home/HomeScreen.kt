@@ -119,11 +119,12 @@ fun HomeScreenContent(
 
         HomeProgress.entries.forEachIndexed { index, homeProgress ->
             val progress = when (homeProgress) {
-                HomeProgress.CRITICAL_QUESTION -> 0 to 1
+                HomeProgress.CRITICAL_QUESTION -> viewState.criticalProgress
                 HomeProgress.TRAFFIC_SIGNS -> viewState.trafficSignsProgress
                 HomeProgress.DRIVING_SCENARIO -> viewState.saHinhProgress
                 HomeProgress.EXAM -> 0 to 1
             }
+
             HomeProgressCard(
                 icon = homeProgress.icon,
                 title = stringResource(homeProgress.title),

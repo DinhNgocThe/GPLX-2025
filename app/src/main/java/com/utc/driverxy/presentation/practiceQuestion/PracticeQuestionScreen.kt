@@ -1,6 +1,5 @@
 package com.utc.driverxy.presentation.practiceQuestion
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -55,7 +54,7 @@ fun PracticeQuestionScreen(
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
     LaunchedEffect(topicId) {
-        viewModel.processIntent(PracticeQuestionIntent.LoadTopic(topicId))
+        viewModel.processIntent(PracticeQuestionIntent.LoadDataByTopic(topicId))
     }
 
     PracticeQuestionScreenContent(
@@ -214,10 +213,15 @@ fun PracticeQuestionScreenContent(
                                 .clickable {
                                     onAnswerClick(index)
                                 }
-                                .background(DriverXyColors.ListColors.list[(index + 1) % 5].copy(0.15f))
+                                .background(
+                                    DriverXyColors.ListColors.list[(index + 1) % 5].copy(
+                                        0.15f
+                                    )
+                                )
                                 .then(
                                     if (viewState.selectedAnswer[viewState.currentQuestion] != null &&
-                                        (viewState.selectedAnswer[viewState.currentQuestion] == index || index == viewState.question[viewState.currentQuestion].correct - 1)) {
+                                        (viewState.selectedAnswer[viewState.currentQuestion] == index || index == viewState.question[viewState.currentQuestion].correct - 1)
+                                    ) {
                                         Modifier
                                             .border(
                                                 width = 2.dp,
@@ -260,9 +264,11 @@ fun PracticeQuestionScreenContent(
                             onPreviousQuestion()
                         }
                     }
-                    .background(DriverXyColors.Primary.Primary.copy(
-                        if (viewState.currentQuestion > 0) 0.4f else 0.1f
-                    ))
+                    .background(
+                        DriverXyColors.Primary.Primary.copy(
+                            if (viewState.currentQuestion > 0) 0.4f else 0.1f
+                        )
+                    )
                     .padding(12.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -294,9 +300,11 @@ fun PracticeQuestionScreenContent(
                             onNextQuestion()
                         }
                     }
-                    .background(DriverXyColors.Primary.Primary.copy(
-                        if (viewState.currentQuestion < viewState.question.size - 1) 0.4f else 0.1f
-                    ))
+                    .background(
+                        DriverXyColors.Primary.Primary.copy(
+                            if (viewState.currentQuestion < viewState.question.size - 1) 0.4f else 0.1f
+                        )
+                    )
                     .padding(12.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
