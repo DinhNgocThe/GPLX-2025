@@ -43,6 +43,7 @@ fun HomeScreen(
     navigateToChangeRank: () -> Unit,
     navigateToWrongQuestion: () -> Unit,
     onSelectPractice: () -> Unit,
+    navigateToSettings: () -> Unit,
     viewModel: HomeViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -76,6 +77,9 @@ fun HomeScreen(
         },
         onSelectPractice = {
             onSelectPractice()
+        },
+        navigateToSettings = {
+            navigateToSettings()
         }
     )
 }
@@ -86,6 +90,7 @@ fun HomeScreenContent(
     onCantMissClick: (CantMiss) -> Unit,
     onChangeRank: () -> Unit,
     onSelectPractice: () -> Unit,
+    navigateToSettings: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -100,6 +105,9 @@ fun HomeScreenContent(
             userName = viewState.user?.name ?: "Unknown",
             rank = viewState.currentRank?.displayName ?: "Unknown",
             onChangeRank = onChangeRank,
+            navigateToSettings = {
+                navigateToSettings()
+            },
             modifier = Modifier.padding(top = 28.dp)
         )
 
@@ -177,6 +185,7 @@ private fun HomeScreenPreview() {
         onCantMissClick = {},
         onChangeRank = {},
         onSelectPractice = {},
+        navigateToSettings = {}
     )
 }
 

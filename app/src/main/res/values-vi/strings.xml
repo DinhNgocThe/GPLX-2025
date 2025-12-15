@@ -4,13 +4,13 @@
     <string name="welcome_title">Chào mừng</string>
     <string name="welcome_description">Hãy dừng viêc ôn thi bằng lái mù quáng. Hãy để DriverXy giúp bạn!</string>
     <string name="get_started">Bắt đầu</string>
-    <string name="onboarding_title_1">Sẵn sàng cho kỳ thi bằng lái!</string>
-    <string name="onboarding_title_2">Ôn tập theo bộ đề chính thức</string>
-    <string name="onboarding_title_3">Học theo từng chủ đề bạn muốn</string>
+    <string name="onboarding_title_1">Ôn tập theo chủ đề</string>
+    <string name="onboarding_title_2">Bộ câu hỏi tiêu chuẩn</string>
+    <string name="onboarding_title_3">Quét biển báo với DriverXy AI</string>
     <string name="onboarding_title_4">Nắm rõ quá trình học tập</string>
-    <string name="onboarding_description_1">Học lý thuyết, biển báo... một cách nhanh chóng và dễ dàng</string>
-    <string name="onboarding_description_2">Tất cả câu hỏi được cập nhật mới nhất từ Bộ Giao Thông Vận Tải</string>
-    <string name="onboarding_description_3">Chia nhỏ kiến thức, luyện tập dễ dàng và ghi nhớ lâu hơn mà không bị quá tải</string>
+    <string name="onboarding_description_1">Ghi nhớ từng câu hỏi theo từng chủ đề: sa hình, văn hoá, biển báo...</string>
+    <string name="onboarding_description_2">Hàng chục đề thi được cập nhật mới nhất theo bộ giao thông vận tải.</string>
+    <string name="onboarding_description_3">Hiểu nhanh ý nghĩa của bất kỳ biển báo nào mà bạn gặp trên đường.</string>
     <string name="onboarding_description_4">Theo dõi số câu đúng, điểm số và tiến bộ mỗi ngày</string>
     <string name="button_continue">Tiếp tục</string>
     <string name="sign_in_title">Bắt đầu thôi! Chúng tôi sẽ giúp bạn học lái xe hiệu quả từng bước.</string>
@@ -68,4 +68,7 @@
     <string name="number_correct">Số câu đúng:</string>
     <string name="number_critical_wrong">Số câu điểm liệt sai:</string>
     <string name="exam_result">Kết quả bài thi</string>
+    <string name="settings">Cài đặt</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="delete_account">Xoá tài khoản</string>
 </resources>

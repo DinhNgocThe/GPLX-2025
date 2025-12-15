@@ -34,6 +34,7 @@ fun MainScreen(
     navigateToPracticeQuestion: (String) -> Unit,
     navigateToWrongQuestion: () -> Unit,
     startExam: (Int) -> Unit,
+    navigateToSettings: () -> Unit,
     viewModel: MainViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -60,6 +61,9 @@ fun MainScreen(
         },
         startExam = {
             startExam(it)
+        },
+        navigateToSettings = {
+            navigateToSettings()
         }
     )
 }
@@ -73,6 +77,7 @@ fun MainScreenContent(
     navigateToPracticeQuestion: (String) -> Unit,
     navigateToWrongQuestion: () -> Unit,
     startExam: (Int) -> Unit,
+    navigateToSettings: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -97,6 +102,9 @@ fun MainScreenContent(
                             navigateToWrongQuestion = navigateToWrongQuestion,
                             onSelectPractice = {
                                 onTabClick(MainTab.PRACTICE)
+                            },
+                            navigateToSettings = {
+                                navigateToSettings()
                             }
                         )
                     }
@@ -136,5 +144,6 @@ fun MainScreenPreview() {
         navigateToPracticeQuestion = {},
         navigateToWrongQuestion = {},
         startExam = {},
+        navigateToSettings = {}
     )
 }

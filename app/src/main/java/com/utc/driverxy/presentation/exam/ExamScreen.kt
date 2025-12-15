@@ -81,7 +81,7 @@ fun ExamScreenContent(
                 ExamInProgressCard(
                     backgroundColor = DriverXyColors.ListColors.list[index % 5],
                     examNumber = index + 1,
-                    questionCount = 25,
+                    questionCount = viewState.totalQuestion,
                     onContinueClick = {
                         startExam(index + 1)
                     },

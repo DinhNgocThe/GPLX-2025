@@ -7,3 +7,6 @@ fun <T : NavKey> NavBackStack<T>.replaceTop(new: T) {
     removeLastOrNull()
     add(new)
 }
+
+
+

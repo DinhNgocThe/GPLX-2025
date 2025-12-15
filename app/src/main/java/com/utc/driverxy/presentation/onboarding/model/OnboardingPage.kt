@@ -24,11 +24,6 @@ fun getOnboardingPages(): List<OnboardingPage> {
             title = R.string.onboarding_title_3,
             description = R.string.onboarding_description_3,
             imageResource = R.drawable.img_onboarding_3
-        ),
-        OnboardingPage(
-            title = R.string.onboarding_title_4,
-            description = R.string.onboarding_description_4,
-            imageResource = R.drawable.img_onboarding_4
         )
     )
 }
