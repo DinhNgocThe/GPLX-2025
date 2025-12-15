@@ -24,7 +24,14 @@ class ExamViewModel(
                         "c", "d" -> 29
                         else -> 15
                     }
-                    updateState { copy(numberExams = numberExams) }
+                    val totalQuestion = when (it.rankId) {
+                        "a1", "a2", "a3" -> 25
+                        "b1" -> 25
+                        "c" -> 40
+                        "d" -> 45
+                        else -> 25
+                    }
+                    updateState { copy(numberExams = numberExams, totalQuestion = totalQuestion) }
                 }
             }
         }

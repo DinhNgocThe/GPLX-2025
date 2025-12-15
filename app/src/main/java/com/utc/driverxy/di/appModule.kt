@@ -62,6 +62,7 @@ import com.utc.driverxy.presentation.onboarding.OnboardingViewModel
 import com.utc.driverxy.presentation.practice.PracticeViewModel
 import com.utc.driverxy.presentation.practiceQuestion.PracticeQuestionViewModel
 import com.utc.driverxy.presentation.scanTrafficSigns.ScanTrafficSignsViewModel
+import com.utc.driverxy.presentation.settings.SettingsViewModel
 import com.utc.driverxy.presentation.signin.SignInViewModel
 import com.utc.driverxy.presentation.splash.SplashViewModel
 import com.utc.driverxy.presentation.wrongQuestion.WrongQuestionViewModel
@@ -187,4 +188,5 @@ val viewModelModule = module {
     viewModelOf(::PracticeQuestionViewModel)
     viewModelOf(::WrongQuestionViewModel)
     viewModelOf(::ExamTakingViewModel)
+    viewModelOf(::SettingsViewModel)
 }

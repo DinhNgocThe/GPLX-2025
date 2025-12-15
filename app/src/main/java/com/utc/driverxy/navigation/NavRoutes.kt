@@ -13,6 +13,7 @@ import com.utc.driverxy.presentation.onboarding.OnboardingScreen
 import com.utc.driverxy.presentation.onboarding.WelcomeScreen
 import com.utc.driverxy.presentation.practiceQuestion.PracticeQuestionScreen
 import com.utc.driverxy.presentation.scanTrafficSigns.ScanTrafficSignsScreen
+import com.utc.driverxy.presentation.settings.SettingsScreen
 import com.utc.driverxy.presentation.signin.SignInScreen
 import com.utc.driverxy.presentation.splash.SplashScreen
 import com.utc.driverxy.presentation.wrongQuestion.WrongQuestionScreen
@@ -84,6 +85,9 @@ fun NavRoutes() {
                     },
                     startExam = {
                         backStack.add(Destination.ExamTaking(it))
+                    },
+                    navigateToSettings = {
+                        backStack.add(Destination.Settings)
                     }
                 )
             }
@@ -126,6 +130,21 @@ fun NavRoutes() {
                     examNumber = it.number,
                     navigateBack = {
                         backStack.removeLastOrNull()
+                    }
+                )
+            }
+
+            entry<Destination.Settings> {
+                SettingsScreen(
+                    navigateBack = {
+                        backStack.removeLastOrNull()
+                    },
+                    logout = {
+                        backStack.apply {
+                            this[0] = Destination.SignIn
+                             //backStack.removeLastOrNull()
+                             //backStack.removeLastOrNull()
+                        }
                     }
                 )
             }

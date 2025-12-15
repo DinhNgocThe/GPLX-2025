@@ -25,4 +25,6 @@ sealed interface Destination : NavKey {
     data object WrongQuestion : Destination
     @Serializable
     data class ExamTaking(val number: Int) : Destination
+    @Serializable
+    data object Settings: Destination
 }

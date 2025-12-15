@@ -11,13 +11,13 @@
     <string name="default_web_client_id" translatable="false">762646211540-b3dv6acsfgcs7ev2dki8pb4ek8ieco03.apps.googleusercontent.com</string>
 
     <!--Onboarding-->
-    <string name="onboarding_title_1">Ready for your driving test!</string>
-    <string name="onboarding_title_2">Review according to the official set of questions</string>
-    <string name="onboarding_title_3">Learn by topic you want</string>
+    <string name="onboarding_title_1">Practice by topic</string>
+    <string name="onboarding_title_2">Standard framework questionnaire</string>
+    <string name="onboarding_title_3">Scan road signs with DriverXy AI</string>
     <string name="onboarding_title_4">Understand the learning process</string>
-    <string name="onboarding_description_1">Learn theory, signs... quickly and easily</string>
-    <string name="onboarding_description_2">All questions are updated from the Ministry of Transport</string>
-    <string name="onboarding_description_3">Break down knowledge, practice easily and remember longer without overloading</string>
+    <string name="onboarding_description_1">Memorize each question by topic: road diagrams, culture, road signs, etc.</string>
+    <string name="onboarding_description_2">Dozens of exam questions have been updated to reflect the latest information from the Ministry of Transport.</string>
+    <string name="onboarding_description_3">Quickly understand the meaning of any road signs you encounter.</string>
     <string name="onboarding_description_4">Theo dõi số câu đúng, điểm số và tiến bộ mỗi ngày</string>
     <string name="button_continue">Continue</string>
 
@@ -79,4 +79,7 @@
     <string name="number_correct">Number of correct answers:</string>
     <string name="number_critical_wrong">Number of incorrect critical answers:</string>
     <string name="exam_result">Exam result</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Log out</string>
+    <string name="delete_account">Delete account</string>
 </resources>

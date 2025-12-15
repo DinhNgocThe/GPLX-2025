@@ -78,8 +78,8 @@ fun OnboardingContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding()
-            .background(DriverXyColors.BackGround.BackgroundPrimary),
+            .background(DriverXyColors.BackGround.BackgroundPrimary)
+            .statusBarsPadding(),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -99,7 +99,8 @@ fun OnboardingContent(
                     Image(
                         painter = painterResource(id = pages[page].imageResource),
                         contentDescription = null,
-                        contentScale = ContentScale.FillWidth,
+                        alignment = Alignment.TopCenter,
+                        contentScale = ContentScale.FillHeight,
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f)

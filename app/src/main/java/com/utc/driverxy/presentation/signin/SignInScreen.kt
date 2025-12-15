@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -83,22 +84,21 @@ fun SignInScreenContent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(DriverXyColors.BackGround.BackgroundLightBlue),
+                .background(DriverXyColors.White),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
-                    .padding(top = 40.dp)
+                    .padding(start = 20.dp, end = 34.dp)
+                    .padding(top = 60.dp)
             ) {
                 Image(
-                    painter = painterResource(R.drawable.img_login_banner),
+                    painter = painterResource(R.drawable.img_welcome),
                     contentDescription = null,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(336.dp),
-                    contentScale = ContentScale.FillHeight
+                        .fillMaxWidth(),
+                    contentScale = ContentScale.FillWidth
                 )
             }
 
@@ -119,12 +119,13 @@ fun SignInScreenContent(
                 modifier = Modifier
                     .padding(horizontal = 24.dp)
                     .heightIn(min = 56.dp)
-                    .shadow(
-                        elevation = 4.dp,
-                        shape = DriverXyShapes.extraLarge,
-                        ambientColor = Color.Black.copy(0.4f),
-                        spotColor = Color.Black.copy(0.4f)
-                    ),
+                    .graphicsLayer {
+                        shadowElevation = 8.dp.toPx()
+                        shape = DriverXyShapes.large
+                        ambientShadowColor = Color.Black.copy(alpha = 0.5f)
+                        spotShadowColor = Color.Black.copy(alpha = 0.5f)
+                        clip = true
+                    },
                 text = stringResource(R.string.sign_in_with_google),
                 style = DriverXyTypography.Title.Medium.Bold.copy(
                     color = DriverXyColors.Text.TextPrimary
@@ -132,8 +133,6 @@ fun SignInScreenContent(
                 leadingIcon = R.drawable.ic_google,
                 leadingIconSize = 24.dp,
             )
-
-            Spacer(modifier = Modifier.height(200.dp))
         }
 
         if (uiState.isLoading) {

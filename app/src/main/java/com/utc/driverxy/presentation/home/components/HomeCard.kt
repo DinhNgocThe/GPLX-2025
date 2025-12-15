@@ -1,6 +1,9 @@
 package com.utc.driverxy.presentation.home.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,12 +36,14 @@ import com.utc.driverxy.presentation.theme.DriverXyColors
 import com.utc.driverxy.presentation.theme.DriverXyShapes
 import com.utc.driverxy.presentation.theme.DriverXyTypography
 
+@SuppressLint("RememberInComposition")
 @Composable
 fun HomeCard(
     photoUrl: String,
     userName: String,
     rank: String,
     onChangeRank: () -> Unit,
+    navigateToSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -57,6 +62,12 @@ fun HomeCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable(
+                    indication = null,
+                    interactionSource = MutableInteractionSource()
+                ) {
+                    navigateToSettings()
+                }
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
@@ -145,6 +156,7 @@ private fun HomeCardPreview() {
         photoUrl = "photourl",
         userName = "Đinh Ngọc Thế",
         rank = "A1",
-        onChangeRank = {}
+        onChangeRank = {},
+        navigateToSettings = {}
     )
 }
