@@ -62,4 +62,10 @@
     <string name="all_questions">Tất cả các câu hỏi</string>
     <string name="previous_question">Câu trước</string>
     <string name="next_question">Câu sau</string>
+    <string name="submit">Nộp bài</string>
+    <string name="faill_exam">Bạn đã không vượt qua bài thi.</string>
+    <string name="pass_exam">Bạn đã vượt qua bài thi.</string>
+    <string name="number_correct">Số câu đúng:</string>
+    <string name="number_critical_wrong">Số câu điểm liệt sai:</string>
+    <string name="exam_result">Kết quả bài thi</string>
 </resources>

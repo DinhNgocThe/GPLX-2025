@@ -1,8 +1,10 @@
-package com.utc.driverxy.presentation.practiceQuestion.component
+package com.utc.driverxy.presentation.examTaking.component
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,12 +13,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -25,9 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.utc.driverxy.R
 import com.utc.driverxy.presentation.practiceQuestion.model.QuestionState
@@ -37,11 +35,12 @@ import com.utc.driverxy.presentation.theme.DriverXyTypography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuestionsBottomSheet(
+fun ExamBottomSheet(
     questionStates: List<QuestionState>,
     currentQuestion: Int,
     onDismiss: () -> Unit,
     onClick: (Int) -> Unit,
+    onSubmit: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -55,21 +54,26 @@ fun QuestionsBottomSheet(
             .fillMaxWidth(),
         dragHandle = null
     ) {
-        QuestionsBottomSheetContent(
+        ExamBottomSheetContent(
             questionStates = questionStates,
             currentQuestion = currentQuestion,
             onClick = {
                 onClick(it)
+            },
+            onSubmit = {
+                onSubmit()
             }
         )
     }
 }
 
+@SuppressLint("RememberInComposition")
 @Composable
-fun QuestionsBottomSheetContent(
+fun ExamBottomSheetContent(
     questionStates: List<QuestionState>,
     currentQuestion: Int,
     onClick: (Int) -> Unit,
+    onSubmit: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -89,9 +93,21 @@ fun QuestionsBottomSheetContent(
                 color = DriverXyColors.Text.TextPrimary,
                 modifier = Modifier.align(Alignment.Center)
             )
+
+            Text(
+                text = stringResource(R.string.submit),
+                style = DriverXyTypography.Title.Medium.Bold,
+                color = DriverXyColors.Primary.Primary,
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .clickable(
+                        indication = null,
+                        interactionSource = MutableInteractionSource()
+                    ) { onSubmit() }
+            )
         }
 
-        QuestionsGridByWeight(
+        ExamGridByWeight(
             questionStates = questionStates,
             currentQuestion = currentQuestion,
             onClick = {
@@ -102,7 +118,7 @@ fun QuestionsBottomSheetContent(
 }
 
 @Composable
-fun QuestionsGridByWeight(
+fun ExamGridByWeight(
     questionStates: List<QuestionState>,
     currentQuestion: Int,
     onClick: (Int) -> Unit,
@@ -168,32 +184,3 @@ fun QuestionsGridByWeight(
 }
 
 
-@Preview(
-    name = "Questions Bottom Sheet",
-    showBackground = true,
-    backgroundColor = 0xFFFFFFFF
-)
-@Composable
-fun QuestionsBottomSheetContentPreview() {
-    QuestionsBottomSheetContent(
-        questionStates = listOf(
-            QuestionState.TODO,
-            QuestionState.CORRECT,
-            QuestionState.WRONG,
-            QuestionState.TODO,
-            QuestionState.CORRECT,
-            QuestionState.WRONG,
-            QuestionState.TODO,
-            QuestionState.CORRECT,
-            QuestionState.WRONG,
-            QuestionState.TODO,
-            QuestionState.CORRECT,
-            QuestionState.WRONG,
-            QuestionState.TODO,
-            QuestionState.CORRECT
-        ),
-        onClick = {},
-        currentQuestion = 5,
-        modifier = Modifier.padding(16.dp)
-    )
-}

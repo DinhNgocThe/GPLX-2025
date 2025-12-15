@@ -73,4 +73,10 @@
     <string name="all_questions">All questions</string>
     <string name="previous_question">"Previous "</string>
     <string name="next_question">"Next "</string>
+    <string name="submit">Submit</string>
+    <string name="faill_exam">Not achieved.</string>
+    <string name="pass_exam">You have passed the exam.</string>
+    <string name="number_correct">Number of correct answers:</string>
+    <string name="number_critical_wrong">Number of incorrect critical answers:</string>
+    <string name="exam_result">Exam result</string>
 </resources>

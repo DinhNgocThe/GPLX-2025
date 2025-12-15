@@ -1,8 +1,10 @@
 package com.utc.driverxy.presentation.exam.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
@@ -27,24 +29,23 @@ fun ExamInProgressCard(
     backgroundColor: Color,
     examNumber: Int,
     questionCount: Int,
-    progress: Float,
     onContinueClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
-            .clip(DriverXyShapes.extraLarge)
+            .clip(DriverXyShapes.large)
             .background(backgroundColor.copy(0.2f))
-            .padding(20.dp)
-            .width(260.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(20.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
     ) {
         Column(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
         ) {
             Text(
                 text = stringResource(R.string.exam_number) + " $examNumber",
-                style = DriverXyTypography.Title.Large.Bold,
+                style = DriverXyTypography.Headline.Small.Bold,
                 color = DriverXyColors.Text.TextPrimary
             )
 
@@ -59,29 +60,16 @@ fun ExamInProgressCard(
                 onClick = {
                     onContinueClick()
                 },
-                modifier = Modifier.align(Alignment.Start),
+                modifier = Modifier.fillMaxWidth(),
                 shape = DriverXyShapes.medium,
                 containerColor = DriverXyColors.White,
-                text = stringResource(R.string.button_continue),
+                text = stringResource(R.string.start),
                 style = DriverXyTypography.Title.Medium.Bold.copy(
                     color = DriverXyColors.Text.TextPrimary
                 ),
                 isFillMaxWidth = false
             )
         }
-
-        CircularProgressBar(
-            progress = progress,
-            modifier = Modifier.padding(start = 16.dp),
-            size = 92.dp,
-            strokeWidth = 6.dp,
-            indicatorColor = backgroundColor,
-            backgroundIndicatorColor = DriverXyColors.White,
-            style = DriverXyTypography.Title.Medium.Bold.copy(
-                color = DriverXyColors.Text.TextPrimary,
-                fontSize = 18.sp
-            )
-        )
     }
 }
 
@@ -92,7 +80,6 @@ private fun ExamInProgressCardPreview() {
         backgroundColor = DriverXyColors.ListColors.list[1],
         examNumber = 2,
         questionCount = 25,
-        progress = 0.35f,
         onContinueClick = {}
     )
 }

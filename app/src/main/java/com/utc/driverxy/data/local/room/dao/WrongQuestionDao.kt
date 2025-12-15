@@ -13,7 +13,7 @@ interface WrongQuestionDao : BaseDao<WrongQuestionEntity> {
         SELECT * 
         FROM wrong_question
         ORDER BY count DESC
-        LIMIT 5
+        LIMIT 15
     """
     )
     suspend fun getTop5WrongQuestions(): List<WrongQuestionEntity>
