@@ -33,6 +33,7 @@ fun MainScreen(
     navigateToChangeRank: () -> Unit,
     navigateToPracticeQuestion: (String) -> Unit,
     navigateToWrongQuestion: () -> Unit,
+    startExam: (Int) -> Unit,
     viewModel: MainViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -54,8 +55,11 @@ fun MainScreen(
         navigateToPracticeQuestion = {
             navigateToPracticeQuestion(it)
         },
-        navigateToWrongQuestion = { 
+        navigateToWrongQuestion = {
             navigateToWrongQuestion()
+        },
+        startExam = {
+            startExam(it)
         }
     )
 }
@@ -67,7 +71,8 @@ fun MainScreenContent(
     navigateToTrafficSigns: () -> Unit,
     navigateToChangeRank: () -> Unit,
     navigateToPracticeQuestion: (String) -> Unit,
-    navigateToWrongQuestion: () -> Unit
+    navigateToWrongQuestion: () -> Unit,
+    startExam: (Int) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -89,7 +94,10 @@ fun MainScreenContent(
                         HomeScreen(
                             navigateToScanTrafficSigns = navigateToTrafficSigns,
                             navigateToChangeRank = navigateToChangeRank,
-                            navigateToWrongQuestion = navigateToWrongQuestion
+                            navigateToWrongQuestion = navigateToWrongQuestion,
+                            onSelectPractice = {
+                                onTabClick(MainTab.PRACTICE)
+                            }
                         )
                     }
                     MainTab.PRACTICE -> {
@@ -99,7 +107,11 @@ fun MainScreenContent(
                             }
                         )
                     }
-                    MainTab.EXAM -> ExamScreen()
+                    MainTab.EXAM -> ExamScreen(
+                        startExam = {
+                            startExam(it)
+                        }
+                    )
                 }
             }
         }
@@ -123,5 +135,6 @@ fun MainScreenPreview() {
         navigateToChangeRank = {},
         navigateToPracticeQuestion = {},
         navigateToWrongQuestion = {},
+        startExam = {},
     )
 }

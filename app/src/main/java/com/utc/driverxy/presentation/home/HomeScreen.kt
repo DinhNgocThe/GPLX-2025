@@ -1,6 +1,7 @@
 package com.utc.driverxy.presentation.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,6 +34,7 @@ import com.utc.driverxy.presentation.home.model.CantMiss
 import com.utc.driverxy.presentation.home.model.HomeProgress
 import com.utc.driverxy.presentation.theme.DriverXyColors
 import com.utc.driverxy.presentation.theme.DriverXyTypography
+import com.utc.driverxy.utils.ext.openWebUrlSafely
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -39,9 +42,11 @@ fun HomeScreen(
     navigateToScanTrafficSigns: () -> Unit,
     navigateToChangeRank: () -> Unit,
     navigateToWrongQuestion: () -> Unit,
+    onSelectPractice: () -> Unit,
     viewModel: HomeViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.singleEvent.collect { event ->
@@ -52,6 +57,10 @@ fun HomeScreen(
 
                 HomeEvent.NavigateToWrongQuestion -> {
                     navigateToWrongQuestion()
+                }
+
+                HomeEvent.OpenTips -> {
+                    context.openWebUrlSafely("https://taplaixe.vn/meo-thi-ly-thuyet-lai-xe#google_vignette")
                 }
             }
         }
@@ -64,6 +73,9 @@ fun HomeScreen(
         },
         onChangeRank = {
             navigateToChangeRank()
+        },
+        onSelectPractice = {
+            onSelectPractice()
         }
     )
 }
@@ -72,7 +84,8 @@ fun HomeScreen(
 fun HomeScreenContent(
     viewState: HomeState,
     onCantMissClick: (CantMiss) -> Unit,
-    onChangeRank: () -> Unit
+    onChangeRank: () -> Unit,
+    onSelectPractice: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -128,7 +141,6 @@ fun HomeScreenContent(
                 HomeProgress.CRITICAL_QUESTION -> viewState.criticalProgress
                 HomeProgress.TRAFFIC_SIGNS -> viewState.trafficSignsProgress
                 HomeProgress.DRIVING_SCENARIO -> viewState.saHinhProgress
-                HomeProgress.EXAM -> 0 to 1
             }
 
             HomeProgressCard(
@@ -136,7 +148,11 @@ fun HomeScreenContent(
                 title = stringResource(homeProgress.title),
                 completed = progress.first,
                 total = progress.second,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier
+                    .padding(bottom = 16.dp)
+                    .clickable {
+                        onSelectPractice()
+                    }
             )
         }
 
@@ -159,7 +175,8 @@ private fun HomeScreenPreview() {
     HomeScreenContent(
         viewState = viewState,
         onCantMissClick = {},
-        onChangeRank = {}
+        onChangeRank = {},
+        onSelectPractice = {},
     )
 }
 

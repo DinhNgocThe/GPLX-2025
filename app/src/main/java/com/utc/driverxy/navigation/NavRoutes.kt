@@ -7,6 +7,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.utc.driverxy.presentation.changeRank.ChangeRankScreen
+import com.utc.driverxy.presentation.examTaking.ExamTakingScreen
 import com.utc.driverxy.presentation.main.MainScreen
 import com.utc.driverxy.presentation.onboarding.OnboardingScreen
 import com.utc.driverxy.presentation.onboarding.WelcomeScreen
@@ -80,6 +81,9 @@ fun NavRoutes() {
                     },
                     navigateToWrongQuestion = {
                         backStack.add(Destination.WrongQuestion)
+                    },
+                    startExam = {
+                        backStack.add(Destination.ExamTaking(it))
                     }
                 )
             }
@@ -111,6 +115,15 @@ fun NavRoutes() {
 
             entry<Destination.WrongQuestion> {
                 WrongQuestionScreen(
+                    navigateBack = {
+                        backStack.removeLastOrNull()
+                    }
+                )
+            }
+
+            entry<Destination.ExamTaking> {
+                ExamTakingScreen(
+                    examNumber = it.number,
                     navigateBack = {
                         backStack.removeLastOrNull()
                     }

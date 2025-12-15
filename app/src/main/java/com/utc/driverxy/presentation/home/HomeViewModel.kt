@@ -1,5 +1,6 @@
 package com.utc.driverxy.presentation.home
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.utc.driverxy.base.BaseMviViewModel
@@ -9,6 +10,7 @@ import com.utc.driverxy.domain.usecase.question.CountQuestionsCompletedByTopicId
 import com.utc.driverxy.domain.usecase.question.CountQuestionsCriticalCompleted
 import com.utc.driverxy.domain.usecase.question.GetQuestionsByRankId
 import com.utc.driverxy.presentation.home.model.CantMiss
+import com.utc.driverxy.utils.ext.openWebUrlSafely
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,7 +19,8 @@ class HomeViewModel(
     private val rankRepository: RankRepository,
     private val getQuestionsByRankId: GetQuestionsByRankId,
     private val countQuestionsCompletedByTopicId: CountQuestionsCompletedByTopicId,
-    private val countQuestionsCriticalCompleted: CountQuestionsCriticalCompleted
+    private val countQuestionsCriticalCompleted: CountQuestionsCriticalCompleted,
+    private val context: Application
 ) : BaseMviViewModel<HomeIntent, HomeState, HomeEvent>() {
 
     val TAG = "HomeViewModel"
@@ -136,11 +139,7 @@ class HomeViewModel(
             }
 
             CantMiss.TIPS -> {
-
-            }
-
-            CantMiss.NOTED -> {
-
+                sendEvent(HomeEvent.OpenTips)
             }
         }
     }

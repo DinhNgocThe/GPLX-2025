@@ -55,6 +55,7 @@ import com.utc.driverxy.domain.usecase.user.SaveUserUseCase
 import com.utc.driverxy.presentation.camera.CameraViewModel
 import com.utc.driverxy.presentation.changeRank.ChangeRankViewModel
 import com.utc.driverxy.presentation.exam.ExamViewModel
+import com.utc.driverxy.presentation.examTaking.ExamTakingViewModel
 import com.utc.driverxy.presentation.home.HomeViewModel
 import com.utc.driverxy.presentation.main.MainViewModel
 import com.utc.driverxy.presentation.onboarding.OnboardingViewModel
@@ -185,4 +186,5 @@ val viewModelModule = module {
     viewModelOf(::PracticeViewModel)
     viewModelOf(::PracticeQuestionViewModel)
     viewModelOf(::WrongQuestionViewModel)
+    viewModelOf(::ExamTakingViewModel)
 }

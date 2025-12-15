@@ -139,13 +139,14 @@ fun WrongQuestionScreenContent(
                 )
             }
 
-            if (index < viewState.wrongQuestions.size - 1)
-            HorizontalDivider(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                thickness = 1.dp,
-                color = DriverXyColors.Black
-            )
+            if (index < viewState.wrongQuestions.size - 1) {
+                HorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    thickness = 1.dp,
+                    color = DriverXyColors.Black
+                )
+            }
 
             Spacer(Modifier.height(20.dp))
         }
