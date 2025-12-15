@@ -1,10 +1,12 @@
 package com.utc.driverxy.presentation.practice
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.utc.driverxy.base.BaseMviViewModel
 import com.utc.driverxy.data.local.datastore.DataStoreManager
 import com.utc.driverxy.domain.usecase.question.CountQuestionsCompleted
 import com.utc.driverxy.domain.usecase.question.CountQuestionsCompletedByTopicId
+import com.utc.driverxy.domain.usecase.question.CountQuestionsCriticalCompleted
 import com.utc.driverxy.domain.usecase.question.GetQuestionsByRankId
 import com.utc.driverxy.domain.usecase.topic.GetAllTopicsUseCase
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +18,8 @@ class PracticeViewModel(
     private val countQuestionsCompletedByTopicId: CountQuestionsCompletedByTopicId,
     private val countQuestionsCompleted: CountQuestionsCompleted,
     private val getQuestionsByRankId: GetQuestionsByRankId,
-    private val dataStoreManager: DataStoreManager
+    private val dataStoreManager: DataStoreManager,
+    private val countQuestionsCriticalCompleted: CountQuestionsCriticalCompleted
 ) : BaseMviViewModel<PracticeIntent, PracticeState, PracticeEvent>() {
 
     val TAG = "PracticeViewModel"
@@ -58,7 +61,7 @@ class PracticeViewModel(
 
     private fun getProgressByTopic(topicId: String, rankId: String) {
         if (topicId == "tatcacaccauhoi") {
-            viewModelScope.launch(Dispatchers.IO) {
+            viewModelScope.launch {
                 val questionByTopicCount = currentState.question.count()
 
                 countQuestionsCompleted(rankId).collect { questionCompleted ->
@@ -70,19 +73,19 @@ class PracticeViewModel(
                 }
             }
         } else if (topicId == "cauhoidiemliet") {
-            viewModelScope.launch(Dispatchers.IO) {
+            viewModelScope.launch {
                 val total = currentState.question.count { it.isCritical }
 
-//                countQuestionsCompletedByTopicId(topicId, rankId).collect { questionCompleted ->
-//                    updateState {
-//                        copy(
-//                            progress = currentState.progress + (topicId to questionCompleted.toFloat() / questionByTopicCount.coerceAtLeast(1))
-//                        )
-//                    }
-//                }
+                countQuestionsCriticalCompleted(rankId).collect { questionCompleted ->
+                    updateState {
+                        copy(
+                            progress = currentState.progress + (topicId to questionCompleted.toFloat() / total.coerceAtLeast(1))
+                        )
+                    }
+                }
             }
         } else {
-            viewModelScope.launch(Dispatchers.IO) {
+            viewModelScope.launch {
                 val questionByTopicCount = currentState.question.count {
                     it.topicId == topicId
                 }
@@ -92,6 +95,10 @@ class PracticeViewModel(
                         copy(
                             progress = currentState.progress + (topicId to questionCompleted.toFloat() / questionByTopicCount.coerceAtLeast(1))
                         )
+                    }
+                    Log.d(TAG, "topicId: $topicId  questionByTopicCount: $questionByTopicCount  questionCompleted: $questionCompleted")
+                    currentState.progress.forEach {
+                        Log.d(TAG, "topicId: $topicId  progress: ${it.key} ${it.value}")
                     }
                 }
             }

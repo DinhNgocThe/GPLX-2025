@@ -1,5 +1,6 @@
 package com.utc.driverxy.domain.repository
 
+import com.utc.driverxy.data.local.room.entities.WrongQuestionEntity
 import com.utc.driverxy.domain.model.Question
 import com.utc.driverxy.domain.model.QuestionCompleted
 import kotlinx.coroutines.flow.Flow
@@ -11,6 +12,11 @@ interface QuestionRepository {
     fun countQuestionsCompletedByTopicId(topicId: String, rankId: String): Flow<Int>
     fun countQuestionsCompleted(rankId: String): Flow<Int>
     suspend fun syncQuestionsCompleted(): Result<Boolean>
+    suspend fun getQuestionCriticalByRank(rankId: String): List<Question>
+    fun countQuestionsCriticalCompleted(rankId: String): Flow<Int>
+    suspend fun getWrongQuestions(): List<WrongQuestionEntity>
+    suspend fun getWrongQuestionById(id: String): WrongQuestionEntity?
+    suspend fun saveWrongQuestion(question: WrongQuestionEntity)
 }
 
 

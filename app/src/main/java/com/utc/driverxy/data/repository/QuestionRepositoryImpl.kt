@@ -3,6 +3,7 @@ package com.utc.driverxy.data.repository
 import android.util.Log
 import com.utc.driverxy.data.local.datasource.QuestionLocalDataSource
 import com.utc.driverxy.data.local.datastore.DataStoreManager
+import com.utc.driverxy.data.local.room.entities.WrongQuestionEntity
 import com.utc.driverxy.data.mapper.toDomain
 import com.utc.driverxy.data.mapper.toEntity
 import com.utc.driverxy.data.mapper.toFirestore
@@ -91,5 +92,33 @@ class QuestionRepositoryImpl(
         } catch (e: Exception) {
             return Result.failure(e)
         }
+    }
+
+    override suspend fun getQuestionCriticalByRank(rankId: String): List<Question> {
+        return try {
+            questionLocalDataSource.getQuestionsCriticalByRank(rankId).map { it.toDomain() }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    override fun countQuestionsCriticalCompleted(rankId: String): Flow<Int> {
+        return try {
+            questionLocalDataSource.countQuestionsCriticalCompleted(rankId)
+        } catch (e: Exception) {
+            flow { emit(0) }
+        }
+    }
+
+    override suspend fun getWrongQuestions(): List<WrongQuestionEntity> {
+        return questionLocalDataSource.getWrongQuestions()
+    }
+
+    override suspend fun getWrongQuestionById(id: String): WrongQuestionEntity? {
+        return questionLocalDataSource.getWrongQuestionById(id)
+    }
+
+    override suspend fun saveWrongQuestion(question: WrongQuestionEntity) {
+        questionLocalDataSource.saveWrongQuestion(question)
     }
 }

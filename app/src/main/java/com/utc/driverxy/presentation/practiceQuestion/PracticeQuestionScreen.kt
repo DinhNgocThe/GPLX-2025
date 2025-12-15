@@ -1,6 +1,5 @@
 package com.utc.driverxy.presentation.practiceQuestion
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -41,6 +40,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.utc.driverxy.R
 import com.utc.driverxy.presentation.components.view.DriverXyTopBar
+import com.utc.driverxy.presentation.practiceQuestion.component.QuestionsBottomSheet
 import com.utc.driverxy.presentation.theme.DriverXyColors
 import com.utc.driverxy.presentation.theme.DriverXyShapes
 import com.utc.driverxy.presentation.theme.DriverXyTypography
@@ -55,7 +55,7 @@ fun PracticeQuestionScreen(
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
     LaunchedEffect(topicId) {
-        viewModel.processIntent(PracticeQuestionIntent.LoadTopic(topicId))
+        viewModel.processIntent(PracticeQuestionIntent.LoadDataByTopic(topicId))
     }
 
     PracticeQuestionScreenContent(
@@ -63,17 +63,20 @@ fun PracticeQuestionScreen(
         navigateBack = {
             navigateBack()
         },
-        onShowListQuestions = {
-
-        },
         onPreviousQuestion = {
             viewModel.processIntent(PracticeQuestionIntent.OnPreviousQuestion)
         },
         onNextQuestion = {
             viewModel.processIntent(PracticeQuestionIntent.OnNextQuestion)
         },
-        onAnswerClick = {
-            viewModel.processIntent(PracticeQuestionIntent.OnAnswerClick(it))
+        onAnswerClick = { index, isCorrect ->
+            viewModel.processIntent(PracticeQuestionIntent.OnAnswerClick(index, isCorrect))
+        },
+        onShowQuestionBottomSheetStateChange = {
+            viewModel.processIntent(PracticeQuestionIntent.OnShowQuestionsBottomSheetStateChange(it))
+        },
+        onQuestionClick = {
+            viewModel.processIntent(PracticeQuestionIntent.OnQuestionClick(it))
         }
     )
 }
@@ -82,10 +85,11 @@ fun PracticeQuestionScreen(
 fun PracticeQuestionScreenContent(
     viewState: PracticeQuestionState,
     navigateBack: () -> Unit,
-    onShowListQuestions: () -> Unit,
     onPreviousQuestion: () -> Unit,
     onNextQuestion: () -> Unit,
-    onAnswerClick: (Int) -> Unit
+    onAnswerClick: (Int, Boolean) -> Unit,
+    onShowQuestionBottomSheetStateChange: (Boolean) -> Unit,
+    onQuestionClick: (Int) -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -102,7 +106,9 @@ fun PracticeQuestionScreenContent(
                 title = viewState.topic?.displayName ?: stringResource(R.string.practice),
                 onLeadingClick = navigateBack,
                 trailingIconRes = R.drawable.ic_more,
-                onTrailingClick = onShowListQuestions
+                onTrailingClick = {
+                    onShowQuestionBottomSheetStateChange(true)
+                }
             )
 
             val progress = remember(
@@ -212,12 +218,17 @@ fun PracticeQuestionScreenContent(
                                 .fillMaxWidth()
                                 .clip(DriverXyShapes.large)
                                 .clickable {
-                                    onAnswerClick(index)
+                                    onAnswerClick(index, borderColor == DriverXyColors.Border.Correct)
                                 }
-                                .background(DriverXyColors.ListColors.list[(index + 1) % 5].copy(0.15f))
+                                .background(
+                                    DriverXyColors.ListColors.list[(index + 1) % 5].copy(
+                                        0.15f
+                                    )
+                                )
                                 .then(
                                     if (viewState.selectedAnswer[viewState.currentQuestion] != null &&
-                                        (viewState.selectedAnswer[viewState.currentQuestion] == index || index == viewState.question[viewState.currentQuestion].correct - 1)) {
+                                        (viewState.selectedAnswer[viewState.currentQuestion] == index || index == viewState.question[viewState.currentQuestion].correct - 1)
+                                    ) {
                                         Modifier
                                             .border(
                                                 width = 2.dp,
@@ -260,9 +271,11 @@ fun PracticeQuestionScreenContent(
                             onPreviousQuestion()
                         }
                     }
-                    .background(DriverXyColors.Primary.Primary.copy(
-                        if (viewState.currentQuestion > 0) 0.4f else 0.1f
-                    ))
+                    .background(
+                        DriverXyColors.Primary.Primary.copy(
+                            if (viewState.currentQuestion > 0) 0.4f else 0.1f
+                        )
+                    )
                     .padding(12.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -294,9 +307,11 @@ fun PracticeQuestionScreenContent(
                             onNextQuestion()
                         }
                     }
-                    .background(DriverXyColors.Primary.Primary.copy(
-                        if (viewState.currentQuestion < viewState.question.size - 1) 0.4f else 0.1f
-                    ))
+                    .background(
+                        DriverXyColors.Primary.Primary.copy(
+                            if (viewState.currentQuestion < viewState.question.size - 1) 0.4f else 0.1f
+                        )
+                    )
                     .padding(12.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -319,6 +334,20 @@ fun PracticeQuestionScreenContent(
             }
         }
     }
+
+    if (viewState.isShowQuestionsBottomSheet) {
+        QuestionsBottomSheet(
+            questionStates = viewState.questionStates,
+            currentQuestion = viewState.currentQuestion,
+            onClick = {
+                onQuestionClick(it)
+                onShowQuestionBottomSheetStateChange(false)
+            },
+            onDismiss = {
+                onShowQuestionBottomSheetStateChange(false)
+            }
+        )
+    }
 }
 
 @Preview
@@ -327,9 +356,12 @@ private fun PracticeScreenPreview() {
     PracticeQuestionScreenContent(
         viewState = PracticeQuestionState(),
         navigateBack = {},
-        onShowListQuestions = {},
         onPreviousQuestion = {},
         onNextQuestion = {},
-        onAnswerClick = {}
+        onAnswerClick = { _, _ ->
+
+        },
+        onShowQuestionBottomSheetStateChange = {},
+        onQuestionClick = {},
     )
 }

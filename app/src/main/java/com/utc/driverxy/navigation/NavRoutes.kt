@@ -14,6 +14,7 @@ import com.utc.driverxy.presentation.practiceQuestion.PracticeQuestionScreen
 import com.utc.driverxy.presentation.scanTrafficSigns.ScanTrafficSignsScreen
 import com.utc.driverxy.presentation.signin.SignInScreen
 import com.utc.driverxy.presentation.splash.SplashScreen
+import com.utc.driverxy.presentation.wrongQuestion.WrongQuestionScreen
 import com.utc.driverxy.utils.ext.replaceTop
 
 @Composable
@@ -76,6 +77,9 @@ fun NavRoutes() {
                     },
                     navigateToPracticeQuestion = {
                         backStack.add(Destination.PracticeQuestion(it))
+                    },
+                    navigateToWrongQuestion = {
+                        backStack.add(Destination.WrongQuestion)
                     }
                 )
             }
@@ -99,6 +103,14 @@ fun NavRoutes() {
             entry<Destination.PracticeQuestion> {
                 PracticeQuestionScreen(
                     topicId = it.topicId,
+                    navigateBack = {
+                        backStack.removeLastOrNull()
+                    }
+                )
+            }
+
+            entry<Destination.WrongQuestion> {
+                WrongQuestionScreen(
                     navigateBack = {
                         backStack.removeLastOrNull()
                     }

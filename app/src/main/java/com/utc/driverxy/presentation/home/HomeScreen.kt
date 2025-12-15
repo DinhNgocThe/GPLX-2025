@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.utc.driverxy.R
 import com.utc.driverxy.domain.model.User
+import com.utc.driverxy.domain.usecase.question.GetWrongQuestion
 import com.utc.driverxy.presentation.home.components.CantMissCard
 import com.utc.driverxy.presentation.home.components.HomeCard
 import com.utc.driverxy.presentation.home.components.HomeProgressCard
@@ -37,6 +38,7 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     navigateToScanTrafficSigns: () -> Unit,
     navigateToChangeRank: () -> Unit,
+    navigateToWrongQuestion: () -> Unit,
     viewModel: HomeViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -46,6 +48,10 @@ fun HomeScreen(
             when (event) {
                 HomeEvent.NavigateToScanTrafficSigns -> {
                     navigateToScanTrafficSigns()
+                }
+
+                HomeEvent.NavigateToWrongQuestion -> {
+                    navigateToWrongQuestion()
                 }
             }
         }
@@ -119,11 +125,12 @@ fun HomeScreenContent(
 
         HomeProgress.entries.forEachIndexed { index, homeProgress ->
             val progress = when (homeProgress) {
-                HomeProgress.CRITICAL_QUESTION -> 0 to 1
+                HomeProgress.CRITICAL_QUESTION -> viewState.criticalProgress
                 HomeProgress.TRAFFIC_SIGNS -> viewState.trafficSignsProgress
                 HomeProgress.DRIVING_SCENARIO -> viewState.saHinhProgress
                 HomeProgress.EXAM -> 0 to 1
             }
+
             HomeProgressCard(
                 icon = homeProgress.icon,
                 title = stringResource(homeProgress.title),

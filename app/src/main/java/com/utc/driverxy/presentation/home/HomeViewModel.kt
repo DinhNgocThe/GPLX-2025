@@ -6,6 +6,7 @@ import com.utc.driverxy.base.BaseMviViewModel
 import com.utc.driverxy.data.local.datastore.DataStoreManager
 import com.utc.driverxy.domain.repository.RankRepository
 import com.utc.driverxy.domain.usecase.question.CountQuestionsCompletedByTopicId
+import com.utc.driverxy.domain.usecase.question.CountQuestionsCriticalCompleted
 import com.utc.driverxy.domain.usecase.question.GetQuestionsByRankId
 import com.utc.driverxy.presentation.home.model.CantMiss
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,7 @@ class HomeViewModel(
     private val rankRepository: RankRepository,
     private val getQuestionsByRankId: GetQuestionsByRankId,
     private val countQuestionsCompletedByTopicId: CountQuestionsCompletedByTopicId,
+    private val countQuestionsCriticalCompleted: CountQuestionsCriticalCompleted
 ) : BaseMviViewModel<HomeIntent, HomeState, HomeEvent>() {
 
     val TAG = "HomeViewModel"
@@ -50,39 +52,50 @@ class HomeViewModel(
             updateState { copy(question = allQuestions) }
             getTrafficSignsProgress(rankId)
             getSaHinhProgress(rankId)
+            getCriticalProgress(rankId)
+        }
+    }
+
+    private fun getCriticalProgress(rankId: String) {
+        val total = currentState.question.count { it.isCritical }
+
+        viewModelScope.launch {
+            countQuestionsCriticalCompleted(rankId).collect {
+                updateState {
+                    copy(
+                        criticalProgress = it to total.coerceAtLeast(1)
+                    )
+                }
+            }
         }
     }
 
     private fun getTrafficSignsProgress(rankId: String) {
-        viewModelScope.launch {
-            viewModelScope.launch(Dispatchers.IO) {
-                val questionByTopicCount = currentState.question.count {
-                    it.topicId == "bienbao"
-                }
-                Log.d(TAG, "rankId: ${rankId}")
-                countQuestionsCompletedByTopicId("bienbao", rankId).collect { questionCompleted ->
-                    updateState {
-                        copy(
-                            trafficSignsProgress = questionCompleted to questionByTopicCount.coerceAtLeast(1)
-                        )
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            val questionByTopicCount = currentState.question.count {
+                it.topicId == "bienbao"
+            }
+            Log.d(TAG, "rankId: ${rankId}")
+            countQuestionsCompletedByTopicId("bienbao", rankId).collect { questionCompleted ->
+                updateState {
+                    copy(
+                        trafficSignsProgress = questionCompleted to questionByTopicCount.coerceAtLeast(1)
+                    )
                 }
             }
         }
     }
 
     private fun getSaHinhProgress(rankId: String) {
-        viewModelScope.launch {
-            viewModelScope.launch(Dispatchers.IO) {
-                val questionByTopicCount = currentState.question.count {
-                    it.topicId == "sahinh"
-                }
-                countQuestionsCompletedByTopicId("sahinh", rankId).collect { questionCompleted ->
-                    updateState {
-                        copy(
-                            saHinhProgress = questionCompleted to questionByTopicCount.coerceAtLeast(1)
-                        )
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            val questionByTopicCount = currentState.question.count {
+                it.topicId == "sahinh"
+            }
+            countQuestionsCompletedByTopicId("sahinh", rankId).collect { questionCompleted ->
+                updateState {
+                    copy(
+                        saHinhProgress = questionCompleted to questionByTopicCount.coerceAtLeast(1)
+                    )
                 }
             }
         }
@@ -119,7 +132,7 @@ class HomeViewModel(
             }
 
             CantMiss.WRONG_SENTENCE -> {
-
+                sendEvent(HomeEvent.NavigateToWrongQuestion)
             }
 
             CantMiss.TIPS -> {

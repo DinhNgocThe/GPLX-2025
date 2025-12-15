@@ -17,4 +17,12 @@ interface QuestionDao : BaseDao<QuestionEntity> {
         ORDER BY CAST(id AS INTEGER) ASC
     """)
     suspend fun getQuestionsByRank(rankId: String): List<QuestionEntity>
+
+    @Query("""
+        SELECT * FROM question 
+        WHERE rankId LIKE '%' || :rankId || '%'
+        AND isCritical = 1
+        ORDER BY CAST(id AS INTEGER) ASC
+    """)
+    suspend fun getQuestionsCriticalByRank(rankId: String): List<QuestionEntity>
 }

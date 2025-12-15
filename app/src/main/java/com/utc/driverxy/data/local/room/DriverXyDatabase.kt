@@ -8,10 +8,12 @@ import com.utc.driverxy.data.local.room.dao.QuestionCompletedDao
 import com.utc.driverxy.data.local.room.dao.QuestionDao
 import com.utc.driverxy.data.local.room.dao.RankDao
 import com.utc.driverxy.data.local.room.dao.TopicDao
+import com.utc.driverxy.data.local.room.dao.WrongQuestionDao
 import com.utc.driverxy.data.local.room.entities.QuestionCompletedEntity
 import com.utc.driverxy.data.local.room.entities.QuestionEntity
 import com.utc.driverxy.data.local.room.entities.RankEntity
 import com.utc.driverxy.data.local.room.entities.TopicEntity
+import com.utc.driverxy.data.local.room.entities.WrongQuestionEntity
 import com.utc.driverxy.data.remote.model.QuestionCompletedFirestore
 
 @Database(
@@ -19,7 +21,8 @@ import com.utc.driverxy.data.remote.model.QuestionCompletedFirestore
         RankEntity::class,
         TopicEntity::class,
         QuestionEntity::class,
-        QuestionCompletedEntity::class
+        QuestionCompletedEntity::class,
+        WrongQuestionEntity::class
     ],
     version = 1
 )
@@ -28,6 +31,7 @@ abstract class DriverXyDatabase : RoomDatabase() {
     abstract fun topicDao(): TopicDao
     abstract fun questionDao(): QuestionDao
     abstract fun questionCompletedDao(): QuestionCompletedDao
+    abstract fun wrongQuestionDao(): WrongQuestionDao
 
     companion object {
         @Volatile
