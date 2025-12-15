@@ -39,6 +39,8 @@ import com.utc.driverxy.domain.usecase.question.CountQuestionsCompletedByTopicId
 import com.utc.driverxy.domain.usecase.question.CountQuestionsCriticalCompleted
 import com.utc.driverxy.domain.usecase.question.GetQuestionsByRankId
 import com.utc.driverxy.domain.usecase.question.GetQuestionsCriticalByRank
+import com.utc.driverxy.domain.usecase.question.GetWrongQuestion
+import com.utc.driverxy.domain.usecase.question.SaveWrongQuestion
 import com.utc.driverxy.domain.usecase.question.SetDoneQuestionUseCase
 import com.utc.driverxy.domain.usecase.question.SyncAllQuestionsUseCase
 import com.utc.driverxy.domain.usecase.question.SyncQuestionsCompletedUseCase
@@ -61,6 +63,7 @@ import com.utc.driverxy.presentation.practiceQuestion.PracticeQuestionViewModel
 import com.utc.driverxy.presentation.scanTrafficSigns.ScanTrafficSignsViewModel
 import com.utc.driverxy.presentation.signin.SignInViewModel
 import com.utc.driverxy.presentation.splash.SplashViewModel
+import com.utc.driverxy.presentation.wrongQuestion.WrongQuestionViewModel
 import com.utc.driverxy.worker.WorkerManager
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.viewModelOf
@@ -115,13 +118,17 @@ val roomModule = module {
     single {
         get<DriverXyDatabase>().questionCompletedDao()
     }
+
+    single {
+        get<DriverXyDatabase>().wrongQuestionDao()
+    }
 }
 
 val dataSourceModule = module {
     // Local data source
     single<RankLocalDataSource> { RankLocalDataSourceImpl(get()) }
     single<TopicLocalDataSource> { TopicLocalDataSourceImpl(get()) }
-    single<QuestionLocalDataSource> { QuestionLocalDataSourceImpl(get(), get()) }
+    single<QuestionLocalDataSource> { QuestionLocalDataSourceImpl(get(), get(), get()) }
 
     // Remote data source
     single<UserRemoteDataSource> { UserRemoteDataSourceImpl(get()) }
@@ -161,6 +168,8 @@ val useCaseModule = module {
     factoryOf(::CountQuestionsCompleted)
     factoryOf(::GetQuestionsCriticalByRank)
     factoryOf(::CountQuestionsCriticalCompleted)
+    factoryOf(::GetWrongQuestion)
+    factoryOf(::SaveWrongQuestion)
 }
 
 val viewModelModule = module {
@@ -175,4 +184,5 @@ val viewModelModule = module {
     viewModelOf(::ChangeRankViewModel)
     viewModelOf(::PracticeViewModel)
     viewModelOf(::PracticeQuestionViewModel)
+    viewModelOf(::WrongQuestionViewModel)
 }

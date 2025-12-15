@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.utc.driverxy.R
 import com.utc.driverxy.domain.model.User
+import com.utc.driverxy.domain.usecase.question.GetWrongQuestion
 import com.utc.driverxy.presentation.home.components.CantMissCard
 import com.utc.driverxy.presentation.home.components.HomeCard
 import com.utc.driverxy.presentation.home.components.HomeProgressCard
@@ -37,6 +38,7 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     navigateToScanTrafficSigns: () -> Unit,
     navigateToChangeRank: () -> Unit,
+    navigateToWrongQuestion: () -> Unit,
     viewModel: HomeViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -46,6 +48,10 @@ fun HomeScreen(
             when (event) {
                 HomeEvent.NavigateToScanTrafficSigns -> {
                     navigateToScanTrafficSigns()
+                }
+
+                HomeEvent.NavigateToWrongQuestion -> {
+                    navigateToWrongQuestion()
                 }
             }
         }

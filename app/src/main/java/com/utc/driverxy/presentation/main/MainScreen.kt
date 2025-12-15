@@ -32,6 +32,7 @@ fun MainScreen(
     navigateToTrafficSigns: () -> Unit,
     navigateToChangeRank: () -> Unit,
     navigateToPracticeQuestion: (String) -> Unit,
+    navigateToWrongQuestion: () -> Unit,
     viewModel: MainViewModel = koinViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -52,6 +53,9 @@ fun MainScreen(
         },
         navigateToPracticeQuestion = {
             navigateToPracticeQuestion(it)
+        },
+        navigateToWrongQuestion = { 
+            navigateToWrongQuestion()
         }
     )
 }
@@ -63,6 +67,7 @@ fun MainScreenContent(
     navigateToTrafficSigns: () -> Unit,
     navigateToChangeRank: () -> Unit,
     navigateToPracticeQuestion: (String) -> Unit,
+    navigateToWrongQuestion: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -83,7 +88,8 @@ fun MainScreenContent(
                     MainTab.HOME -> {
                         HomeScreen(
                             navigateToScanTrafficSigns = navigateToTrafficSigns,
-                            navigateToChangeRank = navigateToChangeRank
+                            navigateToChangeRank = navigateToChangeRank,
+                            navigateToWrongQuestion = navigateToWrongQuestion
                         )
                     }
                     MainTab.PRACTICE -> {
@@ -116,5 +122,6 @@ fun MainScreenPreview() {
         navigateToTrafficSigns = {},
         navigateToChangeRank = {},
         navigateToPracticeQuestion = {},
+        navigateToWrongQuestion = {},
     )
 }

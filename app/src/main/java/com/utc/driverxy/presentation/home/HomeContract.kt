@@ -23,4 +23,5 @@ sealed class HomeIntent : MviIntent {
 
 sealed class HomeEvent: MviSingleEvent {
     data object NavigateToScanTrafficSigns : HomeEvent()
+    data object NavigateToWrongQuestion : HomeEvent()
 }

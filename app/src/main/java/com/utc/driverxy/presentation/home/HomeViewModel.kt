@@ -132,7 +132,7 @@ class HomeViewModel(
             }
 
             CantMiss.WRONG_SENTENCE -> {
-
+                sendEvent(HomeEvent.NavigateToWrongQuestion)
             }
 
             CantMiss.TIPS -> {

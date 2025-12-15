@@ -6,6 +6,7 @@ import com.utc.driverxy.data.local.datastore.DataStoreManager
 import com.utc.driverxy.domain.model.QuestionCompleted
 import com.utc.driverxy.domain.usecase.question.GetQuestionsByRankId
 import com.utc.driverxy.domain.usecase.question.GetQuestionsCriticalByRank
+import com.utc.driverxy.domain.usecase.question.SaveWrongQuestion
 import com.utc.driverxy.domain.usecase.question.SetDoneQuestionUseCase
 import com.utc.driverxy.domain.usecase.topic.GetTopicById
 import com.utc.driverxy.presentation.practiceQuestion.model.QuestionState
@@ -18,7 +19,8 @@ class PracticeQuestionViewModel(
     private val dataStoreManager: DataStoreManager,
     private val getQuestionsByRankId: GetQuestionsByRankId,
     private val setDoneQuestionUseCase: SetDoneQuestionUseCase,
-    private val getQuestionsCriticalByRank: GetQuestionsCriticalByRank
+    private val getQuestionsCriticalByRank: GetQuestionsCriticalByRank,
+    private val saveWrongQuestion: SaveWrongQuestion
 ) : BaseMviViewModel<PracticeQuestionIntent, PracticeQuestionState, PracticeQuestionEvent>() {
 
     override fun initState(): PracticeQuestionState {
@@ -87,6 +89,10 @@ class PracticeQuestionViewModel(
         updateState { copy(questionStates = questionStates) }
 
         viewModelScope.launch {
+            if (!isCorrect) {
+                saveWrongQuestion(currentState.question[currentState.currentQuestion])
+            }
+
             val questionId = currentState.question[currentState.currentQuestion].id
             val uid = dataStoreManager.getUserInfo().firstOrNull()?.id ?: ""
             val questionCompleted = QuestionCompleted(
